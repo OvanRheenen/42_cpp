@@ -1,0 +1,6 @@
+# Ignore all object files
+obj
+
+# Ignore all executable files
+megaphone
+phonebook
