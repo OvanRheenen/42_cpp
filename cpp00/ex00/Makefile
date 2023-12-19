@@ -12,8 +12,7 @@ CC		:= c++
 CFLAGS	:= -Wall -Wextra -Werror -MMD -MP -std=c++98
 DFLAGS	:=
 
-_DEBUG := 0
-ifeq ($(_DEBUG),1)
+ifdef DEBUG
 	DFLAGS += -g3 -fsanitize=address
 endif
 
@@ -28,6 +27,9 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 
 -include $(DEP_FILES)
 
+debug:
+	$(MAKE) DEBUG=1 all
+
 clean:
 	@rm -rf $(OBJ_DIR)
 
@@ -36,4 +38,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all debug clean fclean re
