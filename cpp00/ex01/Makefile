@@ -13,16 +13,17 @@ DEP_FILES	:= $(OBJ_FILES:.o=.d)
 CC		:= c++
 CFLAGS	:= -Wall -Wextra -Werror -MMD -MP -std=c++98
 IFLAGS	:= -I$(INC_DIR)
+DFLAGS	:=
 
-_DEBUG := 1
+_DEBUG := 0
 ifeq ($(_DEBUG),1)
-	LFLAGS += -g3 -fsanitize=address
+	DFLAGS += -g3 -fsanitize=address
 endif
 
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES)
-	$(CC) $^ -o $@
+	$(CC) $(DFLAGS) $^ -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $(dir $@)
