@@ -1,41 +1,41 @@
-NAME		= phonebook
+NAME		:= phonebook
 
-SRC_FILES	=	phonebook.cpp	\
+SRC_FILES	:=	phonebook.cpp	\
 				pb_utils.cpp
 
-SRC_DIR	= src
-OBJ_DIR = obj
-INC_DIR	= include
+SRC_DIR	:= src
+OBJ_DIR := obj
+INC_DIR	:= include
 
-OBJ_FILES	= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.cpp=.o))
-DEP_FILES	= $(OBJ_FILES:.o=.d)
+OBJ_FILES	:= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.cpp=.o))
+DEP_FILES	:= $(OBJ_FILES:.o=.d)
 
-CC		= c++
-CFLAGS	= -Wall -Wextra -Werror -MMD -MP
+CC		:= c++
+CFLAGS	:= -Wall -Wextra -Werror -MMD -MP -std=c++98
+IFLAGS	:= -I$(INC_DIR)
 
-all: objdir $(NAME)
+_DEBUG := 1
+ifeq ($(_DEBUG),1)
+	LFLAGS += -g3 -fsanitize=address
+endif
+
+all: $(NAME)
 
 $(NAME): $(OBJ_FILES)
-	$(CC) $(CFLAGS) $(OBJ_FILES) -o $@
-
-objdir:
-	@mkdir -p $(OBJ_DIR)
+	$(CC) $^ -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ -c $<
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 -include $(DEP_FILES)
 
 clean:
-	@rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
-fsan: CFLAGS += -fsanitize=address
-debug: CFLAGS += -g
-fsan debug: re
-
-.PHONY: all objdir clean fclean re fsan debug
+.PHONY: all clean fclean re fsan debug
