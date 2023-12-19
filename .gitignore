@@ -4,3 +4,4 @@ obj
 # Ignore all executable files
 megaphone
 phonebook
+mylogfile.log
