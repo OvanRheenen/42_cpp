@@ -4,4 +4,7 @@ obj
 # Ignore all executable files
 megaphone
 phonebook
-mylogfile.log
+create_log
+
+# Debug files
+.vscode
