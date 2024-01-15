@@ -1,4 +1,4 @@
-NAME	:= mylogfile.log
+NAME	:= create_log
 
 SRC_FILES	:=	Account.cpp	\
 				tests.cpp
