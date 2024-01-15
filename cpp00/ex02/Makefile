@@ -34,6 +34,9 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 debug:
 	$(MAKE) DEBUG=1 all
 
+log: all
+	./$(NAME) > mylogfile.log
+
 clean:
 	rm -rf $(OBJ_DIR)
 
@@ -42,4 +45,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all debug clean fclean re
+.PHONY: all debug log clean fclean re
