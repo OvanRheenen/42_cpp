@@ -3,7 +3,7 @@
 #include <time.h>
 #include <iostream>
 
-// Initialation of static members in Account class
+// Initialization of static members in Account class
 int Account::_nbAccounts			= 0;
 int Account::_totalAmount			= 0;
 int Account::_totalNbDeposits		= 0;
