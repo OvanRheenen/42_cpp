@@ -17,7 +17,6 @@ public:
 	std::string	first_name;
 	std::string	last_name;
 	std::string	nickname;
-	std::stringstream test;
 
 	void	print_general_info(int index);
 	void	print_all_info(void);

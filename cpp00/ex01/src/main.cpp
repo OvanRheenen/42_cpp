@@ -15,9 +15,27 @@ static std::string	get_command()
 	return (command);
 }
 
+static void	add_contact(PhoneBook &pb, int &i, int &pb_len)
+{
+	pb.contacts[i].add_new_contact();
+	std::cout << "New contact added" << std::endl;
+	if (pb_len < MAX_CONTACTS)
+		pb_len++;
+	if (++i == MAX_CONTACTS)
+		i = 0;
+}
+
+static void	search_contact(PhoneBook pb, int pb_len)
+{
+	if (pb_len == 0)
+		std::cout << "First add at least one contact using the ADD command" << std::endl;
+	else
+		pb.search(pb_len);
+}
+
 int	main(void)
 {
-	PhoneBook	phonebook;
+	PhoneBook	pb;
 	
 	std::string command = get_command();
 	
@@ -26,21 +44,9 @@ int	main(void)
 	while (command != "EXIT")
 	{
 		if (command == "ADD")
-		{
-			phonebook.contacts[i].add();
-			std::cout << "New contact added" << std::endl;
-			if (pb_len < MAX_CONTACTS)
-				pb_len++;
-			if (++i == MAX_CONTACTS)
-				i = 0;
-		}
+			add_contact(pb, i, pb_len);
 		else if (command == "SEARCH")
-		{
-			if (pb_len == 0)
-				std::cout << "First add at least one contact using the ADD command" << std::endl;
-			else
-				phonebook.search(pb_len);
-		}
+			search_contact(pb, pb_len);
 		command = get_command();
 	}
 	return (EXIT_SUCCESS);

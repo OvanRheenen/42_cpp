@@ -22,15 +22,27 @@ std::string	to_size(std::string str)
 	return (str);
 }
 
+static int	str_to_int(std::string str)
+{
+	std::stringstream	stoi;
+	int					i;
+
+	stoi << str;
+	stoi >> i;
+
+	return (i);
+}
+
 int	get_valid_int(int len)
 {
 	std::string tmp;
-	int			i;
 
 	std::getline(std::cin, tmp);
 	if (std::cin.eof())
 		exit(EXIT_SUCCESS);
+
 	tmp.erase(std::remove_if(tmp.begin(), tmp.end(), ::isspace), tmp.end());
+
 	while (tmp.length() != 1 || !is_number(tmp))
 	{
 		std::cout << "Please pick an index between 0 and " << len - 1 << ": ";
@@ -39,26 +51,27 @@ int	get_valid_int(int len)
 			exit(EXIT_SUCCESS);
 		tmp.erase(std::remove_if(tmp.begin(), tmp.end(), ::isspace), tmp.end());
 	}
-	std::stringstream	stoi;
-	stoi << tmp;
-	stoi >> i;
-	return (i);
+
+	return (str_to_int(tmp));
 }
 
 std::string trim_tabs(std::string str)
 {
-	size_t i = 0;								//trim from the beginning
+	// trim from the beginning
+	size_t i = 0;
 	while (i < str.length() && str[i] == '\t')
 		str.erase(i, 1);
 
-	i = str.length() - 1;						//trim from the end
+	// trim from the end
+	i = str.length() - 1;
 	while (i >= 0 && str[i] == '\t')
 	{
 		str.erase(i, 1);
 		i--;
 	}
 
-	for (i = 0; i < str.length(); i++)			//trim from the middle
+	// trim from the middle
+	for (i = 0; i < str.length(); i++)
 	{
 		if (str[i] == '\t')
 		{
@@ -72,6 +85,7 @@ std::string trim_tabs(std::string str)
 			str.replace(i, tabcount, " ");
 		}
 	}
+
 	return (str);
 }
 
@@ -81,10 +95,12 @@ std::string get_valid_info(std::string info_prompt)
 
 	std::cout << "Add their " << info_prompt;
 	std::getline(std::cin, tmp);
-	if (std::cin.eof()) //check if input is EOF (ctrl+d)
+	if (std::cin.eof())
 		exit(EXIT_SUCCESS);
+
 	tmp = trim_tabs(tmp);
-	while (tmp.length() == 0) //check if input is not an empty string
+
+	while (tmp.length() == 0)
 	{
 		std::cout << "Field can't be left empty" << std::endl << "Add their " << info_prompt;
 		std::getline(std::cin, tmp);
@@ -92,5 +108,6 @@ std::string get_valid_info(std::string info_prompt)
 			exit(EXIT_SUCCESS);
 		tmp = trim_tabs(tmp);
 	}
+
 	return (tmp);
 }
