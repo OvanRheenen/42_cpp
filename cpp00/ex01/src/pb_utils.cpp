@@ -1,6 +1,6 @@
 #include "phonebook.hpp"
 
-bool	is_number(const std::string str)
+static bool	is_number(const std::string str)
 {
 	for (std::string::const_iterator i = str.begin(); i < str.end(); i++)
 	{
@@ -75,9 +75,7 @@ std::string trim_tabs(std::string str)
 	return (str);
 }
 
-
-
-std::string get_valid_info(const char *info_prompt)
+std::string get_valid_info(std::string info_prompt)
 {
 	std::string	tmp;
 
@@ -94,10 +92,5 @@ std::string get_valid_info(const char *info_prompt)
 			exit(EXIT_SUCCESS);
 		tmp = trim_tabs(tmp);
 	}
-	// for (size_t i = 0; i < tmp.length(); i++) //trim tabs
-	// {
-	// 	if (tmp[i] == '\t')
-	// 		tmp[i] = ' ';
-	// }
 	return (tmp);
 }
