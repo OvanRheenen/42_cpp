@@ -1,6 +1,6 @@
 NAME		:= phonebook
 
-SRC_FILES	:=	main.c			\
+SRC_FILES	:=	main.cpp			\
 				phonebook.cpp	\
 				pb_utils.cpp
 
