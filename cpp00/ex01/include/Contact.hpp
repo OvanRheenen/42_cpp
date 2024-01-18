@@ -10,8 +10,8 @@ std::string	toSize(std::string str);
 class Contact
 {
 public:
-	std::string	first_name;
-	std::string	last_name;
+	std::string	firstName;
+	std::string	lastName;
 	std::string	nickname;
 
 	void	printGeneralInfo(int index);
@@ -19,8 +19,8 @@ public:
 	void	addNewContact(void);
 
 private:
-	std::string	phone_number;
-	std::string	secret;
+	std::string	_phoneNumber;
+	std::string	_secret;
 };
 
 #endif
