@@ -8,6 +8,7 @@ phonebook
 create_log
 # cpp01
 zombie
+zombiehorde
 
 # Debug files
 .vscode
