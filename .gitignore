@@ -2,9 +2,14 @@
 obj
 
 # Ignore all executable files
+
+# cpp00
 megaphone
 phonebook
 create_log
+
+# cpp01
+zombie
 
 # Debug files
 .vscode
