@@ -6,4 +6,5 @@ void	randomChump( std::string name )
 
 	newZombie.name = name;
 
+	newZombie.announce();
 }

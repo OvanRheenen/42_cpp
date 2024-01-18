@@ -2,7 +2,7 @@
 
 Zombie	*newZombie( std::string name )
 {
-	Zombie	*newZombie;
+	Zombie	*newZombie = nullptr;
 
 	newZombie->name = name;
 
