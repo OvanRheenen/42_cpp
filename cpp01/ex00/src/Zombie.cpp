@@ -2,7 +2,7 @@
 
 Zombie::Zombie( void )
 {
-	std::cout << name << " emerged from their grave!" << std::endl;
+	std::cout << "A zombie emerged from their grave!" << std::endl;
 }
 
 Zombie::~Zombie( void )

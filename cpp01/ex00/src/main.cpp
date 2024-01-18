@@ -5,7 +5,9 @@ int	main(void)
 	Zombie	*Zombie;
 	Zombie = newZombie("Shaun");
 	Zombie->announce();
-	free(Zombie);
+	delete Zombie;
+
+	std::cout << std::endl;
 	
 	randomChump("Ed");
 
