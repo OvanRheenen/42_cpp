@@ -1,8 +1,9 @@
 NAME		:= phonebook
 
-SRC_FILES	:=	main.cpp			\
-				phonebook.cpp	\
-				pb_utils.cpp
+SRC_FILES	:=	main.cpp		\
+				Contact.cpp		\
+				PhoneBook.cpp	\
+				pbUtils.cpp
 
 SRC_DIR	:= src
 OBJ_DIR := obj

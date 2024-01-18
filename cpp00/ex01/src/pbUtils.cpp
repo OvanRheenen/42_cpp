@@ -1,6 +1,7 @@
-#include "phonebook.hpp"
+#include "PhoneBook.hpp"
+#include "Contact.hpp"
 
-static bool	is_number(const std::string str)
+static bool	isNumber(const std::string str)
 {
 	for (std::string::const_iterator i = str.begin(); i < str.end(); i++)
 	{
@@ -10,7 +11,7 @@ static bool	is_number(const std::string str)
 	return (true);
 }
 
-std::string	to_size(std::string str)
+std::string	toSize(std::string str)
 {
 	std::string	tmp;
 	
@@ -22,7 +23,7 @@ std::string	to_size(std::string str)
 	return (str);
 }
 
-static int	str_to_int(std::string str)
+static int	strToInt(std::string str)
 {
 	std::stringstream	stoi;
 	int					i;
@@ -33,7 +34,7 @@ static int	str_to_int(std::string str)
 	return (i);
 }
 
-int	get_valid_int(int len)
+int	getValidInt(int len)
 {
 	std::string tmp;
 
@@ -43,7 +44,7 @@ int	get_valid_int(int len)
 
 	tmp.erase(std::remove_if(tmp.begin(), tmp.end(), ::isspace), tmp.end());
 
-	while (tmp.length() != 1 || !is_number(tmp))
+	while (tmp.length() != 1 || !isNumber(tmp))
 	{
 		std::cout << "Please pick an index between 0 and " << len - 1 << ": ";
 		std::getline(std::cin, tmp);
@@ -52,10 +53,10 @@ int	get_valid_int(int len)
 		tmp.erase(std::remove_if(tmp.begin(), tmp.end(), ::isspace), tmp.end());
 	}
 
-	return (str_to_int(tmp));
+	return (strToInt(tmp));
 }
 
-std::string trim_tabs(std::string str)
+static std::string trimTabs(std::string str)
 {
 	// trim from the beginning
 	size_t i = 0;
@@ -89,7 +90,7 @@ std::string trim_tabs(std::string str)
 	return (str);
 }
 
-std::string get_valid_info(std::string info_prompt)
+std::string getValidInfo(std::string info_prompt)
 {
 	std::string	tmp;
 
@@ -98,7 +99,7 @@ std::string get_valid_info(std::string info_prompt)
 	if (std::cin.eof())
 		exit(EXIT_SUCCESS);
 
-	tmp = trim_tabs(tmp);
+	tmp = trimTabs(tmp);
 
 	while (tmp.length() == 0)
 	{
@@ -106,7 +107,7 @@ std::string get_valid_info(std::string info_prompt)
 		std::getline(std::cin, tmp);
 		if (std::cin.eof())
 			exit(EXIT_SUCCESS);
-		tmp = trim_tabs(tmp);
+		tmp = trimTabs(tmp);
 	}
 
 	return (tmp);

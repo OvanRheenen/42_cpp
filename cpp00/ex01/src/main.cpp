@@ -1,6 +1,6 @@
-#include "phonebook.hpp"
+#include "PhoneBook.hpp"
 
-static std::string	get_command()
+static std::string	getCommand()
 {
 	std::string command;
 
@@ -15,9 +15,9 @@ static std::string	get_command()
 	return (command);
 }
 
-static void	add_contact(PhoneBook &pb, int &i, int &pb_len)
+static void	addContact(PhoneBook &pb, int &i, int &pb_len)
 {
-	pb.contacts[i].add_new_contact();
+	pb.contacts[i].addNewContact();
 	std::cout << "New contact added" << std::endl;
 	if (pb_len < MAX_CONTACTS)
 		pb_len++;
@@ -25,7 +25,7 @@ static void	add_contact(PhoneBook &pb, int &i, int &pb_len)
 		i = 0;
 }
 
-static void	search_contact(PhoneBook pb, int pb_len)
+static void	searchContact(PhoneBook pb, int pb_len)
 {
 	if (pb_len == 0)
 		std::cout << "First add at least one contact using the ADD command" << std::endl;
@@ -37,17 +37,17 @@ int	main(void)
 {
 	PhoneBook	pb;
 	
-	std::string command = get_command();
+	std::string command = getCommand();
 	
 	int	pb_len = 0;
 	int i = 0;
 	while (command != "EXIT")
 	{
 		if (command == "ADD")
-			add_contact(pb, i, pb_len);
+			addContact(pb, i, pb_len);
 		else if (command == "SEARCH")
-			search_contact(pb, pb_len);
-		command = get_command();
+			searchContact(pb, pb_len);
+		command = getCommand();
 	}
 	return (EXIT_SUCCESS);
 }
