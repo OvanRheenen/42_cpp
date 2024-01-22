@@ -10,6 +10,7 @@ create_log
 zombie
 zombiehorde
 brain
+violence
 
 # Debug files
 .vscode
