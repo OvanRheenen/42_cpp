@@ -1,6 +1,8 @@
-NAME	:= sed
+NAME	:= replace
 
-SRC_FILES	:=	main.cpp
+SRC_FILES	:=	main.cpp	\
+				parsing.cpp	\
+				file.cpp
 
 SRC_DIR	:= src
 OBJ_DIR	:= obj
@@ -32,13 +34,11 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 
 clean:
 	rm -rf $(OBJ_DIR)
+	rm *.replace
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-
-run: all
-	./$(NAME)
 
 .PHONY: all clean fclean re

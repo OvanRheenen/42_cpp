@@ -1,7 +1,7 @@
-# Ignore all object files
+# Object files
 obj
 
-# Ignore all executable files
+# Executable files
 # cpp00
 megaphone
 phonebook
@@ -15,3 +15,6 @@ replace
 
 # Debug files
 .vscode
+
+# Results
+*.replace
