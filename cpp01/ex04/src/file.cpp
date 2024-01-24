@@ -1,7 +1,6 @@
-#include "replace.hpp"
-#include <iostream>
 #include <fstream>
 #include <string.h>
+#include <iostream>
 
 static std::string	copyAndReplace(std::string line, std::string s1, std::string s2)
 {
@@ -30,7 +29,7 @@ static std::string	copyAndReplace(std::string line, std::string s1, std::string 
 	return (repLine);
 }
 
-int	openAndCopy(char *filename, char *s1, char *s2)
+int	openAndCopy(std::string filename, std::string s1, std::string s2)
 {
 	std::ifstream	inFile (filename);
 	if (!inFile.is_open())
@@ -39,7 +38,7 @@ int	openAndCopy(char *filename, char *s1, char *s2)
 		return (1);
 	}
 
-	std::ofstream	outFile ((std::string)filename += ".replace");
+	std::ofstream	outFile (filename += ".replace");
 	if (!outFile.is_open())
 	{
 		std::cout << "Error: unable to open output file";

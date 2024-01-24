@@ -1,7 +1,9 @@
 #ifndef REPLACE_H
 # define REPLACE_H
 
+# include <iostream>
+
 int	inputCheck(int argc, char **argv);
-int	openAndCopy(char *filename, char *s1, char *s2);
+int	openAndCopy(std::string filename, std::string s1, std::string s2);
 
 #endif
