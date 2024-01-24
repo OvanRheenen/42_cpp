@@ -2,7 +2,6 @@
 # define PHONEBOOK_HPP
 
 # include <iostream>
-# include <algorithm>
 # include <sstream>
 # include "Contact.hpp"
 

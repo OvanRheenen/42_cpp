@@ -10,7 +10,7 @@ static std::string	getCommand()
 		std::cout << "-> ";
 		std::getline(std::cin, command);
 		if (std::cin.eof())
-			exit(EXIT_FAILURE);
+			exit(1);
 	}
 	return (command);
 }
@@ -49,5 +49,5 @@ int	main(void)
 			searchContact(pb, pb_len);
 		command = getCommand();
 	}
-	return (EXIT_SUCCESS);
+	return (1);
 }

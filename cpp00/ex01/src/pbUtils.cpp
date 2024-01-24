@@ -40,7 +40,7 @@ int	getValidInt(int len)
 
 	std::getline(std::cin, tmp);
 	if (std::cin.eof())
-		exit(EXIT_SUCCESS);
+		exit(1);
 
 	tmp.erase(std::remove_if(tmp.begin(), tmp.end(), ::isspace), tmp.end());
 
@@ -49,7 +49,7 @@ int	getValidInt(int len)
 		std::cout << "Please pick an index between 0 and " << len - 1 << ": ";
 		std::getline(std::cin, tmp);
 		if (std::cin.eof())
-			exit(EXIT_SUCCESS);
+			exit(1);
 		tmp.erase(std::remove_if(tmp.begin(), tmp.end(), ::isspace), tmp.end());
 	}
 
@@ -97,7 +97,7 @@ std::string getValidInfo(std::string info_prompt)
 	std::cout << "Add their " << info_prompt;
 	std::getline(std::cin, tmp);
 	if (std::cin.eof())
-		exit(EXIT_SUCCESS);
+		exit(1);
 
 	tmp = trimTabs(tmp);
 
@@ -106,7 +106,7 @@ std::string getValidInfo(std::string info_prompt)
 		std::cout << "Field can't be left empty" << std::endl << "Add their " << info_prompt;
 		std::getline(std::cin, tmp);
 		if (std::cin.eof())
-			exit(EXIT_SUCCESS);
+			exit(1);
 		tmp = trimTabs(tmp);
 	}
 
