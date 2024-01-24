@@ -15,6 +15,8 @@ private:
 public:
 
 	void	complain( std::string level );
+	Harl();
+	~Harl();
 
 };
 
