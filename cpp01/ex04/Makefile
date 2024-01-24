@@ -34,7 +34,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 
 clean:
 	rm -rf $(OBJ_DIR)
-	rm *.replace
 
 fclean: clean
 	rm -f $(NAME)
