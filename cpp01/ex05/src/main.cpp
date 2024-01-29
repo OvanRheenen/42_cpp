@@ -30,4 +30,6 @@ int	main(int argc, char **argv)
 	Harl	harl;
 
 	harl.complain(argv[1]);
+
+	return (0);
 }
