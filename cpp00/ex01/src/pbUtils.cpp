@@ -3,16 +3,6 @@
 #include "PhoneBook.hpp"
 #include "Contact.hpp"
 
-static bool	isNumber(const std::string str)
-{
-	for (std::string::const_iterator i = str.begin(); i < str.end(); i++)
-	{
-		if (!std::isdigit(*i))
-			return (false);
-	}
-	return (true);
-}
-
 std::string	toSize(std::string str)
 {
 	std::string	tmp;
@@ -23,17 +13,6 @@ std::string	toSize(std::string str)
 		return (tmp);
 	}
 	return (str);
-}
-
-static int	strToInt(const std::string str)
-{
-	std::stringstream	stoi;
-	int					i;
-
-	stoi << str;
-	stoi >> i;
-
-	return (i);
 }
 
 static void	erasespace(std::string &str)
@@ -50,7 +29,28 @@ static void	erasespace(std::string &str)
 	}
 }
 
-int	getValidInt(int len)
+static bool	isNumber(const std::string str)
+{
+	for (std::string::const_iterator i = str.begin(); i < str.end(); i++)
+	{
+		if (!std::isdigit(*i))
+			return (false);
+	}
+	return (true);
+}
+
+static int	strToInt(const std::string str)
+{
+	std::stringstream	stoi;
+	int					i;
+
+	stoi << str;
+	stoi >> i;
+
+	return (i);
+}
+
+static int	getValidInt(int len)
 {
 	std::string tmp;
 
@@ -75,6 +75,21 @@ int	getValidInt(int len)
 	}
 
 	return (strToInt(tmp));
+}
+
+static int	getIndex(int len)
+{
+	std::cout << "Enter the index of the contact information you want to see: ";
+	int	i = getValidInt(len);
+	while (i < 0 || i >= len)
+	{
+		if (len - 1 == 0)
+			std::cout << "Please pick index 0, there's literally only one choice: ";
+		else
+			std::cout << "Please pick an index between 0 and " << len - 1 << ": ";
+		i = getValidInt(len);
+	}
+	return (i);
 }
 
 static void trimTabs(std::string &str)

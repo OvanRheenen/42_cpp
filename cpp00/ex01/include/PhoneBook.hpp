@@ -7,7 +7,7 @@
 
 # define MAX_CONTACTS 8
 
-int			getValidInt(int len);
+int			getIndex(int len);
 std::string	toSize(std::string str);
 
 class PhoneBook
