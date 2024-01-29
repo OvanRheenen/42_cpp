@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "PhoneBook.hpp"
 
 static std::string	getCommand()
@@ -25,7 +26,7 @@ static void	addContact(PhoneBook &pb, int &i, int &pb_len)
 		i = 0;
 }
 
-static void	searchContact(PhoneBook pb, int pb_len)
+static void	searchContact(PhoneBook &pb, int pb_len)
 {
 	if (pb_len == 0)
 		std::cout << "First add at least one contact using the ADD command" << std::endl;
