@@ -26,6 +26,7 @@ int	main(int argc, char **argv)
 {
 	if (inputCheck(argc, argv))
 		return (1);
+
 	Harl	harl;
 
 	harl.complain(argv[1]);
