@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <string.h>
 #include "PhoneBook.hpp"
 #include "Contact.hpp"
 
@@ -23,7 +25,7 @@ std::string	toSize(std::string str)
 	return (str);
 }
 
-static int	strToInt(std::string str)
+static int	strToInt(const std::string str)
 {
 	std::stringstream	stoi;
 	int					i;
@@ -34,6 +36,20 @@ static int	strToInt(std::string str)
 	return (i);
 }
 
+static void	erasespace(std::string &str)
+{
+	size_t	i = 0;
+	size_t	len = str.length();
+
+	while (i < len)
+	{
+		if (std::isspace(str[i]))
+			str.erase(i, 1);
+		else
+			i++;
+	}
+}
+
 int	getValidInt(int len)
 {
 	std::string tmp;
@@ -42,21 +58,26 @@ int	getValidInt(int len)
 	if (std::cin.eof())
 		exit(1);
 
-	tmp.erase(std::remove_if(tmp.begin(), tmp.end(), ::isspace), tmp.end());
+	erasespace(tmp);
 
 	while (tmp.length() != 1 || !isNumber(tmp))
 	{
-		std::cout << "Please pick an index between 0 and " << len - 1 << ": ";
+		if (len - 1 == 0)
+			std::cout << "Please pick index 0, there's literally only one choice: ";
+		else
+			std::cout << "Please pick an index between 0 and " << len - 1 << ": ";
+
 		std::getline(std::cin, tmp);
 		if (std::cin.eof())
 			exit(1);
-		tmp.erase(std::remove_if(tmp.begin(), tmp.end(), ::isspace), tmp.end());
+
+		erasespace(tmp);
 	}
 
 	return (strToInt(tmp));
 }
 
-static std::string trimTabs(std::string str)
+static void trimTabs(std::string &str)
 {
 	// trim from the beginning
 	size_t i = 0;
@@ -86,8 +107,6 @@ static std::string trimTabs(std::string str)
 			str.replace(i, tabcount, " ");
 		}
 	}
-
-	return (str);
 }
 
 std::string getValidInfo(std::string info_prompt)
@@ -99,7 +118,7 @@ std::string getValidInfo(std::string info_prompt)
 	if (std::cin.eof())
 		exit(1);
 
-	tmp = trimTabs(tmp);
+	trimTabs(tmp);
 
 	while (tmp.length() == 0)
 	{
@@ -107,7 +126,7 @@ std::string getValidInfo(std::string info_prompt)
 		std::getline(std::cin, tmp);
 		if (std::cin.eof())
 			exit(1);
-		tmp = trimTabs(tmp);
+		trimTabs(tmp);
 	}
 
 	return (tmp);
