@@ -1,10 +1,16 @@
 #include "Harl.hpp"
-#include <vector>
+
+static bool	isValidArg(char *arg)
+{
+	return ((std::string)arg == "DEBUG" ||
+			(std::string)arg == "INFO" ||
+			(std::string)arg == "WARNING" ||
+			(std::string)arg == "ERROR");
+}
 
 static int	inputCheck(int argc, char **argv)
 {
-	std::vector<std::string> args(argv, argv + argc);
-	if (argc != 2 || (args[1] != "DEBUG" && args[1] != "INFO" && args[1] != "WARNING" && args[1] != "ERROR"))
+	if (argc != 2 || !isValidArg(argv[1]))
 	{
 		std::cout 	<< "Please run in one of the following ways:" << std::endl
 					<< "./harl DEBUG" << std::endl
