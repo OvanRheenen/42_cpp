@@ -15,15 +15,15 @@ void	Contact::printAllInfo(void)
 	std::cout << "Last name:	" << lastName << std::endl;
 	std::cout << "Nickname:	" << nickname << std::endl;
 	std::cout << "Phone number:	" << _phoneNumber << std::endl;
-	std::cout << "_secret:		" << _secret << std::endl;
+	std::cout << "Secret:		" << _secret << std::endl;
 }
 
 void	Contact::addNewContact(void)
 {
 	std::cout << "Creating new contact" << std::endl;
-	firstName = getValidInfo("first name:		");
-	lastName = getValidInfo("last name:		");
-	nickname = getValidInfo("nickname:		");
-	_phoneNumber = getValidInfo("phone number:		");
-	_secret = getValidInfo("_secret:		");
+	firstName = getValidInfo("First name:		");
+	lastName = getValidInfo("Last name:		");
+	nickname = getValidInfo("Nickname:		");
+	_phoneNumber = getValidInfo("Phone number:		");
+	_secret = getValidInfo("Secret:		");
 }
