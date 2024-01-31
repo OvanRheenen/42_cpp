@@ -10,16 +10,9 @@ private:
 
 public:
 
-	//constructor
 	Fixed();
-
-	//copy constructor
 	Fixed(const Fixed &fixedPointN);
-
-	//copy assignment operator overload
 	Fixed &operator=(const Fixed &fixedPointN);
-
-	// destructor
 	~Fixed();
 
 	int		getRawBits( void ) const;
