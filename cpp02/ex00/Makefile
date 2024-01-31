@@ -1,7 +1,7 @@
-NAME	:= create_log
+NAME	:= bitman
 
-SRC_FILES	:=	Account.cpp	\
-				tests.cpp
+SRC_FILES	:=	main.cpp	\
+				Fixed.cpp
 
 SRC_DIR	:= src
 OBJ_DIR	:= obj
