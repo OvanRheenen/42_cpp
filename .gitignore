@@ -15,8 +15,7 @@ replace
 harl
 harlFilter
 #cpp02
-bitman
-bitman2
+bitman*
 
 # Debug files
 .vscode
