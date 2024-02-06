@@ -33,9 +33,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 
 -include $(DEP_FILES)
 
-log: all
-	./$(NAME) > mylogfile.log
-
 clean:
 	rm -rf $(OBJ_DIR)
 
@@ -44,4 +41,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all log clean fclean re
+.PHONY: all clean fclean re
