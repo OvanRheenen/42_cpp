@@ -1,7 +1,9 @@
-NAME	:= create_log
+NAME	:= bsp
 
-SRC_FILES	:=	Account.cpp	\
-				tests.cpp
+SRC_FILES	:=	main.cpp	\
+				bsp.cpp		\
+				Fixed.cpp	\
+				Point.cpp
 
 SRC_DIR	:= src
 OBJ_DIR	:= obj
