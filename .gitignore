@@ -16,6 +16,7 @@ harl
 harlFilter
 #cpp02
 bitman*
+#cpp03
 
 # Debug files
 .vscode
