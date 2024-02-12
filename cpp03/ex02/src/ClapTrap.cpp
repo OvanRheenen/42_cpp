@@ -29,10 +29,13 @@ ClapTrap::ClapTrap(const ClapTrap &other)
 
 ClapTrap	&ClapTrap::operator=(const ClapTrap &other)
 {
+	if (this != &other)
+	{
 	this->setName(other.getName());
 	this->setHitPoints(other.getHitPoints());
 	this->setEnergyPoints(other.getEnergyPoints());
 	this->setAttackDamage(other.getAttackDamage());
+	}
 	std::cout	<< "Copy assignement operator called, " 
 				<< "copy of ClapTrap " << other.getName()
 				<< " made" << std::endl;

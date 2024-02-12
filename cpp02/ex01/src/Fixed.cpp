@@ -44,8 +44,9 @@ Fixed::Fixed(const Fixed &fixedPointN)
 //copy assignement operator overload
 Fixed	&Fixed::operator=(const Fixed &fixedPointN)
 {
+	if (this != &fixedPointN)
+		this->setRawBits(fixedPointN.getRawBits());
 	std::cout << "Copy assignment operator called" << std::endl;
-	this->setRawBits(fixedPointN.getRawBits());
 	return (*this);
 }
 

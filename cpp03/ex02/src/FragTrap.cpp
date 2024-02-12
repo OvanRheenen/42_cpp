@@ -39,10 +39,13 @@ FragTrap::~FragTrap()
 
 FragTrap	&FragTrap::operator=(const FragTrap &other)
 {
-	this->setName(other.getName());
-	this->setHitPoints(other.getHitPoints());
-	this->setEnergyPoints(other.getEnergyPoints());
-	this->setAttackDamage(other.getAttackDamage());
+	if (this != &other)
+	{
+		this->setName(other.getName());
+		this->setHitPoints(other.getHitPoints());
+		this->setEnergyPoints(other.getEnergyPoints());
+		this->setAttackDamage(other.getAttackDamage());
+	}
 	std::cout	<< "Copy assignement operator called, " 
 				<< "copy of FragTrap " << other.getName()
 				<< " made" << std::endl;

@@ -39,10 +39,13 @@ ScavTrap::~ScavTrap()
 
 ScavTrap	&ScavTrap::operator=(const ScavTrap &other)
 {
+	if (this != &other)
+	{
 	this->setName(other.getName());
 	this->setHitPoints(other.getHitPoints());
 	this->setEnergyPoints(other.getEnergyPoints());
 	this->setAttackDamage(other.getAttackDamage());
+	}
 	std::cout	<< "Copy assignement operator called, " 
 				<< "copy of ScavTrap " << other.getName()
 				<< " made" << std::endl;
