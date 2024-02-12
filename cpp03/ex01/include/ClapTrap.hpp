@@ -7,15 +7,15 @@ class ClapTrap
 {
 private:
 
-	std::string		name;
-	unsigned int	HP = 10;
-	unsigned int	EP = 10;
-	unsigned int	AD = 0;
+	std::string		_name;
+	unsigned int	_hitPoints = 10;
+	unsigned int	_energyPoints = 10;
+	unsigned int	_attackDamage = 0;
 
 public:
 
 	ClapTrap();
-	ClapTrap(const std::string name);
+	ClapTrap(const std::string &name);
 	ClapTrap(const ClapTrap &other);
 	~ClapTrap();
 
@@ -24,16 +24,18 @@ public:
 	void	attack(const std::string& target);
 	void	takeDamage(unsigned int amount);
 	void	beRepaired(unsigned int amount);
+	void	printStats() const;
+	bool	actionPossible(const std::string &type, const std::string &action) const;
 
 	std::string	getName() const;
-	int			getHP() const;
-	int			getEP() const;
-	int			getAD() const;
+	int			getHitPoints() const;
+	int			getEnergyPoints() const;
+	int			getAttackDamage() const;
 
 	void	setName(const std::string name);
-	void	setHP(const unsigned int amount);
-	void	setEP(const unsigned int amount);
-	void	setAD(const unsigned int amount);
+	void	setHitPoints(const unsigned int amount);
+	void	setEnergyPoints(const unsigned int amount);
+	void	setAttackDamage(const unsigned int amount);
 };
 
 #endif
