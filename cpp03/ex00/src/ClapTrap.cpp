@@ -109,6 +109,14 @@ void	ClapTrap::beRepaired(unsigned int amount)
 	}
 }
 
+void	ClapTrap::printStats() const
+{
+	std::cout	<< "| " << _name << "'s stats |\n"
+				<< " | Hit points:	  " << _hitPoints << "\n"
+				<< " | Energy points: " << _energyPoints << "\n"
+				<< " | Attack damage: " << _attackDamage << "\n" << std::endl;
+}
+
 
 //--Getters-------------------------------------------------------------------//
 

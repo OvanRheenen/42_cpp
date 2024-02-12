@@ -1,30 +1,52 @@
 #include "ClapTrap.hpp"
-#include <iostream>
 
 int	main(void)
 {
-	ClapTrap	a;
-	ClapTrap	b("Tymon");
-	ClapTrap	c(b);
-	ClapTrap	d;
+//construction tests//
+	{
+		ClapTrap	a;
 
-	d = b;
+		a.printStats();
 
-	a.setAttackDamage(3);
-	a.attack("Tymon");
-	b.takeDamage(a.getAttackDamage());
-	std::cout << "Tymon life left: " << b.getHitPoints() << std::endl;	
-	a.attack("Tymon");
-	b.takeDamage(a.getAttackDamage());
-	std::cout << "Tymon life left: " << b.getHitPoints() << std::endl;	
-	a.attack("Tymon");
-	b.takeDamage(a.getAttackDamage());
-	std::cout << "Tymon life left: " << b.getHitPoints() << std::endl;	
-	a.attack("Tymon");
-	b.takeDamage(a.getAttackDamage());
-	std::cout << "Tymon life left: " << b.getHitPoints() << std::endl;	
-	a.attack("Tymon");
-	b.takeDamage(a.getAttackDamage());
-	std::cout << "Tymon life left: " << b.getHitPoints() << std::endl;	
+		ClapTrap	b("Tymon");
+
+		b.printStats();
+
+		ClapTrap	c(b);
+
+		c.printStats();
+
+		ClapTrap	d;
+		d = b;
+		d.printStats();
+	}
+
+//attack, damage, repair tests//
+	// {
+	// 	ClapTrap	a("1st");
+	// 	ClapTrap	b("2nd");
+
+	// 	a.attack("2nd");
+	// 	b.takeDamage(1);
+	// 	b.printStats();
+	// 	a.printStats();
+
+	// 	for (int i = 0; i < 9; i++)
+	// 	{
+	// 		a.attack("2nd");
+	// 		b.takeDamage(1);
+	// 	}
+
+	// 	b.printStats();
+	// 	a.printStats();
+	// 	a.attack("2nd");
+	// 	b.takeDamage(1);
+	
+	// 	b.beRepaired(10);
+	// 	b.printStats();
+
+	// 	a.beRepaired(10);
+	// 	a.printStats();
+	// }
 
 }
