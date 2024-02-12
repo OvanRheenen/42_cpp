@@ -10,21 +10,21 @@ int	main(void)
 
 	d = b;
 
-	a.setAD(3);
+	a.setAttackDamage(3);
 	a.attack("Tymon");
-	b.takeDamage(a.getAD());
-	std::cout << "Tymon life left: " << b.getHP() << std::endl;	
+	b.takeDamage(a.getAttackDamage());
+	std::cout << "Tymon life left: " << b.getHitPoints() << std::endl;	
 	a.attack("Tymon");
-	b.takeDamage(a.getAD());
-	std::cout << "Tymon life left: " << b.getHP() << std::endl;	
+	b.takeDamage(a.getAttackDamage());
+	std::cout << "Tymon life left: " << b.getHitPoints() << std::endl;	
 	a.attack("Tymon");
-	b.takeDamage(a.getAD());
-	std::cout << "Tymon life left: " << b.getHP() << std::endl;	
+	b.takeDamage(a.getAttackDamage());
+	std::cout << "Tymon life left: " << b.getHitPoints() << std::endl;	
 	a.attack("Tymon");
-	b.takeDamage(a.getAD());
-	std::cout << "Tymon life left: " << b.getHP() << std::endl;	
+	b.takeDamage(a.getAttackDamage());
+	std::cout << "Tymon life left: " << b.getHitPoints() << std::endl;	
 	a.attack("Tymon");
-	b.takeDamage(a.getAD());
-	std::cout << "Tymon life left: " << b.getHP() << std::endl;	
+	b.takeDamage(a.getAttackDamage());
+	std::cout << "Tymon life left: " << b.getHitPoints() << std::endl;	
 
 }
