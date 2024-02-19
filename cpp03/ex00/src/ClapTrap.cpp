@@ -3,7 +3,7 @@
 //--Con/destructors-----------------------------------------------------------//
 
 ClapTrap::ClapTrap() :
-	_name("Jan")
+	_name("Default")
 {
 	std::cout	<< "Default constructor called, " 
 				<< "ClapTrap " << _name
@@ -24,6 +24,7 @@ ClapTrap::ClapTrap(const ClapTrap &other)
 	std::cout	<< "Copy constructor called, " 
 				<< "copy of ClapTrap " << other.getName()
 				<< " created" << std::endl;
+
 	*this = other;
 }
 
@@ -36,9 +37,11 @@ ClapTrap	&ClapTrap::operator=(const ClapTrap &other)
 		this->setEnergyPoints(other.getEnergyPoints());
 		this->setAttackDamage(other.getAttackDamage());
 	}
+
 	std::cout	<< "Copy assignement operator called, " 
 				<< "copy of ClapTrap " << other.getName()
 				<< " made" << std::endl;
+
 	return (*this);
 }
 
@@ -78,7 +81,6 @@ void	ClapTrap::attack(const std::string& target)
 					<< " attacks " << target
 					<< " causing " << this->_attackDamage << " points of damage 💥" << std::endl;
 		this->setEnergyPoints(this->getEnergyPoints() - 1);
-
 	}
 }
 
