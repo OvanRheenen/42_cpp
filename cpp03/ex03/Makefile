@@ -2,6 +2,7 @@ NAME	:= claptrap4
 
 SRC_FILES	:=	main.cpp		\
 				ClapTrap.cpp	\
+				DiamondTrap.cpp	\
 				FragTrap.cpp	\
 				ScavTrap.cpp
 

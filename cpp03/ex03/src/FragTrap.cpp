@@ -2,33 +2,36 @@
 
 //--Con/destructors-----------------------------------------------------------//
 
-FragTrap::FragTrap()
+FragTrap::FragTrap() : ClapTrap()
 {
-	this->setName("JanBot");
+	this->setName("DefaultBot");
 	this->setHitPoints(100);
 	this->setEnergyPoints(100);
 	this->setAttackDamage(30);
+
 	std::cout	<< "Default constructor called, " 
 				<< "FragTrap " << this->getName()
 				<< " created" << std::endl;
 }
 
-FragTrap::FragTrap(const std::string &name)
+FragTrap::FragTrap(const std::string &name) : ClapTrap(name)
 {
 	this->setName(name);
 	this->setHitPoints(100);
 	this->setEnergyPoints(100);
 	this->setAttackDamage(30);
+
 	std::cout	<< "Name construtor called, "
 				<< "FragTrap " << this->getName()
 				<< " created" << std::endl;
 }
 
-FragTrap::FragTrap(const FragTrap &other)
+FragTrap::FragTrap(const FragTrap &other) : ClapTrap(other)
 {
 	std::cout	<< "Copy constructor called, " 
 				<< "copy of FragTrap " << other.getName()
 				<< " created" << std::endl;
+	
 	*this = other;
 }
 
@@ -46,9 +49,11 @@ FragTrap	&FragTrap::operator=(const FragTrap &other)
 		this->setEnergyPoints(other.getEnergyPoints());
 		this->setAttackDamage(other.getAttackDamage());
 	}
+
 	std::cout	<< "Copy assignement operator called, " 
 				<< "copy of FragTrap " << other.getName()
 				<< " made" << std::endl;
+
 	return (*this);
 }
 
