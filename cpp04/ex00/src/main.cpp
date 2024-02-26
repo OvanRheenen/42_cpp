@@ -35,4 +35,7 @@ int	main(void)
 	delete a;
 	delete b;
 	}
+	{
+		// more tests
+	}
 }
