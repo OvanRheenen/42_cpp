@@ -8,7 +8,14 @@ HumanB::HumanB(std::string name) :
 
 void	HumanB::attack(void)
 {
-	std::cout << _name << " attacks with their " << _Weapon->getType() << std::endl;
+	if (_Weapon)
+		std::cout	<< _name
+					<< " attacks with their " << _Weapon->getType()
+					<< std::endl;
+	else
+		std::cout	<< _name
+					<< " can't attack. They don't have a weapon."
+					<< std::endl;
 }
 
 void	HumanB::setWeapon(class Weapon &weapon_ref)
