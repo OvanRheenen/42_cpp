@@ -63,5 +63,5 @@ void	FragTrap::highFivesGuys(void)
 {
 	if (actionPossible("FragTrap", "high five"))
 		std::cout	<< "FragTrap " << getName()
-					<< "wants a high five!" << std::endl;
+					<< " wants a high five!" << std::endl;
 }
