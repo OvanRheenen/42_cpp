@@ -2,7 +2,7 @@
 
 //--Con/destructors-----------------------------------------------------------//
 
-ScavTrap::ScavTrap() : ClapTrap()
+ScavTrap::ScavTrap()
 {
 	this->setName("DefaultBot");
 	this->setHitPoints(100);
@@ -25,7 +25,7 @@ ScavTrap::ScavTrap(const std::string &name) : ClapTrap(name)
 				<< " created" << std::endl;
 }
 
-ScavTrap::ScavTrap(const ScavTrap &other) : ClapTrap(other)
+ScavTrap::ScavTrap(const ScavTrap &other)
 {
 	std::cout	<< "Copy constructor called, " 
 				<< "copy of ScavTrap " << other.getName()
@@ -66,7 +66,7 @@ void	ScavTrap::attack(const std::string &target)
 			<< " attacks " << target
 			<< " causing " << this->getAttackDamage()
 			<< " points of damage 💥" << std::endl;
-		
+
 		this->setEnergyPoints(this->getEnergyPoints() - 1);
 	}
 }

@@ -2,7 +2,7 @@
 
 //--Con/destructors-----------------------------------------------------------//
 
-FragTrap::FragTrap() : ClapTrap()
+FragTrap::FragTrap()
 {
 	this->setName("DefaultBot");
 	this->setHitPoints(100);
@@ -16,7 +16,6 @@ FragTrap::FragTrap() : ClapTrap()
 
 FragTrap::FragTrap(const std::string &name) : ClapTrap(name)
 {
-	this->setName(name);
 	this->setHitPoints(100);
 	this->setEnergyPoints(100);
 	this->setAttackDamage(30);
@@ -26,12 +25,12 @@ FragTrap::FragTrap(const std::string &name) : ClapTrap(name)
 				<< " created" << std::endl;
 }
 
-FragTrap::FragTrap(const FragTrap &other) : ClapTrap(other)
+FragTrap::FragTrap(const FragTrap &other)
 {
 	std::cout	<< "Copy constructor called, " 
 				<< "copy of FragTrap " << other.getName()
 				<< " created" << std::endl;
-	
+
 	*this = other;
 }
 
