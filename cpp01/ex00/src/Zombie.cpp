@@ -19,8 +19,3 @@ void	Zombie::setName(const std::string &name)
 {
 	this->_name = name;
 }
-
-std::string	Zombie::getName(void) const
-{
-	return (_name);
-}
