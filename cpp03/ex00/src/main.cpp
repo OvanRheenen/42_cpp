@@ -5,15 +5,12 @@ int	main(void)
 //construction tests//
 	{
 		ClapTrap	a;
-
 		a.printStats();
 
 		ClapTrap	b("Tymon");
-
 		b.printStats();
 
 		ClapTrap	c(b);
-
 		c.printStats();
 
 		ClapTrap	d;
