@@ -2,11 +2,11 @@
 obj
 
 # Executable files
-# cpp00
+## cpp00
 megaphone
 phonebook
 create_log
-# cpp01
+## cpp01
 zombie
 zombiehorde
 brain
@@ -14,10 +14,12 @@ violence
 replace
 harl
 harlFilter
-#cpp02
+## cpp02
 bitman*
-#cpp03
+## cpp03
 claptrap*
+## cpp04
+animal
 
 # Debug files
 .vscode
