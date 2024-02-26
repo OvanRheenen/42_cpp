@@ -50,5 +50,7 @@ int	main(void)
 	// 	a.printStats();
 	// 	b.printStats();
 	// 	c.printStats();
+
+	// 	a.highFivesGuys();
 	// }
 }

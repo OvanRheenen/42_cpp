@@ -48,5 +48,7 @@ int	main(void)
 
 	// 	a.printStats();
 	// 	b.printStats();
+	
+	// 	a.guardGate();
 	// }
 }

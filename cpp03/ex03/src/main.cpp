@@ -7,25 +7,41 @@
 
 int	main(void)
 {
-	std::cout << "DiamondTrap create: " << std::endl;
-	DiamondTrap	jan("jan");
-	std::cout << "Done\n" << std::endl;
+// construction test //
+	{
+		DiamondTrap	jan("jan");
+		jan.printStats();
+	}
+//attack, damage, repair tests//
+	// {
+	// 	DiamondTrap	a("1st");
+	// 	ClapTrap	b("2nd");
 
-	jan.printStats();
-	jan.whoAmI();
-	std::cout << std::endl;
-	jan.attack("arnout");
-	std::cout << std::endl;
-	jan.beRepaired(100);
-	jan.takeDamage(150);
-	std::cout << std::endl;
+	// 	a.printStats();
+	// 	b.printStats();
 
-	jan.guardGate();
-	jan.highFivesGuys();
-	std::cout << std::endl;
+	// 	a.beRepaired(190);
+	// 	a.printStats();
+	// 	a.attack("2nd");
+	// 	b.takeDamage(a.getAttackDamage());
+	// 	b.printStats();
 
-	jan.setHitPoints(25);
-	jan.setEnergyPoints(30);
-	jan.setAttackDamage(20);
-	jan.printStats();
+	// 	a.printStats();
+	// 	int	i = 0;
+	// 	while (b.getHitPoints() > 0)
+	// 	{
+	// 		std::cout << "attack " << i++ << std::endl;
+	// 		a.attack("2nd");
+	// 		b.takeDamage(a.getAttackDamage());
+	// 		b.beRepaired(a.getAttackDamage() / 2);
+	// 		std::cout << std::endl;
+	// 	}
+
+	// 	a.printStats();
+	// 	b.printStats();
+
+	// 	a.guardGate();
+	// 	a.highFivesGuys();
+	// }
 }
+
