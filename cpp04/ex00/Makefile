@@ -1,9 +1,11 @@
 NAME	:= animal
 
-SRC_FILES	:=	main.cpp	\
-				Animal.cpp	\
-				Cat.cpp		\
-				Dog.cpp
+SRC_FILES	:=	main.cpp		\
+				Animal.cpp		\
+				Cat.cpp			\
+				Dog.cpp			\
+				WrongAnimal.cpp	\
+				WrongCat.cpp
 
 SRC_DIR	:= src
 OBJ_DIR	:= obj

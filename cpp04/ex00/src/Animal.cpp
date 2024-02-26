@@ -3,7 +3,7 @@
 //--Con/destructors-----------------------------------------------------------//
 
 Animal::Animal() :
-	_type("not specified")
+	_type("Animal")
 {
 	std::cout << "Animal default constructor called." << std::endl;
 }
