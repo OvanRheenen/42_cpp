@@ -1,17 +1,17 @@
 #include "HumanB.hpp"
 
 HumanB::HumanB(std::string name) : 
-	name(name),
-	Weapon(nullptr)
+	_name(name),
+	_Weapon(nullptr)
 {
 }
 
 void	HumanB::attack(void)
 {
-	std::cout << name << " attacks with their " << Weapon->getType() << std::endl;
+	std::cout << _name << " attacks with their " << _Weapon->getType() << std::endl;
 }
 
 void	HumanB::setWeapon(class Weapon &weapon_ref)
 {
-	Weapon = &weapon_ref;
+	_Weapon = &weapon_ref;
 }
