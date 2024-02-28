@@ -9,10 +9,11 @@ protected:
 
 	std::string	_type;
 
-public:
-
 	Animal();
 	Animal(const Animal &other);
+
+public:
+
 	Animal	&operator=(const Animal &other);
 	virtual ~Animal();
 
