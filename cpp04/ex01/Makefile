@@ -2,6 +2,7 @@ NAME	:= animal2
 
 SRC_FILES	:=	main.cpp		\
 				Animal.cpp		\
+				Brain.cpp		\
 				Cat.cpp			\
 				Dog.cpp			\
 				WrongAnimal.cpp	\
