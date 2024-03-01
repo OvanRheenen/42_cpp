@@ -10,7 +10,7 @@ protected:
 	AMateria();
 	AMateria(const AMateria &other);
 
-	const std::string	type;
+	std::string	type;
 
 public:
 	AMateria(std::string const & type);
