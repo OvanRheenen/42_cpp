@@ -16,7 +16,7 @@ Cure::Cure(const Cure &other)
 
 Cure	&Cure::operator=(const Cure &other)
 {
-	std::cout << "Cure copy assignment operator called." std::endl;
+	std::cout << "Cure copy assignment operator called." << std::endl;
 	
 	if (this != &other)
 		this->type = other.type;
@@ -38,5 +38,5 @@ AMateria	*Cure::clone() const
 
 void	Cure::use(ICharacter& target)
 {
-	std::cout << "* heals " << target.name << "'s wounds *"
+	std::cout << "* heals " << target.getName() << "'s wounds *" << std::endl;
 }
