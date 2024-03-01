@@ -35,12 +35,12 @@ std::cout << "a / c = " << a / c << std::endl;
 
 std::cout << "\ncomparison tests:" << std::endl;
 std::cout << "a = " << a << ", b = " << b << std::endl;
-std::cout << "a < b: " << (a < b) << std::endl;
-std::cout << "a > b: " << (a > b) << std::endl;
-std::cout << "a >= b: " << (a >= b) << std::endl;
-std::cout << "a <= b: " << (a <= b) << std::endl;
-std::cout << "a == b: " << (a == b) << std::endl;
-std::cout << "a != b: " << (a != b) << std::endl;
+std::cout << "a < b: " << (a < b ? "true" : "false") << std::endl;
+std::cout << "a > b: " << (a > b ? "true" : "false") << std::endl;
+std::cout << "a >= b: " << (a >= b ? "true" : "false") << std::endl;
+std::cout << "a <= b: " << (a <= b ? "true" : "false") << std::endl;
+std::cout << "a == b: " << (a == b ? "true" : "false") << std::endl;
+std::cout << "a != b: " << (a != b ? "true" : "false") << std::endl;
 
 return 0;
 }
