@@ -4,6 +4,7 @@ SRC_FILES	:=	main.cpp			\
 				AMateria.cpp		\
 				Character.cpp		\
 				Cure.cpp			\
+				Floor.cpp			\
 				Ice.cpp				\
 				MateriaSource.cpp
 
