@@ -2,12 +2,10 @@ NAME	:= materia
 
 SRC_FILES	:=	main.cpp			\
 				AMateria.cpp		\
-				Cure.cpp			\
-				ICharacter.cpp		\
-				MateriaSource.cpp	\
 				Character.cpp		\
+				Cure.cpp			\
 				Ice.cpp				\
-				IMateriaSource.cpp
+				MateriaSource.cpp
 
 SRC_DIR	:= src
 OBJ_DIR	:= obj
