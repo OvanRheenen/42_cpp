@@ -1,4 +1,5 @@
 #include "Ice.hpp"
+#include "ICharacter.hpp"
 
 //--Con/destructors-----------------------------------------------------------//
 

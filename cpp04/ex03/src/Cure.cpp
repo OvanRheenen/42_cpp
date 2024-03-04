@@ -1,4 +1,5 @@
 #include "Cure.hpp"
+#include "ICharacter.hpp"
 
 //--Con/destructors-----------------------------------------------------------//
 

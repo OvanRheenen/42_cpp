@@ -1,4 +1,5 @@
 #include "AMateria.hpp"
+#include "ICharacter.hpp"
 
 //--Con/destructors-----------------------------------------------------------//
 
@@ -40,4 +41,9 @@ AMateria::~AMateria()
 std::string const & AMateria::getType() const
 {
 	return (type);
+}
+
+void AMateria::use(ICharacter& target)
+{
+	std::cout << "* nothing happens to " << target.getName() << " inside the base class *" << std::endl;
 }

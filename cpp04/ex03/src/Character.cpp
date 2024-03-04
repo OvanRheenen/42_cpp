@@ -18,6 +18,8 @@ Character::Character(const std::string &name) :
 {
 	std::cout << "Character name constructor called." << std::endl;
 
+	_inventory = new AMateria*[4];
+
 	for (int i = 0; i < 4; i++)
 		_inventory[i] = nullptr;
 }
@@ -37,16 +39,26 @@ Character	&Character::operator=(const Character &other)
 	{
 		this->_name = other._name;
 
+		_inventory = new AMateria*[4];
+
 		for (int i = 0; i < 4; i++)
 			this->_inventory[i] = other._inventory[i];
 	}
+
+	return (*this);
 }
 
 Character::~Character()
 {
 	std::cout << "Character default destructor called." << std::endl;
 
-	delete _inventory;
+	for (int i = 0; i < 4; i++)
+	{
+		if (_inventory[i])
+			delete _inventory[i];
+	}
+
+	delete[] _inventory;
 }
 
 //--Member functions----------------------------------------------------------//
@@ -61,7 +73,10 @@ void Character::equip(AMateria* m)
 	for (int i = 0; i < 4; i++)
 	{
 		if (!_inventory[i])
+		{
 			_inventory[i] = m;
+			break;
+		}
 	}
 }
 
