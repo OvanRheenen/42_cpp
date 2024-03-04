@@ -75,19 +75,31 @@ void Character::equip(AMateria* m)
 		if (!_inventory[i])
 		{
 			_inventory[i] = m;
-			break;
+			return;
 		}
 	}
+
+	std::cout << "Cannot equip materia, inventory is full." << std::endl;
 }
 
 void Character::unequip(int idx)
 {
-	if (_inventory[idx])
+	if (idx >= 0 && idx <= 3 && _inventory[idx])
+	{
 		_inventory[idx] = nullptr;
+		return;
+	}
+
+	std::cout << "Cannot unequip materia, no materia exists at idx " << idx << std::endl;
 }
 
 void Character::use(int idx, ICharacter& target)
 {
-	if (_inventory[idx])
+	if (idx >= 0 && idx <= 3 && _inventory[idx])
+	{
 		_inventory[idx]->use(target);
+		return;
+	}
+	
+	std::cout << "Cannot use materia, no materia exists at idx " << idx << std::endl;
 }
