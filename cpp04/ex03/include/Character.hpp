@@ -2,12 +2,14 @@
 # define CHARACTER_H
 
 # include "ICharacter.hpp"
+# include "Floor.hpp"
 
 class Character : public ICharacter
 {
 private:
 	std::string	_name;
 	AMateria 	**_inventory;
+	static Floor	_floor;
 
 public:
 	Character();
