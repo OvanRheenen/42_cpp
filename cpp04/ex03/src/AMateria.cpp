@@ -9,7 +9,7 @@ AMateria::AMateria()
 }
 
 AMateria::AMateria(std::string const & type) :
-	type(type)
+	type(type), status(AVAILABLE)
 {
 	std::cout << "AMateria type constructor called." << std::endl;
 }
@@ -26,7 +26,10 @@ AMateria &AMateria::operator=(const AMateria &other)
 	std::cout << "AMateria copy assignment operator called." << std::endl;
 
 	if (this != &other)
+	{
 		this->type = other.type;
+		this->status = other.status;
+	}
 
 	return (*this);
 }
@@ -46,4 +49,14 @@ std::string const & AMateria::getType() const
 void AMateria::use(ICharacter& target)
 {
 	std::cout << "* nothing happens to " << target.getName() << " inside the base class *" << std::endl;
+}
+
+Status AMateria::getStatus()
+{
+	return (status);
+}
+
+void	AMateria::setStatus(Status status)
+{
+	this->status = status;
 }
