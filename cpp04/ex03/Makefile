@@ -2,6 +2,7 @@ NAME	:= materia
 
 SRC_FILES	:=	main.cpp			\
 				AMateria.cpp		\
+				AMateriaNode.cpp	\
 				Character.cpp		\
 				Cure.cpp			\
 				Floor.cpp			\
