@@ -3,6 +3,12 @@
 
 # include <iostream>
 
+typedef enum {
+    AVAILABLE,
+    EQUIPPED,
+    ON_THE_FLOOR
+} Status;
+
 class ICharacter;
 
 class AMateria
@@ -12,6 +18,7 @@ protected:
 	AMateria(const AMateria &other);
 
 	std::string	type;
+	Status		status;
 
 public:
 	AMateria(std::string const & type);
@@ -22,6 +29,9 @@ public:
 
 	virtual AMateria* clone() const = 0;
 	virtual void use(ICharacter& target);
+
+	Status	getStatus();
+	void	setStatus(Status status);
 };
 
 #endif
