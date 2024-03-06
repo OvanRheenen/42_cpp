@@ -78,7 +78,7 @@ void Character::equip(AMateria* m)
 {
 	if (m->getStatus() == EQUIPPED)
 	{
-		std::cout << _name << " cannot equip materia, it is already equipped by another character." <<std::endl;
+		std::cout << _name << " cannot equip materia, it is already equipped by another character." << std::endl;
 		return; 
 	}
 	else if (m->getStatus() == ON_THE_FLOOR)
