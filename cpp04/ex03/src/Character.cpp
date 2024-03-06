@@ -78,7 +78,7 @@ void Character::equip(AMateria* m)
 {
 	if (m->getStatus() == EQUIPPED)
 	{
-		std::cout << "Cannot equip materia, it is already equipped by another character." <<std::endl;
+		std::cout << _name << " cannot equip materia, it is already equipped by another character." <<std::endl;
 		return; 
 	}
 	else if (m->getStatus() == ON_THE_FLOOR)
@@ -96,7 +96,7 @@ void Character::equip(AMateria* m)
 		}
 	}
 
-	std::cout << "Cannot equip materia, inventory is full." << std::endl;
+	std::cout << _name << " cannot equip materia, inventory is full." << std::endl;
 	_floor.addNode(m);
 }
 
@@ -109,7 +109,7 @@ void Character::unequip(int idx)
 		return;
 	}
 
-	std::cout << "Cannot unequip materia, no materia exists at idx " << idx << std::endl;
+	std::cout << _name << " cannot unequip materia, no materia exists at idx " << idx << std::endl;
 }
 
 void Character::use(int idx, ICharacter& target)
@@ -120,5 +120,5 @@ void Character::use(int idx, ICharacter& target)
 		return;
 	}
 	
-	std::cout << "Cannot use materia, no materia exists at idx " << idx << std::endl;
+	std::cout << _name << " cannot use materia, no materia exists at idx " << idx << std::endl;
 }
