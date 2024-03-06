@@ -6,7 +6,7 @@
 
 MateriaSource::MateriaSource()
 {
-	std::cout << "MateriaSource default destructor called." << std::endl;
+	std::cout << "MateriaSource default constructor called." << std::endl;
 	
 	_memory = new AMateria*[4];
 
@@ -57,9 +57,12 @@ void MateriaSource::learnMateria(AMateria* m)
 		if (!_memory[i])
 		{
 			_memory[i] = m;
-			break;
+			return;
 		}
 	}
+
+	std::cout << "Cannot learn Materia, memory is full." << std::endl;
+	delete m;
 }
 
 AMateria* MateriaSource::createMateria(std::string const & type)
@@ -69,7 +72,9 @@ AMateria* MateriaSource::createMateria(std::string const & type)
 		if (_memory[i]->getType() == type)
 			return (_memory[i]->clone());
 	}
-	return (0);
+
+	std::cout << "Cannot create Materia, type not found in memory." << std::endl;
+	return (nullptr);
 }
 
 void	MateriaSource::printMemory()
