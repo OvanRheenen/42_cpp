@@ -18,10 +18,10 @@ public:
 	AMNode(AMateria *m, AMNode *prev);
 	~AMNode();
 
-	AMNode	*getPrev();
-	AMNode	*getNext();
-	AMateria	*getMateria();
-	bool	getDelete();
+	AMNode		*getPrev() const;
+	AMNode		*getNext() const;
+	AMateria	*getMateria() const;
+	bool		getDelete() const;
 
 	void	setPrev(AMNode *prev);
 	void	setNext(AMNode *next);

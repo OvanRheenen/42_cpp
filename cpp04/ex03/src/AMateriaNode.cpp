@@ -33,22 +33,22 @@ AMNode::~AMNode()
 
 //--Member functions----------------------------------------------------------//
 
-AMNode	*AMNode::getPrev()
+AMNode	*AMNode::getPrev() const
 {
 	return (_prev);
 }
 
-AMNode	*AMNode::getNext()
+AMNode	*AMNode::getNext() const
 {
 	return (_next);
 }
 
-AMateria	*AMNode::getMateria()
+AMateria	*AMNode::getMateria() const
 {
 	return (_materia);
 }
 
-bool	AMNode::getDelete()
+bool	AMNode::getDelete() const
 {
 	return (_delete);
 }
