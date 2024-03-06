@@ -21,7 +21,20 @@ public:
 
 	void	incrementGrade();
 	void	decrementGrade();
+	
+	class GradeTooHighException : public std::exception
+	{
+	public:
+		virtual const char *what() const noexcept;
+	};
+
+	class GradeTooLowException : public std::exception
+	{
+	public:
+		virtual const char *what() const noexcept;
+	};
 };
+
 
 std::ostream	&operator<<(std::ostream &ostream, const Bureaucrat &bureaucrat);
 
