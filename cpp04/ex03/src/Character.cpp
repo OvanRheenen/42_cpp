@@ -76,6 +76,12 @@ std::string const & Character::getName() const
 
 void Character::equip(AMateria* m)
 {
+	if (m == nullptr)
+	{
+		std::cout << "Materia does not exist." << std::endl;
+		return;
+	}
+
 	if (m->getStatus() == EQUIPPED)
 	{
 		std::cout << _name << " cannot equip materia, it is already equipped by another character." << std::endl;
