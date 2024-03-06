@@ -3,28 +3,17 @@
 
 //--Con/destructors-----------------------------------------------------------//
 
-AMateria::AMateria()
-{
-	std::cout << "AMateria default constructor called." << std::endl;
-}
+AMateria::AMateria() {}
 
-AMateria::AMateria(std::string const & type) :
-	type(type), status(AVAILABLE)
-{
-	std::cout << "AMateria type constructor called." << std::endl;
-}
+AMateria::AMateria(std::string const & type) : type(type), status(AVAILABLE) {}
 
 AMateria::AMateria(const AMateria &other)
 {
-	std::cout << "AMateria copy constructor called." << std::endl;
-
 	*this = other;
 }
 
 AMateria &AMateria::operator=(const AMateria &other)
 {
-	std::cout << "AMateria copy assignment operator called." << std::endl;
-
 	if (this != &other)
 	{
 		this->type = other.type;
@@ -34,10 +23,7 @@ AMateria &AMateria::operator=(const AMateria &other)
 	return (*this);
 }
 
-AMateria::~AMateria()
-{
-	std::cout << "AMateria default destructor called." << std::endl;
-}
+AMateria::~AMateria() {}
 
 //--Member functions----------------------------------------------------------//
 

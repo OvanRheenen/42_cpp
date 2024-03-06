@@ -5,23 +5,15 @@
 
 int	Floor::_size = 0;
 
-Floor::Floor() 
-	: _firstNode(nullptr), _lastNode(nullptr)
-{
-	std::cout << "Floor default constructor called." << std::endl;
-}
+Floor::Floor() : _firstNode(nullptr), _lastNode(nullptr) {}
 
 Floor::Floor(const Floor &other)
 {
-	std::cout << "Floor copy constructor called." << std::endl;
-
 	*this = other;
 }
 
 Floor &Floor::operator=(const Floor &other)
 {
-	std::cout << "Floor copy assignment operator called." << std::endl;
-
 	AMNode	*currentNode = other._firstNode;
 	AMNode* copiedNode = nullptr;
 	AMNode* previousNode = nullptr;
@@ -48,8 +40,6 @@ Floor &Floor::operator=(const Floor &other)
 
 Floor::~Floor()
 {
-	std::cout << "Floor default destructor called." << std::endl;
-
 	while (_firstNode != nullptr)
 	{
 		AMNode *next = _firstNode->getNext();
