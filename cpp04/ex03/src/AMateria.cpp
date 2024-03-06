@@ -34,7 +34,8 @@ std::string const & AMateria::getType() const
 
 void AMateria::use(ICharacter& target)
 {
-	std::cout << "* nothing happens to " << target.getName() << " inside the base class *" << std::endl;
+	std::cout	<< "* nothing happens to " << target.getName() 
+				<< " inside the base class *" << std::endl;
 }
 
 Status AMateria::getStatus()
