@@ -1,10 +1,11 @@
 #include "Bureaucrat.hpp"
+#include <iostream>
 
 //--Con/destructors-----------------------------------------------------------//
 
 Bureaucrat::Bureaucrat() : _name("Default"), _grade(150) {}
 
-Bureaucrat::Bureaucrat(const std::string & name, const int grade)
+Bureaucrat::Bureaucrat(const std::string &name, const int grade)
 	: _name(name) 
 {
 	try
@@ -32,13 +33,13 @@ Bureaucrat::Bureaucrat(const std::string & name, const int grade)
 	}
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat & other)
+Bureaucrat::Bureaucrat(const Bureaucrat &other)
 	: _name(other._name)
 {
 	*this = other;
 }
 
-Bureaucrat &Bureaucrat::operator=(const Bureaucrat & other)
+Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
 	if (this != &other)
 		return (*this);
@@ -114,7 +115,7 @@ const char *Bureaucrat::GradeTooLowException::what() const noexcept
 
 //--Other functions-----------------------------------------------------------//
 
-std::ostream &operator<<(std::ostream &ostream, const Bureaucrat &bureaucrat)
+std::ostream & operator<<(std::ostream &ostream, const Bureaucrat &bureaucrat)
 {
 	ostream	<< bureaucrat.getName()
 			<< ", bureaucrat grade " << bureaucrat.getGrade() << ".";

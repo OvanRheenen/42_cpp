@@ -1,7 +1,7 @@
 #ifndef BUREAUCRAT_HPP
 # define BUREAUCRAT_HPP
 
-# include <iostream>
+# include <string>
 
 class Bureaucrat
 {
@@ -11,9 +11,9 @@ private:
 
 public:
 	Bureaucrat();
-	Bureaucrat(const std::string & name, const int grade);
-	Bureaucrat(const Bureaucrat & other);
-	Bureaucrat &operator=(const Bureaucrat & other);
+	Bureaucrat(const std::string &name, const int grade);
+	Bureaucrat(const Bureaucrat &other);
+	Bureaucrat &operator=(const Bureaucrat &other);
 	~Bureaucrat();
 
 	std::string	getName() const;
@@ -36,6 +36,6 @@ public:
 };
 
 
-std::ostream	&operator<<(std::ostream &ostream, const Bureaucrat &bureaucrat);
+std::ostream &operator<<(std::ostream &ostream, const Bureaucrat &bureaucrat);
 
 #endif
