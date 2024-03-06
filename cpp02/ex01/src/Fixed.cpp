@@ -37,11 +37,11 @@ Fixed::Fixed(const Fixed &fixedPointN)
 
 Fixed	&Fixed::operator=(const Fixed &fixedPointN)
 {
+	std::cout << "Copy assignment operator called" << std::endl;
+	
 	if (this != &fixedPointN)
 		this->setRawBits(fixedPointN.getRawBits());
 
-	std::cout << "Copy assignment operator called" << std::endl;
-	
 	return (*this);
 }
 
@@ -66,8 +66,8 @@ void	Fixed::setRawBits( int const raw )
 
 float	Fixed::toFloat( void ) const
 {
-	float f = _value >> _binPoint; 					// shift integer part past the fixed point
-	float dec = (_value & 255) / pow(2, _binPoint);	// get only the decimal binary value (_value & 255), shift point to the left by _binPoint places
+	float f = _value >> _binPoint; 							// shift integer part past the fixed point
+	float dec = (_value & 255) / pow(2, _binPoint);			// get only the decimal binary value (_value & 255), shift point to the left by _binPoint places
 	
 	return (f + dec);
 }
