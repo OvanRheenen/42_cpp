@@ -1,4 +1,4 @@
-NAME	:= bureaucrat2
+NAME	:= bureaucrat
 
 SRC_FILES	:=	main.cpp			\
 				Bureaucrat.cpp		\
