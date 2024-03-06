@@ -11,10 +11,13 @@ AMNode::AMNode(const AMNode &other)
 
 AMNode &AMNode::operator=(const AMNode &other)
 {
-	_materia = other._materia->clone();
-	_prev = other._prev;
-	_next = other._next;
-	_delete = other._delete;
+	if (this != &other)
+	{
+		_materia = other._materia->clone();
+		_prev = other._prev;
+		_next = other._next;
+		_delete = other._delete;
+	}
 
 	return (*this);
 }

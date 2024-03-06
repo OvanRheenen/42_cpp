@@ -14,26 +14,29 @@ Floor::Floor(const Floor &other)
 
 Floor &Floor::operator=(const Floor &other)
 {
-	AMNode	*currentNode = other._firstNode;
-	AMNode* copiedNode = nullptr;
-	AMNode* previousNode = nullptr;
-
-	while (currentNode)
+	if (this != &other)
 	{
-		AMateria *clonedMateria = currentNode->getMateria()->clone();
-		copiedNode = new AMNode(clonedMateria, nullptr);
+		AMNode	*currentNode = other._firstNode;
+		AMNode* copiedNode = nullptr;
+		AMNode* previousNode = nullptr;
 
-		if (previousNode)
-			previousNode->setNext(copiedNode);
-		else
-			_firstNode = copiedNode;
+		while (currentNode)
+		{
+			AMateria *clonedMateria = currentNode->getMateria()->clone();
+			copiedNode = new AMNode(clonedMateria, nullptr);
 
-		previousNode = copiedNode;
-    	currentNode = currentNode->getNext();
+			if (previousNode)
+				previousNode->setNext(copiedNode);
+			else
+				_firstNode = copiedNode;
+
+			previousNode = copiedNode;
+			currentNode = currentNode->getNext();
+		}
+
+		_lastNode = copiedNode;
+		_size = other._size;
 	}
-
-	_lastNode = copiedNode;
-	_size = other._size;
 
 	return (*this);
 }
