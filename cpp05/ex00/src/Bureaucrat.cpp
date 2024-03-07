@@ -20,14 +20,14 @@ Bureaucrat::Bureaucrat(const std::string &name, const int grade)
 	catch (Bureaucrat::GradeTooHighException& e)
 	{
 		_grade = 150;
-		std::cout	<< e.what()
+		std::cerr	<< e.what()
 					<< "-> grade set to default 150 for " << this->_name
 					<< std::endl;
 	}
 	catch (Bureaucrat::GradeTooLowException& e)
 	{
 		_grade = 150;
-		std::cout	<< e.what()
+		std::cerr	<< e.what()
 					<< "-> grade set to default 150 for " << this->_name
 					<< std::endl;
 	}
@@ -76,7 +76,7 @@ void	Bureaucrat::incrementGrade()
 	catch (Bureaucrat::GradeTooLowException& e)
 	{
 		_grade++;
-		std::cout	<< "Exception caught: " << e.what()
+		std::cerr	<< "Exception caught: " << e.what()
 					<< "-> grade set back to 1 for " << this->_name
 					<< std::endl;
 	}
@@ -95,7 +95,7 @@ void	Bureaucrat::decrementGrade()
 	catch (Bureaucrat::GradeTooHighException& e)
 	{
 		_grade--;
-		std::cout	<< "Exception caught: " << e.what()
+		std::cerr	<< "Exception caught: " << e.what()
 					<< "-> grade set back to 150 for " << this->_name
 					<< std::endl;
 	}
