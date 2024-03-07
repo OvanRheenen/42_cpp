@@ -3,26 +3,15 @@
 
 //--Con/destructors-----------------------------------------------------------//
 
-Form::Form() : _name("Default"), _signed(false), _gradeSign(150), _gradeExe(150) {}
+Form::Form() : _name("Default"), _signed(false), _gradeSign(MIN_GRADE), _gradeExe(MIN_GRADE) {}
 
 Form::Form(const std::string &name, const int gradeSign, const int gradeExe)
 	: _name(name), _signed(false), _gradeSign(gradeSign), _gradeExe(gradeExe)
 {
-	try
-	{
-		if (_gradeSign > 150 || _gradeExe > 150)
-			throw (Form::GradeTooHighException());
-		if (_gradeSign < 1 || _gradeExe < 1)
-			throw (Form::GradeTooLowException());
-	}
-	catch(const Form::GradeTooHighException& e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
-	catch(const Form::GradeTooLowException& e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
+	if (_gradeSign > MIN_GRADE || _gradeExe > MIN_GRADE)
+		throw (Form::GradeTooHighException());
+	if (_gradeSign < MAX_GRADE || _gradeExe < MAX_GRADE)
+		throw (Form::GradeTooLowException());
 }
 
 Form::Form(const Form &other)
@@ -69,7 +58,7 @@ void	Form::beSigned(Bureaucrat &bureaucrat)
 {
 	if (_signed == true)
 	{
-		std::cout << "Form '" << _name << "' is already signed." << std::endl;
+		std::cout << _name << " is already signed." << std::endl;
 		return;
 	}
 
@@ -98,7 +87,7 @@ const char *Form::GradeTooLowException::what() const noexcept
 
 std::ostream &operator<<(std::ostream &ostream, const Form &form)
 {
-	ostream	<< "Form '" << form.getName() << "' is "
+	ostream	<< form.getName() << " is "
 			<< (form.getSigned() ? "signed" : "not signed") << ".\n"
 			<< "Grade required to sign: " << form.getGradeSign() << ".\n"
 			<< "Grade required to execute: " << form.getGradeExe() << ".";

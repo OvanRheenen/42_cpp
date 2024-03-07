@@ -4,7 +4,7 @@
 
 //--Con/destructors-----------------------------------------------------------//
 
-Bureaucrat::Bureaucrat() : _name("Default"), _grade(150) {}
+Bureaucrat::Bureaucrat() : _name("Default"), _grade(MIN_GRADE) {}
 
 Bureaucrat::Bureaucrat(const std::string &name, const int grade)
 	: _name(name) 
@@ -13,21 +13,21 @@ Bureaucrat::Bureaucrat(const std::string &name, const int grade)
 	{
 		_grade = grade;
 		
-		if (_grade > 150)
+		if (_grade > MIN_GRADE)
 			throw (Bureaucrat::GradeTooHighException());
-		else if (_grade < 1)
+		else if (_grade < MAX_GRADE)
 			throw (Bureaucrat::GradeTooLowException());
 	}
 	catch (Bureaucrat::GradeTooHighException& e)
 	{
-		_grade = 150;
+		_grade = MIN_GRADE;
 		std::cerr	<< e.what()
 					<< "-> grade set to default 150 for " << this->_name
 					<< std::endl;
 	}
 	catch (Bureaucrat::GradeTooLowException& e)
 	{
-		_grade = 150;
+		_grade = MIN_GRADE;
 		std::cerr	<< e.what()
 					<< "-> grade set to default 150 for " << this->_name
 					<< std::endl;
@@ -71,7 +71,7 @@ void	Bureaucrat::incrementGrade()
 	{
 		_grade--;
 
-		if (_grade < 1)
+		if (_grade < MAX_GRADE)
 			throw (Bureaucrat::GradeTooLowException());
 	}
 	catch (Bureaucrat::GradeTooLowException& e)
@@ -90,7 +90,7 @@ void	Bureaucrat::decrementGrade()
 	{
 		_grade++;
 	
-		if (_grade > 150)
+		if (_grade > MIN_GRADE)
 			throw (Bureaucrat::GradeTooHighException());
 	}
 	catch (Bureaucrat::GradeTooHighException& e)
@@ -105,7 +105,7 @@ void	Bureaucrat::decrementGrade()
 void	Bureaucrat::signForm(const Form &form) const
 {
 	if (form.getSigned())
-		std::cout << getName() << " signed " << form.getName() << std::endl;
+		std::cout << getName() << " signed " << form.getName() << "." << std::endl;
 	else
 		std::cerr	<< getName() << " couldn't sign " << form.getName()
 					<< " because their grade is too low." << std::endl;
