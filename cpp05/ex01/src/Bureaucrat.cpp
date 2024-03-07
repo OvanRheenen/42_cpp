@@ -1,3 +1,4 @@
+#include "Form.hpp"
 #include "Bureaucrat.hpp"
 #include <iostream>
 
@@ -20,14 +21,14 @@ Bureaucrat::Bureaucrat(const std::string &name, const int grade)
 	catch (Bureaucrat::GradeTooHighException& e)
 	{
 		_grade = 150;
-		std::cout	<< e.what()
+		std::cerr	<< e.what()
 					<< "-> grade set to default 150 for " << this->_name
 					<< std::endl;
 	}
 	catch (Bureaucrat::GradeTooLowException& e)
 	{
 		_grade = 150;
-		std::cout	<< e.what()
+		std::cerr	<< e.what()
 					<< "-> grade set to default 150 for " << this->_name
 					<< std::endl;
 	}
@@ -41,7 +42,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &other)
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
-	if (this != &other)
+	if (this == &other)
 		return (*this);
 	
 	this->_grade = other._grade;
@@ -76,7 +77,7 @@ void	Bureaucrat::incrementGrade()
 	catch (Bureaucrat::GradeTooLowException& e)
 	{
 		_grade++;
-		std::cout	<< "Exception caught: " << e.what()
+		std::cerr	<< "Exception caught: " << e.what()
 					<< "-> grade set back to 1 for " << this->_name
 					<< std::endl;
 	}
@@ -95,15 +96,19 @@ void	Bureaucrat::decrementGrade()
 	catch (Bureaucrat::GradeTooHighException& e)
 	{
 		_grade--;
-		std::cout	<< "Exception caught: " << e.what()
+		std::cerr	<< "Exception caught: " << e.what()
 					<< "-> grade set back to 150 for " << this->_name
 					<< std::endl;
 	}
 }
 
-void	Bureaucrat::signForm()
+void	Bureaucrat::signForm(const Form &form) const
 {
-	// sign form
+	if (form.getSigned())
+		std::cout << getName() << " signed " << form.getName() << std::endl;
+	else
+		std::cerr	<< getName() << " couldn't sign " << form.getName()
+					<< " because their grade is too low." << std::endl;
 }
 
 //--Exceptions----------------------------------------------------------------//

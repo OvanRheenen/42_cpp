@@ -3,6 +3,7 @@
 
 # include <string>
 # include "Bureaucrat.hpp"
+
 class Form
 {
 private:
@@ -13,6 +14,7 @@ private:
 
 public:
 	Form();
+	Form(const std::string &name, const int gradeSign, const int gradeExe);
 	Form(const Form &other);
 	Form &operator=(const Form &other);
 	~Form();
@@ -22,7 +24,7 @@ public:
 	int			getGradeSign() const;
 	int			getGradeExe() const;
 
-	void	beSigned(const Bureaucrat &bureaucrat);
+	void	beSigned(Bureaucrat &bureaucrat);
 
 	class GradeTooHighException : public std::exception
 	{
