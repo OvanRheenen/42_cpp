@@ -24,6 +24,8 @@ public:
 	std::string	getName() const;
 	int			getGrade() const;
 
+	void	setGrade(const int grade);
+
 	void	incrementGrade();
 	void	decrementGrade();
 
