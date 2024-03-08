@@ -8,24 +8,92 @@
 
 int	main(void)
 {
-	Bureaucrat *dude = new Bureaucrat("Tymon", 25);
-	Bureaucrat *pres = new Bureaucrat("The President", 1);
-	AForm *shrub = new ShrubberyCreationForm("test");
+	{	// Shrubbery test
+		std::cout << "Shrubbery form test:\n" << std::endl;
 
-	try
-	{
-		shrub->beSigned(*dude);
+		Bureaucrat *dude = new Bureaucrat("Employee", 50);
+		Bureaucrat *pres = new Bureaucrat("The President", 1);
+		AForm *shrubForm = new ShrubberyCreationForm("test");
+
+		try
+		{
+			shrubForm->beSigned(*dude);
+		}
+		catch (Bureaucrat::GradeTooLowException& e)
+		{
+			std::cerr	<< dude->getName() 
+						<< " coudln't sign " << shrubForm->getName()
+						<< ": " << e.what() << std::endl;
+		}
+
+		dude->executeForm(*shrubForm);
+		pres->executeForm(*shrubForm);
+
+		delete dude;
+		delete pres;
+		delete shrubForm;
 	}
-	catch (Bureaucrat::GradeTooLowException& e)
-	{
-		std::cerr	<< dude->getName() 
-					<< " coudln't sign " << shrub->getName()
-					<< ": " << e.what() << std::endl;
+	std::cout << "-----------------------------------------" << std::endl;
+	{	// Robotmy test
+		std::cout << "Robotomy form test:\n" << std::endl;
+
+		Bureaucrat *dude = new Bureaucrat("Employee", 50);
+		Bureaucrat *pres = new Bureaucrat("The President", 1);
+		AForm *robForm = new RobotomyRequestForm("Employee");
+
+		try
+		{
+			robForm->beSigned(*dude);
+		}
+		catch (Bureaucrat::GradeTooLowException& e)
+		{
+			std::cerr	<< dude->getName() 
+						<< " coudln't sign " << robForm->getName()
+						<< ": " << e.what() << std::endl;
+		}
+
+		dude->executeForm(*robForm);
+		pres->executeForm(*robForm);
+
+		delete dude;
+		delete pres;
+		delete robForm;
 	}
+	std::cout << "-----------------------------------------" << std::endl;
+	{	// Pardon test
+		std::cout << "Pardon form test:\n" << std::endl;
 
-	pres->executeForm(*shrub);
+		Bureaucrat *dude = new Bureaucrat("Employee", 50);
+		Bureaucrat *pres = new Bureaucrat("The President", 1);
+		AForm *pardonForm = new PresidentialPardonForm("Criminal 1");
 
-	delete dude;
-	delete pres;
-	delete shrub;
+		try
+		{
+			pardonForm->beSigned(*dude);
+		}
+		catch (Bureaucrat::GradeTooLowException& e)
+		{
+			std::cerr	<< dude->getName() 
+						<< " coudln't sign " << pardonForm->getName()
+						<< ": " << e.what() << std::endl;
+		}
+
+		try
+		{
+			pardonForm->beSigned(*pres);
+		}
+		catch (Bureaucrat::GradeTooLowException& e)
+		{
+			std::cerr	<< dude->getName() 
+						<< " coudln't sign " << pardonForm->getName()
+						<< ": " << e.what() << std::endl;
+		}
+
+		dude->executeForm(*pardonForm);
+		pres->executeForm(*pardonForm);
+
+		delete dude;
+		delete pres;
+		delete pardonForm;
+	}
 }
