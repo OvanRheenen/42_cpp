@@ -11,21 +11,16 @@ Bureaucrat::Bureaucrat(const std::string &name, const int grade)
 {
 	try
 	{
-		_grade = grade;
-		
-		if (_grade > MIN_GRADE)
-			throw (Bureaucrat::GradeTooHighException());
-		else if (_grade < MAX_GRADE)
-			throw (Bureaucrat::GradeTooLowException());
+		setGrade(grade);
 	}
-	catch (Bureaucrat::GradeTooHighException& e)
+	catch (Bureaucrat::GradeTooLowException& e)
 	{
 		_grade = MIN_GRADE;
 		std::cerr	<< e.what()
 					<< "-> grade set to default 150 for " << this->_name
 					<< std::endl;
 	}
-	catch (Bureaucrat::GradeTooLowException& e)
+	catch (Bureaucrat::GradeTooHighException& e)
 	{
 		_grade = MIN_GRADE;
 		std::cerr	<< e.what()
@@ -65,39 +60,40 @@ int			Bureaucrat::getGrade() const
 	return (_grade);
 }
 
+void	Bureaucrat::setGrade(const int grade)
+{
+	if (grade > 150)
+		throw (Bureaucrat::GradeTooLowException());
+	if (grade < 1)
+		throw (Bureaucrat::GradeTooHighException());
+	
+	this->_grade = grade;
+}
+
 void	Bureaucrat::incrementGrade()
 {
 	try
 	{
-		_grade--;
-
-		if (_grade < MAX_GRADE)
-			throw (Bureaucrat::GradeTooLowException());
+		setGrade(_grade - 1);
 	}
-	catch (Bureaucrat::GradeTooLowException& e)
+	catch (Bureaucrat::GradeTooHighException& e)
 	{
-		_grade++;
 		std::cerr	<< "Exception caught: " << e.what()
-					<< "-> grade set back to 1 for " << this->_name
+					<< "-> grade kept at 1 for " << this->_name
 					<< std::endl;
 	}
-	
 }
 
 void	Bureaucrat::decrementGrade()
 {
 	try
 	{
-		_grade++;
-	
-		if (_grade > MIN_GRADE)
-			throw (Bureaucrat::GradeTooHighException());
+		setGrade(_grade + 1);
 	}
-	catch (Bureaucrat::GradeTooHighException& e)
+	catch (Bureaucrat::GradeTooLowException& e)
 	{
-		_grade--;
 		std::cerr	<< "Exception caught: " << e.what()
-					<< "-> grade set back to 150 for " << this->_name
+					<< "-> grade kept at 150 for " << this->_name
 					<< std::endl;
 	}
 }
@@ -110,6 +106,8 @@ void	Bureaucrat::signForm(const Form &form) const
 		std::cerr	<< getName() << " couldn't sign " << form.getName()
 					<< " because their grade is too low." << std::endl;
 }
+
+void	Bureaucrat::executeForm(AForm const & form);
 
 //--Exceptions----------------------------------------------------------------//
 
