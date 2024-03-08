@@ -1,4 +1,4 @@
-#include "Form.hpp"
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
 #include <iostream>
 
@@ -98,27 +98,45 @@ void	Bureaucrat::decrementGrade()
 	}
 }
 
-void	Bureaucrat::signForm(const Form &form) const
+void	Bureaucrat::signForm(const AForm &form) const
 {
 	if (form.getSigned())
 		std::cout << getName() << " signed " << form.getName() << "." << std::endl;
-	else
-		std::cerr	<< getName() << " couldn't sign " << form.getName()
-					<< " because their grade is too low." << std::endl;
 }
 
-void	Bureaucrat::executeForm(AForm const & form);
+void	Bureaucrat::executeForm(AForm const &form)
+{
+	try
+	{
+		form.execute(*this);
+	}
+	catch (AForm::FormNotSignedException& e)
+	{
+		std::cerr	<< _name
+					<< " couldn't execute " << form.getName() 
+					<< ": " << e.what() << std::endl;
+	}
+	catch (Bureaucrat::GradeTooLowException& e)
+	{
+		std::cerr	<< _name
+					<< " couldn't execute " << form.getName() 
+					<< ": " << e.what() << std::endl;
+	}
+
+	std::cout << _name << " executed " << form.getName() << " Successfully." << std::endl;
+}
+
 
 //--Exceptions----------------------------------------------------------------//
 
 const char *Bureaucrat::GradeTooHighException::what() const noexcept
 {
-	return ("out of range: too high.");
+	return ("grade too high.");
 }
 
 const char *Bureaucrat::GradeTooLowException::what() const noexcept
 {
-	return ("out of range: too low.");
+	return ("grade too low.");
 }
 
 //--Other functions-----------------------------------------------------------//
