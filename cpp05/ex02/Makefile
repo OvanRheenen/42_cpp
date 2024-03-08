@@ -39,6 +39,7 @@ clean:
 	rm -rf $(OBJ_DIR)
 
 fclean: clean
+	rm -f *_shrubbery
 	rm -f $(NAME)
 
 run: all
