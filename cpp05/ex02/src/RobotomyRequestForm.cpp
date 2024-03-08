@@ -6,10 +6,10 @@
 //--Con/destructors-----------------------------------------------------------//
 
 RobotomyRequestForm::RobotomyRequestForm()
-	: AForm("Presindential Pardon", 72, 45, "Default Person") {}
+	: AForm("Robotomy Request", 72, 45, "Default Person") {}
 
 RobotomyRequestForm::RobotomyRequestForm(const std::string &target)
-	: AForm("Presidential Pardon", 72, 45, target) {}
+	: AForm("Robotomy Request", 72, 45, target) {}
 
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &other)
 	: AForm(other.getName(), other.getGradeSign(), other.getGradeExe(), other.getTarget())
