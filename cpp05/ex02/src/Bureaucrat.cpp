@@ -115,12 +115,14 @@ void	Bureaucrat::executeForm(AForm const &form)
 		std::cerr	<< _name
 					<< " couldn't execute " << form.getName() 
 					<< ": " << e.what() << std::endl;
+		return;
 	}
 	catch (Bureaucrat::GradeTooLowException& e)
 	{
 		std::cerr	<< _name
 					<< " couldn't execute " << form.getName() 
 					<< ": " << e.what() << std::endl;
+		return;
 	}
 
 	std::cout << _name << " executed " << form.getName() << " Successfully." << std::endl;
