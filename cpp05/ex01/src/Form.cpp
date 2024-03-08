@@ -9,9 +9,9 @@ Form::Form(const std::string &name, const int gradeSign, const int gradeExe)
 	: _name(name), _signed(false), _gradeSign(gradeSign), _gradeExe(gradeExe)
 {
 	if (_gradeSign > MIN_GRADE || _gradeExe > MIN_GRADE)
-		throw (Form::GradeTooHighException());
-	if (_gradeSign < MAX_GRADE || _gradeExe < MAX_GRADE)
 		throw (Form::GradeTooLowException());
+	if (_gradeSign < MAX_GRADE || _gradeExe < MAX_GRADE)
+		throw (Form::GradeTooHighException());
 }
 
 Form::Form(const Form &other)
