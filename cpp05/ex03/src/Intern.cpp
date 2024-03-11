@@ -8,7 +8,10 @@
 
 Intern::Intern() {}
 
-Intern::Intern(const Intern &other) {}
+Intern::Intern(const Intern &other)
+{
+	*this = other;
+}
 
 Intern &Intern::operator=(const Intern &other)
 {
@@ -57,10 +60,11 @@ AForm *Intern::makeForm(const std::string &formType, const std::string &target)
 	{
 		if (formType == formTypes[i])
 		{
-			std::cout << "Intern creates " << formType << "." << std::endl;
+			std::cout << "Intern creates " << formType << " form." << std::endl;
 			return (funcs[i](target));
 		}
 	}
 
+	std::cerr << "Error: form '" << formType << "' does not exist." << std::endl;
 	return (nullptr);
 }
