@@ -2,12 +2,12 @@
 
 //--Con/destructors-----------------------------------------------------------//
 
-DiamondTrap::DiamondTrap() : ClapTrap(), ScavTrap(), FragTrap()
+DiamondTrap::DiamondTrap() : ClapTrap(), ScavTrap(), FragTrap(),
+	_name("Default")
 {
 	ScavTrap	tmpScav;
 	FragTrap	tmpFrag;
 
-	_name = "Default";
 	ClapTrap::setName(_name + "_clap_name");
 
 	setHitPoints(tmpFrag.getHitPoints());
@@ -19,12 +19,12 @@ DiamondTrap::DiamondTrap() : ClapTrap(), ScavTrap(), FragTrap()
 			<< " created" << std::endl;
 }
 
-DiamondTrap::DiamondTrap(const std::string &name)  : ClapTrap(name), ScavTrap(name), FragTrap(name)
+DiamondTrap::DiamondTrap(const std::string &name)  : ClapTrap(name), ScavTrap(name), FragTrap(name),
+	_name(name)
 {
 	ScavTrap	tmpScav;
 	FragTrap	tmpFrag;
 
-	_name = name;
 	ClapTrap::setName(_name + "_clap_name");
 
 	setHitPoints(tmpFrag.getHitPoints());
