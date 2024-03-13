@@ -1,4 +1,4 @@
-NAME	:= bitman3
+NAME	:= fixed
 
 SRC_FILES	:=	main.cpp	\
 				Fixed.cpp

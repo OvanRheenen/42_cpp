@@ -1,4 +1,4 @@
-NAME	:= animal3
+NAME	:= animal
 
 SRC_FILES	:=	main.cpp		\
 				Animal.cpp		\

@@ -1,4 +1,4 @@
-NAME	:= claptrap2
+NAME	:= claptrap
 
 SRC_FILES	:=	main.cpp		\
 				ClapTrap.cpp	\
