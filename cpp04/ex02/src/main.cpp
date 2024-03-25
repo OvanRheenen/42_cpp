@@ -1,19 +1,19 @@
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
 
 int	main(void)
 {
 	{ // given tests
-		const Animal* j = new Dog();
-		const Animal* i = new Cat();
+		const AAnimal* j = new Dog();
+		const AAnimal* i = new Cat();
 
 		delete j;
 		delete i;
 	}
 	{ // array test
 		const int size = 100;
-		Animal* animals[size];
+		AAnimal* animals[size];
 
 		for (int i = 0; i < size / 2; i++)
 		{
@@ -38,8 +38,8 @@ int	main(void)
 		a.printMemLocBrain();
 		b.printMemLocBrain();
 	}
-	// { // Animal class cannot be instantiated test, does not compile
-	// 	const Animal* a = new Animal();
-	// 	const Animal* b = new Animal();
+	// { // AAnimal class cannot be instantiated test, does not compile
+	// 	const AAnimal* a = new AAnimal();
+	// 	const AAnimal* b = new AAnimal();
 	// }
 }

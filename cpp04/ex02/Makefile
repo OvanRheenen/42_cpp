@@ -1,7 +1,7 @@
 NAME	:= animal
 
 SRC_FILES	:=	main.cpp		\
-				Animal.cpp		\
+				AAnimal.cpp		\
 				Brain.cpp		\
 				Cat.cpp			\
 				Dog.cpp
