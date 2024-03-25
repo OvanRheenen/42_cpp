@@ -41,11 +41,11 @@ int	main(void)
 		a.printMemLocBrain();
 		b.printMemLocBrain();
 
-		WrongCat c;
-		WrongCat d(c);
+		// WrongCat c;
+		// WrongCat d(c);
 
-		std::cout << std::endl << "Shallow copy:" << std::endl;
-		c.printMemLocBrain();
-		d.printMemLocBrain();
+		// std::cout << std::endl << "Shallow copy (will give a double free error):" << std::endl;
+		// c.printMemLocBrain();
+		// d.printMemLocBrain();
 	}
 }
