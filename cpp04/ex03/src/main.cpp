@@ -53,6 +53,7 @@ int main()
 		me->equip(tmp);
 
 		for (int i = 0; i < 4; i++) {
+			me->use(i, *me);
 			me->unequip(i);
 		}
 
