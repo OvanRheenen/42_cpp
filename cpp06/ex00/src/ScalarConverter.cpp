@@ -1,4 +1,6 @@
 #include "ScalarConverter.hpp"
+#include <iostream>
+#include <string>
 
 //--Con/destructors-----------------------------------------------------------//
 
@@ -20,4 +22,13 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &other)
 ScalarConverter::~ScalarConverter()
 {
 
+}
+
+//--Member functions----------------------------------------------------------//
+
+void	ScalarConverter::convert(const std::string &s)
+{
+	// check which type
+
+	// convert for rest
 }
