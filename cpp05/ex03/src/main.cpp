@@ -10,7 +10,7 @@
 int main(void)
 {
 	{ // subject test
-		std::cout << "Normal test\n" << std::endl;
+		std::cout << "Normal test:\n" << std::endl;
 
 		Intern	someIntern;
 		AForm	*form;
@@ -22,12 +22,12 @@ int main(void)
 	}
 	std::cout << "-----------------------------------------------" << std::endl;
 	{ 
-		std::cout << "Non-existent form test\n" << std::endl;
+		std::cout << "Non-existent form test:\n" << std::endl;
 
 		Intern	intern1;
 		AForm	*form;
 
-		form = intern1.makeForm("Housing contract", "expat");
+		form = intern1.makeForm("Housing contract", "Expat");
 
 		if (form != nullptr)
 			delete form;
@@ -40,7 +40,7 @@ int main(void)
 		Bureaucrat	*pres = new Bureaucrat("The President", 1);
 		Intern		*newGuy = new Intern();
 		
-		AForm *pardonForm = newGuy->makeForm("Presidential Pardon", "some criminal");
+		AForm *pardonForm = newGuy->makeForm("Presidential Pardon", "Some criminal");
 
 		try
 		{
@@ -59,7 +59,7 @@ int main(void)
 		}
 		catch (Bureaucrat::GradeTooLowException& e)
 		{
-			std::cerr	<< dude->getName() 
+			std::cerr	<< pres->getName() 
 						<< " coudln't sign " << pardonForm->getName()
 						<< ": " << e.what() << std::endl;
 		}
