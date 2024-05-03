@@ -21,7 +21,7 @@ Bureaucrat::Bureaucrat(const std::string &name, const int grade)
 	}
 	catch (Bureaucrat::GradeTooHighException& e)
 	{
-		_grade = MIN_GRADE;
+		_grade = MAX_GRADE;
 		std::cerr	<< e.what()
 					<< "-> grade set to default 150 for " << this->_name
 					<< std::endl;
@@ -61,9 +61,9 @@ int			Bureaucrat::getGrade() const
 
 void	Bureaucrat::setGrade(const int grade)
 {
-	if (grade > 150)
+	if (grade > MIN_GRADE)
 		throw (Bureaucrat::GradeTooLowException());
-	if (grade < 1)
+	if (grade < MAX_GRADE)
 		throw (Bureaucrat::GradeTooHighException());
 	
 	this->_grade = grade;
