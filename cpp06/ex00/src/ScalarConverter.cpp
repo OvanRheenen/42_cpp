@@ -29,21 +29,51 @@ ScalarConverter::~ScalarConverter()
 
 //--Member functions----------------------------------------------------------//
 
+int	checkLimits(const std::string &s, e_type type)
+{
+	try
+	{
+		switch (type)
+		{
+			case INT:
+				std::stoi(s);
+				break;
+			case DOUBLE:
+				std::stod(s);
+				break;
+			case FLOAT:
+				std::cout << "performing stof" << std::endl;
+				std::stof(s);
+				break;
+			default:
+				break;
+		}
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr	<< e.what() 
+					<< " couldn't be performed; converted value out of range."
+					<< std::endl;
+		return (1);
+	}
+	return (0);
+}
+
 e_type	determineIntFloatDouble(const std::string &s)
 {
 	size_t len = s.length();
 	size_t i = 0;
 	e_type ret = INT;
 
-	if (s.at(0) == '-')
+	if (s[0] == '-')
 		i++;
 	while (i < len)
 	{
-		if (!std::isdigit(s.at(i)))
+		if (!std::isdigit(s[i]))
 		{
-			if (s.at(i) == '.' && ret != DOUBLE)
+			if (s[i] == '.' && ret != DOUBLE)
 				ret = DOUBLE;
-			else if (s.at(i) == 'f' && ret == DOUBLE && i == len - 1)
+			else if (s[i] == 'f' && ret == DOUBLE && i == len - 1)
 				ret = FLOAT;
 			else
 			{
@@ -53,14 +83,16 @@ e_type	determineIntFloatDouble(const std::string &s)
 		}
 		i++;
 	}
+	if (checkLimits(s, ret))
+		ret = INVALID;
 	return (ret);
 }
 
 e_type	getInputType(const std::string &s)
 {
-	if (s.length() == 1 && !std::isdigit(s.at(0)))
+	if (s.length() == 1 && !std::isdigit(s[0]))
 		return (CHAR);
-	else if (s == "nan")
+	else if (s == "nan" || s == "nanf")
 		return (NAN);
 	else if (s == "-inff" || s == "+inff" || s == "-inf" || s == "+inf")
 		return (INF);
@@ -68,89 +100,15 @@ e_type	getInputType(const std::string &s)
 		return (determineIntFloatDouble(s));
 }
 
-void convertAndPrintChar(e_type type, const std::string &s)
-{
-	char toPrint;
-
-	if (type == CHAR)
-		toPrint = s.at(0);
-	else
-	{
-		//convert int
-		//convert float
-		//convert double
-		toPrint = 'a';
-	}
-
-	std::cout << "char: '" << toPrint << "'" << std::endl;
-}
-
-void convertAndPrintInt(e_type type, const std::string &s)
-{
-	int toPrint;
-
-	if (type == INT)
-		toPrint = std::stoi(s);
-	else
-	{
-		//convert char
-		//convert float
-		//convert double
-		toPrint = 0;
-	}
-
-	std::cout << "int: " << toPrint << std::endl;
-}
-
-void convertAndPrintFloat(e_type type, const std::string &s)
-{
-	float toPrint;
-
-	if (type == FLOAT)
-		toPrint = std::stof(s);
-	else
-	{
-		//convert char
-		//convert int
-		//convert double
-		toPrint = 0.0f;
-	}
-
-	if (toPrint - (int)toPrint != 0)
-		std::cout << "float: " << toPrint << "f" << std::endl;
-	else
-		std::cout << "float: " << toPrint << ".0f" << std::endl;
-}
-
-void convertAndPrintDouble(e_type type, const std::string &s)
-{
-	double toPrint;
-
-	if (type == DOUBLE)
-		toPrint = std::stod(s);
-	else
-	{
-		//convert char
-		//convert int
-		//convert float
-		toPrint = 0.0;
-	}
-
-	if (toPrint - (int)toPrint != 0)
-		std::cout << "double: " << toPrint << std::endl;
-	else
-		std::cout << "double: " << toPrint << ".0" << std::endl;
-}
-
-
 void	ScalarConverter::convert(const std::string &s)
 {
 		std::string types[7] = {"char","int","float","double","nan","inf","invalid"};
 		std::cout << types[getInputType(s)] << std::endl;
 
 	e_type type = getInputType(s);
-	convertAndPrintChar(type, s);
-	convertAndPrintInt(type, s);
-	convertAndPrintFloat(type, s);
-	convertAndPrintDouble(type, s);
+	if (type == INVALID)
+	{
+		std::cout << "try some valid shit my man" << std::endl;
+		return;
+	}
 }
