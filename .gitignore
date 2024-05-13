@@ -23,7 +23,6 @@ animal
 materia
 ## cpp05
 bureaucrat
-*_shrubbery
 ## cpp06
 scalar
 
@@ -32,3 +31,4 @@ scalar
 
 # Results
 *.replace
+*_shrubbery
