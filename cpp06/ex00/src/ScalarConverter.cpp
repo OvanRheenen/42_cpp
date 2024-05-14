@@ -8,10 +8,14 @@
 
 ScalarConverter::ScalarConverter() {}
 
-ScalarConverter::ScalarConverter(const ScalarConverter &other) {}
+ScalarConverter::ScalarConverter(const ScalarConverter &other)
+{
+	(void)other;
+}
 
 ScalarConverter &ScalarConverter::operator=(const ScalarConverter &other)
 {
+	(void)other;
 	return (*this);
 }
 
@@ -32,16 +36,14 @@ static int	checkLimits(const std::string &s, e_type type)
 				std::stod(s);
 				break;
 			case FLOAT:
-				std::cout << "performing stof" << std::endl;
 				std::stof(s);
 				break;
-			default:
-				break;
+			default:; //do nothing, shouldn't get to here
 		}
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr	<< e.what() 
+		std::cerr	<< e.what()
 					<< " couldn't be performed; converted value out of range."
 					<< std::endl;
 		return (1);
@@ -94,10 +96,12 @@ static e_type	getInputType(const std::string &s)
 
 static void printConvertChar(const std::string &s)
 {
-	std::cout	<< "char: '" << s[0] << "'\n"
-				<< "int: " << static_cast<int>(s[0]) << "\n"
-				<< "float: " << static_cast<float>(s[0]) << ".0f\n"
-				<< "double: " << static_cast<double>(s[0]) << ".0"
+	char c = s[0];
+
+	std::cout	<< "char: '" << c << "'\n"
+				<< "int: " << static_cast<int>(c) << "\n"
+				<< "float: " << static_cast<float>(c) << ".0f\n"
+				<< "double: " << static_cast<double>(c) << ".0"
 				<< std::endl;
 }
 
@@ -105,10 +109,28 @@ static void printConvertInt(const std::string &s)
 {
 	int i = std::stoi(s);
 
-	std::cout	<< "char: " << (i > 31 && i < 127 ? ("'" + std::string(1, static_cast<char>(i)) + "'") : "Non displayable") << "\n"
+	std::string charConversion;
+	if (i > 31 && i < 127)
+		charConversion = "'" + std::string(1, static_cast<char>(i)) + "'";
+	else
+		charConversion = "Non displayable";
+
+	std::string floatSuffix;
+	if (i > -1000000 && i < 1000000)
+		floatSuffix = ".0f";
+	else
+		floatSuffix = "f";
+
+	std::string doubleSuffix;
+	if (i > -1000000 && i < 1000000)
+		doubleSuffix = ".0";
+	else
+		doubleSuffix = "";
+
+	std::cout	<< "char: " << charConversion << "\n"
 				<< "int: " << i << "\n"
-				<< "float: " << static_cast<float>(i) << ".0f\n"
-				<< "double: " << static_cast<double>(i) << ".0"
+				<< "float: " << static_cast<float>(i) << floatSuffix << "\n"
+				<< "double: " << static_cast<double>(i) << doubleSuffix
 				<< std::endl;
 }
 
@@ -116,10 +138,28 @@ static void printConvertFloat(const std::string &s)
 {
 	float f = std::stof(s);
 
-	std::cout	<< "char: " << (std::floor(f) > 31 && std::floor(f) < 127 ? ("'" + std::string(1, static_cast<char>(f)) + "'") : "Non displayable") << "\n" //should print "impossible" if out of int range
-				<< "int: " << (std::floor(f) > (float)INT32_MAX || std::ceil(f) < (float)INT32_MIN ? "impossible" : std::to_string(static_cast<int>(f))) << "\n"
-				<< "float: " << std::to_string(f) << (f - std::floor(f) == 0 ? ".0f" : "f") << "\n"
-				<< "double: " << static_cast<double>(f) << ((f - std::floor(f) == 0) ? ".0" : "")
+	std::string charConversion;
+	if (std::floor(f) > 31 && std::floor(f) < 127)
+		charConversion = "'" + std::string(1, static_cast<char>(f)) + "'";
+	else
+		charConversion = "Non displayable";
+
+	std::string intConversion;
+	if (std::floor(f) <= (float)INT32_MAX && std::ceil(f) >= (float)INT32_MIN)
+		intConversion = std::to_string(static_cast<int>(f));
+	else
+		intConversion = charConversion = "impossible";
+	
+	std::string floatSuffix;
+	std::string doubleSuffix;
+	if (f > -1000000 && f < 1000000 && f - std::floor(f) == 0)
+		floatSuffix = doubleSuffix = ".0";
+	floatSuffix += "f";
+
+	std::cout	<< "char: " << charConversion << "\n"
+				<< "int: " << intConversion << "\n"
+				<< "float: " << f << floatSuffix << "\n"
+				<< "double: " << static_cast<double>(f) << doubleSuffix
 				<< std::endl;
 }
 
@@ -127,10 +167,28 @@ static void printConvertDouble(const std::string &s)
 {
 	double d = std::stod(s);
 
-	std::cout	<< "char: " << (std::floor(d) > 31 && std::floor(d) < 127 ? ("'" + std::string(1, static_cast<char>(d)) + "'") : "Non displayable") << "\n" //should print "impossible" if out of int range
-				<< "int: " << (std::floor(d) > INT32_MAX || std::ceil(d) < INT32_MIN ? "impossible" : std::to_string(static_cast<int>(d))) << "\n"
-				<< "float: " << static_cast<float>(d) << (d - std::floor(d) == 0 ? ".0f" : "f") << "\n"
-				<< "double: " << d << (d - std::floor(d) == 0 ? ".0" : "")
+	std::string charConversion;
+	if (std::floor(d) > 31 && std::floor(d) < 127)
+		charConversion = "'" + std::string(1, static_cast<char>(d)) + "'";
+	else
+		charConversion = "Non displayable";
+
+	std::string intConversion;
+	if (std::floor(d) <= INT32_MAX && std::ceil(d) >= INT32_MIN)
+		intConversion = std::to_string(static_cast<int>(d));
+	else
+		intConversion = charConversion = "impossible";
+
+	std::string floatSuffix;
+	std::string doubleSuffix;
+	if (d > -1000000 && d < 1000000 && d - std::floor(d) == 0)
+		floatSuffix = doubleSuffix = ".0";
+	floatSuffix += "f";
+
+	std::cout	<< "char: " << charConversion << "\n"
+				<< "int: " << intConversion << "\n"
+				<< "float: " << static_cast<float>(d) << floatSuffix << "\n"
+				<< "double: " << d << doubleSuffix
 				<< std::endl;
 }
 
@@ -165,15 +223,7 @@ static void	printInf(const std::string &s)
 
 void	ScalarConverter::convert(const std::string &s)
 {
-		std::string types[7] = {"char","int","float","double","nan","inf","invalid"};
-		std::cout << types[getInputType(s)] << std::endl;
-
 	e_type type = getInputType(s);
-	if (type == INVALID)
-	{
-		std::cout << "Input is invalid." << std::endl;
-		return;
-	}
 
 	switch (type)
 	{
@@ -196,8 +246,6 @@ void	ScalarConverter::convert(const std::string &s)
 			printInf(s);
 			break;
 		case INVALID:
-			std::cout << "Invalide input." << std::endl;
-		default:
-			std::cout << "not handled yet" << std::endl;
+			std::cout << "Invalid input." << std::endl;
 	}
 }
