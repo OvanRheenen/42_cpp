@@ -25,6 +25,7 @@ materia
 bureaucrat
 ## cpp06
 scalar
+serialize
 
 # Debug files
 .vscode
