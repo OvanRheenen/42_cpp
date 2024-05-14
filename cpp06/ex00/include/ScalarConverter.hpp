@@ -22,7 +22,7 @@ enum e_type
 	INT,
 	FLOAT,
 	DOUBLE,
-	NAN,
+	NOTANUM,
 	INF,
 	INVALID
 };
