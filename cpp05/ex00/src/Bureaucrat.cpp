@@ -36,7 +36,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &other)
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
-	if (this != &other)
+	if (this == &other)
 		return (*this);
 	
 	this->_grade = other._grade;
