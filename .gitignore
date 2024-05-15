@@ -26,6 +26,7 @@ bureaucrat
 ## cpp06
 scalar
 serialize
+identify
 
 # Debug files
 .vscode
