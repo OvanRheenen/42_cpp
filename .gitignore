@@ -27,6 +27,8 @@ bureaucrat
 scalar
 serialize
 identify
+## cpp07
+template
 
 # Debug files
 .vscode
