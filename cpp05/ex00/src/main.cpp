@@ -18,6 +18,4 @@ int	main(void)
 	std::cout << "before incrementation: " << b << std::endl;
 	b.incrementGrade();
 	std::cout << "after incrementation: " << b << std::endl;
-
-	return 0;
 }
