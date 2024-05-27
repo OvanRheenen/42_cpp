@@ -22,10 +22,8 @@ Form::Form(const Form &other)
 
 Form &Form::operator=(const Form &other)
 {
-	if (this == &other)
-		return (*this);
-	
-	this->_signed = other._signed;
+	if (this != &other)
+		this->_signed = other._signed;
 
 	return (*this);
 }
@@ -75,12 +73,12 @@ void	Form::beSigned(Bureaucrat &bureaucrat)
 
 const char *Form::GradeTooHighException::what() const noexcept
 {
-	return ("grade too high.");
+	return ("out of range: grade too high.");
 }
 
 const char *Form::GradeTooLowException::what() const noexcept
 {
-	return ("grade too low.");
+	return ("out of range: grade too low.");
 }
 
 //--Other functions-----------------------------------------------------------//
