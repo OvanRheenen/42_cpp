@@ -94,7 +94,7 @@ int	main(void)
 	
 		try
 		{
-			a = new Form("low sign", -2, 50);
+			a = new Form("high sign", -2, 50);
 		}
 		catch (std::exception& e)
 		{
@@ -104,7 +104,7 @@ int	main(void)
 
 		try
 		{
-			a = new Form("high sign", 166, 50);
+			a = new Form("low sign", 166, 50);
 		}
 		catch (std::exception& e)
 		{
@@ -114,7 +114,7 @@ int	main(void)
 
 		try
 		{
-			a = new Form("low exe", 50, -41);
+			a = new Form("high exe", 50, -41);
 		}
 		catch (std::exception& e)
 		{
@@ -124,7 +124,7 @@ int	main(void)
 
 		try
 		{
-			a = new Form("high exe", 50, 431);
+			a = new Form("low exe", 50, 431);
 		}
 		catch (std::exception& e)
 		{
