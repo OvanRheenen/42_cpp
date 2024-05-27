@@ -1,7 +1,6 @@
-#ifndef ITER_HPP
-# define ITER_HPP
+#pragma once
 
-# include <iostream>
+#include <iostream>
 
 template <typename T>
 void iter(T *arr, size_t size, void (*func)(T&))
@@ -21,5 +20,3 @@ void increment(T &element)
 {
 	element++;
 }
-
-#endif
