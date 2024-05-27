@@ -37,10 +37,8 @@ Bureaucrat::Bureaucrat(const Bureaucrat &other)
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
-	if (this == &other)
-		return (*this);
-	
-	this->_grade = other._grade;
+	if (this != &other)
+		this->_grade = other._grade;
 
 	return (*this);
 }
@@ -55,16 +53,16 @@ std::string	Bureaucrat::getName() const
 	return (_name);
 }
 
-int			Bureaucrat::getGrade() const
+int	Bureaucrat::getGrade() const
 {
 	return (_grade);
 }
 
 void	Bureaucrat::setGrade(const int grade)
 {
-	if (grade > 150)
+	if (grade > MIN_GRADE)
 		throw (Bureaucrat::GradeTooLowException());
-	if (grade < 1)
+	else if (grade < MAX_GRADE)
 		throw (Bureaucrat::GradeTooHighException());
 	
 	this->_grade = grade;
@@ -78,7 +76,7 @@ void	Bureaucrat::incrementGrade()
 	}
 	catch (Bureaucrat::GradeTooHighException& e)
 	{
-		std::cerr	<< "Exception caught: " << e.what()
+		std::cerr	<< e.what()
 					<< "-> grade kept at 1 for " << this->_name
 					<< std::endl;
 	}
@@ -92,7 +90,7 @@ void	Bureaucrat::decrementGrade()
 	}
 	catch (Bureaucrat::GradeTooLowException& e)
 	{
-		std::cerr	<< "Exception caught: " << e.what()
+		std::cerr	<< e.what()
 					<< "-> grade kept at 150 for " << this->_name
 					<< std::endl;
 	}
@@ -111,20 +109,19 @@ void	Bureaucrat::signForm(const Form &form) const
 
 const char *Bureaucrat::GradeTooHighException::what() const noexcept
 {
-	return ("out of range: too high.");
+	return ("out of range: grade too high.");
 }
 
 const char *Bureaucrat::GradeTooLowException::what() const noexcept
 {
-	return ("out of range: too low.");
+	return ("out of range: grade too low.");
 }
 
 //--Other functions-----------------------------------------------------------//
 
-std::ostream & operator<<(std::ostream &ostream, const Bureaucrat &bureaucrat)
+std::ostream &operator<<(std::ostream &ostream, const Bureaucrat &bureaucrat)
 {
-	ostream	<< bureaucrat.getName()
-			<< ", bureaucrat grade " << bureaucrat.getGrade() << ".";
+	ostream	<< bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << ".";
 
 	return (ostream);
 }
