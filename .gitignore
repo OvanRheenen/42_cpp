@@ -30,6 +30,7 @@ identify
 ## cpp07
 template
 iter
+array
 
 # Debug files
 .vscode
