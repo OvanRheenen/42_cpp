@@ -38,7 +38,7 @@ fclean: clean
 
 re: fclean all
 
-run:
+run: all
 	./$(NAME)
 
 .PHONY: all clean fclean re run
