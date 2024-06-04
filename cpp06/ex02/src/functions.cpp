@@ -15,7 +15,7 @@ enum e_class
 
 Base *generate(void)
 {
-	srand(time(0));
+	srand(time(nullptr));
 	switch (rand() % 3)
 	{
 		case ACLASS:
