@@ -1,6 +1,7 @@
 #pragma once
 
 #include <exception>
+#include <iostream>
 
 template <typename T>
 class Array
@@ -13,6 +14,7 @@ public:
 	Array();
 	Array(const unsigned int n);
 	Array(const Array &other);
+	template <typename... Args> Array(Args... args);
 	const Array &operator=(const Array &other);
 	~Array();
 
@@ -20,6 +22,9 @@ public:
 	T &operator[](const unsigned int index);
 
 	unsigned int size() const;
+	T *getData() const;
+
+	void print() const;
 
 	class OutOfBoundsException : public std::exception
 	{
