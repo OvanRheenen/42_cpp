@@ -65,7 +65,7 @@ static e_type	determineIntFloatDouble(const std::string &s)
 		{
 			if (s[i] == '.' && ret != DOUBLE && s[i + 1] && std::isdigit(s[i + 1]))
 				ret = DOUBLE;
-			else if (s[i] == 'f' && ret == DOUBLE && i == len - 1)
+			else if (s[i] == 'f' && i == len - 1)
 				ret = FLOAT;
 			else
 			{
@@ -116,16 +116,10 @@ static void printConvertInt(const std::string &s)
 		charConversion = "Non displayable";
 
 	std::string floatSuffix;
-	if (i > -1000000 && i < 1000000)
-		floatSuffix = ".0f";
-	else
-		floatSuffix = "f";
-
 	std::string doubleSuffix;
 	if (i > -1000000 && i < 1000000)
-		doubleSuffix = ".0";
-	else
-		doubleSuffix = "";
+		floatSuffix = doubleSuffix = ".0";
+	floatSuffix += "f";
 
 	std::cout	<< "char: " << charConversion << "\n"
 				<< "int: " << i << "\n"
