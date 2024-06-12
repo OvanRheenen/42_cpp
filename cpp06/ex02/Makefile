@@ -1,7 +1,6 @@
 NAME	:= identify
 
 SRC_FILES	:=	main.cpp	\
-				Base.cpp	\
 				functions.cpp
 
 SRC_DIR	:= src
