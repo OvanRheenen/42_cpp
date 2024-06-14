@@ -33,6 +33,7 @@ iter
 array
 ## cpp08
 easyfind
+span
 
 # Debug files
 .vscode
