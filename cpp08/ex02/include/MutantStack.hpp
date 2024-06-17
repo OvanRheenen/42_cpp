@@ -2,19 +2,23 @@
 
 #include <stack>
 
-template < class T, class C > 
-class MutantStack : public std::stack< T, C >
+template < typename T >
+class MutantStack : public std::stack< T >
 {
 public:
-	MutantStack() {}
-	~MutantStack() {}
+	MutantStack();
+	~MutantStack();
 
-	MutantStack(const MutantStack &other) { *this = other }
-	MutantStack& operator=(const MutantStack& other) {
-		if (this != &other)
-			std::stack<T, C>::operator=(other);
-		return (*this);
-	}
+	MutantStack(const MutantStack &other);
+	MutantStack& operator=(const MutantStack& other);
 
-	//iterator
+	typedef typename std::stack<T>::container_type::iterator iterator;
+	typedef typename std::stack<T>::container_type::const_iterator const_iterator;
+
+	iterator begin();
+	iterator end();
+	const_iterator begin() const;
+	const_iterator end() const;
 };
+
+#include "MutantStack.tpp"
