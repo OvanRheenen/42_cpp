@@ -14,7 +14,6 @@ int main(void)
 		easyfind(ar, 'a');
 	} catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;
-		return (1);
 	}
 
 	std::vector<int> vc({-1, 2, 3, 2});
@@ -22,7 +21,6 @@ int main(void)
 		easyfind(vc, 2);
 	} catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;
-		return (1);
 	}
 
 	std::deque<long> dq({2, 3, 4, 5, 3});
@@ -30,7 +28,6 @@ int main(void)
 		easyfind(dq, 3);
 	} catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;
-		return (1);
 	}
 
 	std::list<short> lst({3, 8, 1, 9});
@@ -38,7 +35,6 @@ int main(void)
 		easyfind(lst, 1);
 	} catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;
-		return (1);
 	}
 
 	std::forward_list<bool> flst({true, false, true});
@@ -46,15 +42,13 @@ int main(void)
 		easyfind(flst, false);
 	} catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;
-		return (1);
 	}
 
 	std::array<int, 3> arr({1, 2, 3});
 	try {
-		easyfind(flst, 4);
+		easyfind(arr, 4);
 	} catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;
-		return (1);
 	}
 
 	return (0);
