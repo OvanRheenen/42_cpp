@@ -14,9 +14,11 @@ public:
 	Array();
 	Array(const unsigned int n);
 	Array(const Array &other);
-	template <typename... Args> Array(Args... args);
 	const Array &operator=(const Array &other);
 	~Array();
+	
+	template <typename... Args>
+	Array(Args... args);
 
 	const T &operator[](const unsigned int index) const;
 	T &operator[](const unsigned int index);

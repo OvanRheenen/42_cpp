@@ -3,32 +3,34 @@
 //--Con/destructors-----------------------------------------------------------//
 
 template <typename T>
-Array<T>::Array() : _data(new T()), _size(0) {}
+Array<T>::Array() : _data(new T[0]), _size(0) {}
 	
 template <typename T>
 Array<T>::Array(const unsigned int n) : _data(new T[n]), _size(n) {}
 
 template <typename T>
-Array<T>::Array(const Array &other) : _data(new T[other._size]), _size(other._size) {
+Array<T>::Array(const Array &other) : _data(new T[other._size]), _size(other._size)
+{
 	for (unsigned int i = 0; i < other._size; i++)
 		this->_data[i] = other._data[i];
 }
 
 template <typename T>
 template <typename... Args>
-Array<T>::Array(Args... args) : _size(sizeof...(args)) {
+Array<T>::Array(Args... args) : _size(sizeof...(args))
+{
 	_data = new T[_size];
 	T temp[] = {args...};
-	for (unsigned int i = 0; i < _size; i++) {
+	for (unsigned int i = 0; i < _size; i++)
 		_data[i] = temp[i];
-	}
 }
 
 template <typename T>
-const Array<T> &Array<T>::operator=(const Array &other) {
-	if (this != &other) {
+const Array<T> &Array<T>::operator=(const Array &other)
+{
+	if (this != &other)
+	{
 		this->_size = other._size;
-		
 		delete [] this->_data;
 		this->_data = new T[other._size];
 		for (unsigned int i = 0; i < other._size; i++)
@@ -39,14 +41,16 @@ const Array<T> &Array<T>::operator=(const Array &other) {
 }
 
 template <typename T>
-Array<T>::~Array() {
+Array<T>::~Array()
+{
 	delete [] _data;
 }
 
 //--Member functions----------------------------------------------------------//
 
 template <typename T>
-const T &Array<T>::operator[](const unsigned int index) const {
+const T &Array<T>::operator[](const unsigned int index) const
+{
 	if (index >= _size)
 		throw(OutOfBoundsException());
 	
@@ -54,7 +58,8 @@ const T &Array<T>::operator[](const unsigned int index) const {
 }
 
 template <typename T>
-T &Array<T>::operator[](const unsigned int index) {
+T &Array<T>::operator[](const unsigned int index)
+{
 	if (index >= _size)
 		throw(OutOfBoundsException());
 	
@@ -62,21 +67,28 @@ T &Array<T>::operator[](const unsigned int index) {
 }
 
 template <typename T>
-unsigned int Array<T>::size() const {
+unsigned int Array<T>::size() const
+{
 	return (_size);
 }
 
 template <typename T>
-T *Array<T>::getData() const {
+T *Array<T>::getData() const
+{
 	return (_data);
 }
 
 template <typename T>
-void Array<T>::print() const {
-	for (unsigned int i = 0; i < this->size(); i++) {
-		try {
+void Array<T>::print() const
+{
+	for (unsigned int i = 0; i < this->size(); i++)
+	{
+		try
+		{
 			std::cout << "Index " << i << ": " << this->_data[i] << std::endl;
-		} catch (std::exception &e) {
+		} 
+		catch (std::exception &e)
+		{
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -85,6 +97,7 @@ void Array<T>::print() const {
 //--Exceptions----------------------------------------------------------------//
 
 template <typename T>
-const char *Array<T>::OutOfBoundsException::what() const noexcept {
+const char *Array<T>::OutOfBoundsException::what() const noexcept
+{
 	return ("Index is out of bounds");
 }
