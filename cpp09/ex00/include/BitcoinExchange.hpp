@@ -6,19 +6,20 @@
 class BitcoinExchange
 {
 private:
-	std::multimap< std::string, float > _btcExMap;
-	std::multimap< std::string, float > _multRateMap;
+	std::map< std::string, float > _btcExMap;
 
 	BitcoinExchange();
 
 public:
-	BitcoinExchange(std::multimap< std::string, float > &btcExMap, std::multimap< std::string, float > &multRateMap);
+	BitcoinExchange(const std::map< std::string, float > &btcExMap);
 	BitcoinExchange(const BitcoinExchange &other);
 	BitcoinExchange &operator=(const BitcoinExchange &other);
 	~BitcoinExchange();
 
-	std::multimap< std::string, float > getBtcExMap() const;
-	std::multimap< std::string, float > getMultRateMap() const;
+	void calculate(const char *exRateFile) const;
+
+	// for testing
+	void printBtcExMap() const;
 };
 
-void parsing(char *inputFile);
+const std::map< std::string, float > parseData(const char *dataFile);
