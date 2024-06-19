@@ -1,6 +1,9 @@
 NAME	:= btc
 
-SRC_FILES	:=	main.cpp
+INPUTFILE := subject_input.txt
+
+SRC_FILES	:=	main.cpp \
+				BitcoinExchange.cpp
 
 SRC_DIR	:= src
 OBJ_DIR	:= obj
@@ -39,6 +42,6 @@ fclean: clean
 re: fclean all
 
 run: all
-	./$(NAME)
+	./$(NAME) $(INPUTFILE)
 
 .PHONY: all clean fclean re run
