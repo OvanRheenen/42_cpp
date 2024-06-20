@@ -1,6 +1,8 @@
 #include "BitcoinExchange.hpp"
 #include <iostream>
 #include <iomanip>
+#include <fstream>
+#include <utility>
 
 //--Con/destructors-----------------------------------------------------------//
 
@@ -26,34 +28,34 @@ BitcoinExchange::~BitcoinExchange() {}
 
 //--Member functions----------------------------------------------------------//
 
-void BitcoinExchange::calculate(const char *exRateFile) const
+void BitcoinExchange::setMap(const std::map< std::string, float > &map)
 {
-	std::ifstream file(exRateFile);
-	if (!file.is_open())
-		throw std::runtime_error("Error: unable to open file");
-
-	std::string line;
-	if (std::getline(file, line) != "date | value")
-		throw std::runtime_error("Error: file format is incorrect");
-	
-	while (std::getline(file, line))
-	{
-		//parse line
-	}
+	_btcExMap = map;
 }
+
+void BitcoinExchange::calculate(const std::pair< std::string, float > &dateValue) const
+{
+	float result;
+	std::map< std::string, float >::const_iterator it;
+	for (it = _btcExMap.begin(); it != _btcExMap.end(); it++)
+	{
+		if (dateValue.first < it->first)
+			break;
+		result = dateValue.second * it->second;
+	}
+
+	std::cout << dateValue.first << " => " << dateValue.second << " = " << result << std::endl;
+}
+
 
 // for testing
 void BitcoinExchange::printBtcExMap() const
 {
 	for (const auto& pair : _btcExMap)
 		std::cout << pair.first << " => " << std::setprecision(7) << pair.second << std::endl;
-
 }
 
-
 //--Other functions-----------------------------------------------------------//
-
-#include <fstream>
 
 static void parseDataLine(const std::string &line, std::map< std::string, float > &map)
 {
@@ -71,8 +73,8 @@ static void parseDataLine(const std::string &line, std::map< std::string, float 
 const std::map< std::string, float > parseData(const char *dataFile)
 {
 	std::ifstream file(dataFile);
-	// if (!file.is_open())
-	// 	throw std::runtime_error("Error: failed to open file");
+	if (!file.is_open())
+		throw std::runtime_error("Error: failed to open file");
 
 	std::string line;
 	std::getline(file, line); // skip over first 'date,exchange_rate' line
@@ -86,23 +88,77 @@ const std::map< std::string, float > parseData(const char *dataFile)
 	return (map);
 }
 
-// static void parseInLine(const std::string &line, std::map< std::string, float > &map)
-// {
-// 	std::istringstream iss(line);
-// 	std::string date;
-// 	char separator;
-// 	float value;
+static bool validDate(const std::string &date)
+{
+	// format check
+	std::tm tmDate = {};
+	std::istringstream ss(date);
+	ss >> std::get_time(&tmDate, "%Y-%m-%d");
+	if (ss.fail())
+		return (false);
 
-// 	if (iss >> date >> separator && separator == '|' && iss >> value && value >= 0 && value <= 1000)
-// 	{
-// 		std::tm tm = {};
-// 		std::istringstream ss(date);
-// 		ss >> std::get_time(&tm, "%Y-%m-%d");
-//         if (ss.fail())
-// 		{
-// 			std::cerr << "Error: date is not valid" << std::endl;	
-// 		}
-//         map.insert(std::make_pair(date, value));
-// 	}
-// }
+	// existing date check (i.e. 2009-02-30)
+	std::tm tmNewDate = tmDate;
+	mktime(&tmNewDate);
+	if (
+		tmDate.tm_year != tmNewDate.tm_year ||
+        tmDate.tm_mon != tmNewDate.tm_mon   ||
+        tmDate.tm_mday != tmNewDate.tm_mday
+	)
+		return (false);
 
+	// date is not before 2009-01-02 check
+	if (
+		tmDate.tm_year + 1900 < 2009 ||
+		( tmDate.tm_year + 1900 == 2009 &&
+			tmDate.tm_mon + 1 == 1 && 
+			tmDate.tm_mday == 1 )
+	)
+		return (false);
+	return (true);
+} 
+
+static const std::pair< std::string, float > parseLine(const std::string &line)
+{
+	std::istringstream iss(line);
+	std::string date;
+	float value;
+	char seperator;
+
+	if (iss >> date >> seperator && seperator == '|' && iss >> value)
+	{
+		if (!validDate(date))
+			std::cerr << "Error: invalid date => " << date << std::endl;
+		else if (value < 0)
+			std::cerr << "Error: not a positive number => " << value << std::endl;
+		else if (value > 1000)
+			std::cerr << "Error: too large a number => " << value << std::endl;
+		else
+		{
+			std::pair< std::string, float > dateValuePair(date, value);
+			return(dateValuePair);
+		}
+	}
+	else
+		std::cerr << "Error: bad input => " << line << std::endl;
+	return (std::make_pair("", 0.0f));
+}
+
+void parseInput(const BitcoinExchange &btcEx, const char *exRateFile)
+{
+	std::ifstream file(exRateFile);
+	if (!file.is_open())
+		throw std::runtime_error("Error: unable to open file");
+
+	std::string line;
+	std::getline(file, line);
+	if (line != "date | value")
+		throw std::runtime_error("Error: incorrect file format");
+	
+	while (std::getline(file, line))
+	{
+		std::pair< std::string, float > dateValuePair = parseLine(line);
+		if (!dateValuePair.first.empty())
+			btcEx.calculate(parseLine(line));
+	}
+}
