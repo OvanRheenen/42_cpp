@@ -8,8 +8,9 @@ class BitcoinExchange
 private:
 	std::map< std::string, float > _btcExMap;
 
-public:
 	BitcoinExchange();
+
+public:
 	BitcoinExchange(const std::map< std::string, float > &btcExMap);
 	BitcoinExchange(const BitcoinExchange &other);
 	BitcoinExchange &operator=(const BitcoinExchange &other);
@@ -24,4 +25,4 @@ public:
 };
 
 const std::map< std::string, float > parseData(const char *dataFile);
-void parseInput(const BitcoinExchange &btcEx, const char *exRateFile);
+void parseAndCalculateInput(const BitcoinExchange &btcEx, const char *exRateFile);

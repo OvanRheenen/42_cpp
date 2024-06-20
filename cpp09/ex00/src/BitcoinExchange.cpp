@@ -80,9 +80,8 @@ const std::map< std::string, float > parseData(const char *dataFile)
 	std::getline(file, line); // skip over first 'date,exchange_rate' line
 	std::map< std::string, float > map;
 	while (std::getline(file, line))
-	{
 		parseDataLine(line, map);
-	}
+	
 	file.close();
 
 	return (map);
@@ -115,6 +114,8 @@ static bool validDate(const std::string &date)
 			tmDate.tm_mday == 1 )
 	)
 		return (false);
+	
+	// date is valid
 	return (true);
 } 
 
@@ -144,7 +145,7 @@ static const std::pair< std::string, float > parseLine(const std::string &line)
 	return (std::make_pair("", 0.0f));
 }
 
-void parseInput(const BitcoinExchange &btcEx, const char *exRateFile)
+void parseAndCalculateInput(const BitcoinExchange &btcEx, const char *exRateFile)
 {
 	std::ifstream file(exRateFile);
 	if (!file.is_open())
