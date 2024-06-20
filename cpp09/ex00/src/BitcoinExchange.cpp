@@ -126,7 +126,7 @@ static const std::pair< std::string, float > parseLine(const std::string &line)
 	float value;
 	char seperator;
 
-	if (iss >> date >> seperator && seperator == '|' && iss >> value)
+	if (iss >> date >> seperator && seperator == '|' && iss >> value && (iss.eof() || iss.peek() == '\n'))
 	{
 		if (!validDate(date))
 			std::cerr << "Error: invalid date => " << date << std::endl;
