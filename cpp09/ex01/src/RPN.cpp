@@ -43,7 +43,7 @@ static bool isValidToken(const std::string &token)
 	return false;
 }
 
-void RPN::readInput(char *input)
+void RPN::readInput(const char *input)
 {
 	std::string inputString(input);
 	std::istringstream iss(inputString);

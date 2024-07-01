@@ -13,6 +13,6 @@ public:
 	RPN &operator=(const RPN &other);
 	~RPN();
 
-	void readInput(char *input);
+	void readInput(const char *input);
 	void calculate(const char op);
 };
