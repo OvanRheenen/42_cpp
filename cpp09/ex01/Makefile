@@ -1,6 +1,7 @@
 NAME	:= RPN
 
-SRC_FILES	:=	main.cpp
+SRC_FILES	:=	main.cpp \
+				RPN.cpp
 
 SRC_DIR	:= src
 OBJ_DIR	:= obj
