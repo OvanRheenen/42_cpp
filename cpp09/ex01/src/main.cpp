@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 	else if (std::string(argv[1]).empty())
 	{
 		std::cerr << "Error: empty string provided as argument" << std::endl;
-		return 1;
+		return (1);
 	}
 
 	RPN obj;
