@@ -11,5 +11,20 @@ int main(int argc, char **argv)
 		return (1);
 	}
 
-	(void)argv;
+	PmergeMe obj;
+	try
+	{
+		obj.readInput(argc, argv);
+		// obj.printOriginal();
+		// obj.printList();
+		obj.sortVector();
+		obj.printVector();
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+		return (1);
+	}
+	
+	return (0);
 }
