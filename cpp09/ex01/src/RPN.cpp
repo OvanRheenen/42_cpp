@@ -52,7 +52,7 @@ void RPN::readInput(const char *input)
 	while (std::getline(iss, token, ' '))
 	{
 		if (!isValidToken(token))
-			throw std::runtime_error("Error: invalid input");
+			throw std::invalid_argument("Error: invalid input => " + token);
 
 		if(isOperator(token[0]))
 			calculate(token[0]);
@@ -61,7 +61,7 @@ void RPN::readInput(const char *input)
 	}
 
 	if (_stack.size() != 1)
-		throw std::runtime_error("Error: too many operands");
+		throw std::invalid_argument("Error: too many operands");
 	else
 		std::cout << _stack.top() << std::endl;
 }
@@ -69,7 +69,7 @@ void RPN::readInput(const char *input)
 void RPN::calculate(const char op)
 {
 	if (_stack.size() < 2)
-		throw std::runtime_error("Error: not enough operands");
+		throw std::invalid_argument("Error: not enough operands");
 
 	int a = _stack.top();
 	_stack.pop();
@@ -86,7 +86,7 @@ void RPN::calculate(const char op)
 			break;
 		case '/':
 			if (a == 0)
-				throw std::runtime_error("Error: divide by zero");
+				throw std::invalid_argument("Error: divide by zero");
 			_stack.push(b / a);
 			break;
 		case '*':
