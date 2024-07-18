@@ -60,7 +60,7 @@ int main(void)
 	std::cout << "-------------------------------" << std::endl;
 	#define MAX_VAL 750
 	{
-		Array<int> numbers(MAX_VAL);
+		Array<int> numbers((unsigned int)MAX_VAL);
 		int* mirror = new int[MAX_VAL];
 		srand(time(NULL));
 		for (int i = 0; i < MAX_VAL; i++)
