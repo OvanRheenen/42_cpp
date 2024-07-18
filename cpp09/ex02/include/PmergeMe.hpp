@@ -21,6 +21,9 @@ public:
 	void readInput(const int argc, char **input);
 	void sortVector();
 
+	std::vector< std::pair< int, int > > mergeSortPairs(const std::vector< std::pair< int, int > > &pairs);
+	std::vector< std::pair< int, int > > mergePairs(const std::vector< std::pair< int, int > > &left, const std::vector< std::pair< int, int > > &right);
+
 	void printOriginal() const;
 	void printVector() const;
 	void printList() const;

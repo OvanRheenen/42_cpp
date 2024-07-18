@@ -63,11 +63,73 @@ void PmergeMe::readInput(const int argc, char **input)
 	}
 }
 
+std::vector< std::pair< int, int > > PmergeMe::mergeSortPairs(const std::vector< std::pair< int, int > > &pairs)
+{
+	if (pairs.size() <= 1)
+		return pairs;
+
+	std::vector< std::pair< int, int > > left;
+	std::vector< std::pair< int, int > > right;
+
+	size_t middle = pairs.size() / 2;
+	
+	for (size_t i = 0; i < middle; i++)
+		left.push_back(pairs[i]);
+	
+	for (size_t i = middle; i < pairs.size(); i++)
+		right.push_back(pairs[i]);
+
+	left = mergeSortPairs(left);
+	right = mergeSortPairs(right);
+
+	return (mergePairs(left, right));
+}
+
+std::vector< std::pair< int, int > > PmergeMe::mergePairs(const std::vector< std::pair< int, int > > &left, const std::vector< std::pair< int, int > > &right)
+{
+	std::vector< std::pair< int, int > > merged;
+
+	size_t leftIndex = 0;
+	size_t rightIndex = 0;
+
+	while (leftIndex < left.size() && rightIndex < right.size())
+	{
+		if (left[leftIndex].first < right[rightIndex].first)
+		{
+			merged.push_back(left[leftIndex]);
+			leftIndex++;
+		}
+		else
+		{
+			merged.push_back(right[rightIndex]);
+			rightIndex++;
+		}
+	}
+
+	while (leftIndex < left.size())
+	{
+		merged.push_back(left[leftIndex]);
+		leftIndex++;
+	}
+
+	while (rightIndex < right.size())
+	{
+		merged.push_back(right[rightIndex]);
+		rightIndex++;
+	}
+
+	return (merged);
+}
+
+template <typename Container>
+void printContainer(const Container &sequence);
+
 void PmergeMe::sortVector()
 {
+	// 1. make pairs and sort within pair
 	std::vector< std::pair< int, int > > pairs;
 
-	for (size_t i = 1; i < seqOriginal.size(); i + 2)
+	for (size_t i = 1; i < seqOriginal.size(); i += 2)
 	{
 		if (seqOriginal[i] > seqOriginal[i - 1])
 			pairs.push_back(std::make_pair(seqOriginal[i], seqOriginal[i - 1]));
@@ -75,6 +137,18 @@ void PmergeMe::sortVector()
 			pairs.push_back(std::make_pair(seqOriginal[i - 1], seqOriginal[i]));
 	}
 
+	// 2. recursively merge sort pairs in ascending order (comparing pair.first)
+	std::vector< std::pair< int, int > > sortedPairs = mergeSortPairs(pairs);
+
+
+	seqVector.clear();
+	for (const auto& pair : sortedPairs)
+	{
+		seqVector.push_back(pair.first);
+		// seqVector.push_back(pair.second);
+	}
+
+	printContainer(seqVector);
 }
 
 template <typename Container>
