@@ -58,8 +58,8 @@ void PmergeMe::readInput(const int argc, char **input)
 		
 		int num = std::stoi(str); 
 		seqOriginal.push_back(num);
-		seqVector.push_back(num);
-		seqList.push_back(num);
+		// seqVector.push_back(num); // KEEP THEM EMPTY, ONLY START FILLING WHILE SORTING?
+		// seqList.push_back(num);
 	}
 }
 
@@ -97,11 +97,13 @@ std::vector< std::pair< int, int > > PmergeMe::mergePairs(const std::vector< std
 		if (left[leftIndex].first < right[rightIndex].first)
 		{
 			merged.push_back(left[leftIndex]);
+			seqVector.push_back(left[leftIndex]);
 			leftIndex++;
 		}
 		else
 		{
 			merged.push_back(right[rightIndex]);
+			seqVector.push_back(right[rightIndex]);
 			rightIndex++;
 		}
 	}
@@ -109,12 +111,14 @@ std::vector< std::pair< int, int > > PmergeMe::mergePairs(const std::vector< std
 	while (leftIndex < left.size())
 	{
 		merged.push_back(left[leftIndex]);
+		seqVector.push_back(left[leftIndex]);
 		leftIndex++;
 	}
 
 	while (rightIndex < right.size())
 	{
 		merged.push_back(right[rightIndex]);
+		seqVector.push_back(right[rightIndex]);
 		rightIndex++;
 	}
 
@@ -140,13 +144,11 @@ void PmergeMe::sortVector()
 	// 2. recursively merge sort pairs in ascending order (comparing pair.first)
 	std::vector< std::pair< int, int > > sortedPairs = mergeSortPairs(pairs);
 
+	// 3. insert element that was paired to smallest element of sorted pairs
+	seqVector.insert(seqVector.begin(), sortedPairs[0].first);
 
-	seqVector.clear();
-	for (const auto& pair : sortedPairs)
-	{
-		seqVector.push_back(pair.first);
-		// seqVector.push_back(pair.second);
-	}
+	// 4. insert rest of second elements in sortedPairs, always making at most 3 comparisons
+
 
 	printContainer(seqVector);
 }
