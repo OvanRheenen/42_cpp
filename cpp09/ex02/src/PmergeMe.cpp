@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <string>
 #include <iostream>
+#include <algorithm>
 
 //--Con/destructors-----------------------------------------------------------//
 
@@ -58,8 +59,6 @@ void PmergeMe::readInput(const int argc, char **input)
 		
 		int num = std::stoi(str); 
 		seqOriginal.push_back(num);
-		// seqVector.push_back(num); // KEEP THEM EMPTY, ONLY START FILLING WHILE SORTING?
-		// seqList.push_back(num);
 	}
 }
 
@@ -97,13 +96,13 @@ std::vector< std::pair< int, int > > PmergeMe::mergePairs(const std::vector< std
 		if (left[leftIndex].first < right[rightIndex].first)
 		{
 			merged.push_back(left[leftIndex]);
-			seqVector.push_back(left[leftIndex]);
+			seqVector.push_back(left[leftIndex].first);
 			leftIndex++;
 		}
 		else
 		{
 			merged.push_back(right[rightIndex]);
-			seqVector.push_back(right[rightIndex]);
+			seqVector.push_back(right[rightIndex].first);
 			rightIndex++;
 		}
 	}
@@ -111,22 +110,19 @@ std::vector< std::pair< int, int > > PmergeMe::mergePairs(const std::vector< std
 	while (leftIndex < left.size())
 	{
 		merged.push_back(left[leftIndex]);
-		seqVector.push_back(left[leftIndex]);
+		seqVector.push_back(left[leftIndex].first);
 		leftIndex++;
 	}
 
 	while (rightIndex < right.size())
 	{
 		merged.push_back(right[rightIndex]);
-		seqVector.push_back(right[rightIndex]);
+		seqVector.push_back(right[rightIndex].first);
 		rightIndex++;
 	}
 
 	return (merged);
 }
-
-template <typename Container>
-void printContainer(const Container &sequence);
 
 void PmergeMe::sortVector()
 {
@@ -145,12 +141,59 @@ void PmergeMe::sortVector()
 	std::vector< std::pair< int, int > > sortedPairs = mergeSortPairs(pairs);
 
 	// 3. insert element that was paired to smallest element of sorted pairs
-	seqVector.insert(seqVector.begin(), sortedPairs[0].first);
+	seqVector.insert(seqVector.begin(), sortedPairs[0].second);
 
 	// 4. insert rest of second elements in sortedPairs, always making at most 3 comparisons
 
+	//jacobsthal seq starting at second 1 (because lowest is already inserted)
+	static uint32_t jacobsthal[] = {
+	   1u, 3u, 5u, 11u, 21u, 43u, 85u, 171u, 341u, 683u, 1365u
+	};
 
-	printContainer(seqVector);
+	auto current_pending = jacobsthal[0];
+
+	// step 1
+	for (int k = 1; ; k++)
+	{
+		// step 2
+		// auto dist = jacobsthal[k] - jacobsthal[k - 1];
+		// if (dist > (sortedPairs.size() - current_pending)) break; // need to check
+		if (jacobsthal[k] > sortedPairs.size()) break;
+
+
+		// step 3
+		auto temp_pending = jacobsthal[k];
+
+		// step 4
+		while (temp_pending != current_pending)
+		{
+			// step 5
+			auto insertion_point = std::upper_bound(seqVector.begin(), seqVector.begin() + temp_pending, sortedPairs[temp_pending].second);
+
+			//step 6
+			seqVector.insert(insertion_point, sortedPairs[temp_pending].second);
+			temp_pending--;
+		}
+
+		//step 7
+		current_pending = jacobsthal[k + 1];
+	}
+
+	printVector();
+
+	/**
+	 * 1. Loop over jacobsthal sequence
+	 * 2. get the next distance and check if it is not bigger than the distance
+	 * 		between the current pending iterator and the last one
+	 * 3. advance current large value and low value in pair
+	 * 4. loop over pending values decreasing from the jacobsthal k it's at till the
+	 * 		lowest not yet inserted pending
+	 * 5. find the place for pending to insert using std::upper_bound(begin till current 
+	 * 		jacobsthal high value) also using compare somehow
+	 * 6. insert at found position
+	 * 7. advance iterators and continue loop (back to 2.)
+	 */
+
 }
 
 template <typename Container>
