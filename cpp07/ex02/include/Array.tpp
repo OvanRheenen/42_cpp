@@ -52,7 +52,7 @@ template <typename T>
 const T &Array<T>::operator[](const unsigned int index) const
 {
 	if (index >= _size)
-		throw(OutOfBoundsException());
+		throw std::out_of_range("Index is out of range");
 	
 	return (_data[index]);
 }
@@ -61,7 +61,7 @@ template <typename T>
 T &Array<T>::operator[](const unsigned int index)
 {
 	if (index >= _size)
-		throw(OutOfBoundsException());
+		throw std::out_of_range("Index is out of range");
 	
 	return (_data[index]);
 }
@@ -92,12 +92,4 @@ void Array<T>::print() const
 			std::cout << e.what() << std::endl;
 		}
 	}
-}
-
-//--Exceptions----------------------------------------------------------------//
-
-template <typename T>
-const char *Array<T>::OutOfBoundsException::what() const noexcept
-{
-	return ("Index is out of bounds");
 }

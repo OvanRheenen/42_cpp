@@ -27,12 +27,5 @@ public:
 	T *getData() const;
 
 	void print() const;
-
-	class OutOfBoundsException : public std::exception
-	{
-	public:
-		virtual const char *what() const noexcept;
-	};
-
 };
 #include "Array.tpp"
