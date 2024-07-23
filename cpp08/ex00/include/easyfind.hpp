@@ -5,7 +5,7 @@
 #include <algorithm>
 
 template <typename T>
-void easyfind(const T &container, const int n);
+auto easyfind(const T &container, const int n) -> decltype(container.begin());
 
 class NotInContainerException : public std::exception
 {
