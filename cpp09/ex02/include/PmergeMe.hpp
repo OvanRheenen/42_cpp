@@ -23,6 +23,7 @@ public:
 
 	std::vector< std::pair< int, int > > mergeSortPairs(const std::vector< std::pair< int, int > > &pairs);
 	std::vector< std::pair< int, int > > mergePairs(const std::vector< std::pair< int, int > > &left, const std::vector< std::pair< int, int > > &right);
+	void jacobMerge(std::vector< std::pair< int, int > > sortedPairs);
 
 	void printOriginal() const;
 	void printVector() const;

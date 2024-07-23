@@ -87,6 +87,7 @@ std::vector< std::pair< int, int > > PmergeMe::mergeSortPairs(const std::vector<
 std::vector< std::pair< int, int > > PmergeMe::mergePairs(const std::vector< std::pair< int, int > > &left, const std::vector< std::pair< int, int > > &right)
 {
 	std::vector< std::pair< int, int > > merged;
+	seqVector.clear();
 
 	size_t leftIndex = 0;
 	size_t rightIndex = 0;
@@ -121,7 +122,91 @@ std::vector< std::pair< int, int > > PmergeMe::mergePairs(const std::vector< std
 		rightIndex++;
 	}
 
+	std::cout << "merged: ";
+	printVector();
 	return (merged);
+}
+
+unsigned long long jacobsthal(int n)
+{
+	if (n == 0) return (0);
+	if (n == 1) return (1);
+	return (jacobsthal(n - 1) + (2 * jacobsthal(n - 2)));
+}
+
+void PmergeMe::jacobMerge(std::vector< std::pair< int, int > > sortedPairs)
+{
+	// jacobsthal sequence starting at 3 because we already inserted first element
+	// static uint32_t jacobsthal[] = {
+	//    0u, 1u, 1u, 3u, 5u, 11u, 21u, 43u, 85u, 171u, 341u, 683u, 1365u
+	// };
+
+	uint32_t currentPendIndex;
+	// uint32_t prevPendIndex = jacobsthal[2] - 1;
+	uint32_t prevPendIndex = jacobsthal(2) - 1;
+	for (int k = 3; ; k++)
+	{
+		// current is - 1 because we use the indexes (starting at 0 instead of 1)
+		// currentPendIndex = jacobsthal[k] - 1;
+		currentPendIndex = jacobsthal(k) - 1;
+		// check if currentPendIndex is not out of range
+		if (currentPendIndex + 1 > sortedPairs.size()) break;
+
+		while (currentPendIndex != prevPendIndex)
+		{
+			//insert sortedPairs[currentPendIndex].second into seqVector
+
+			//find iterator of coupled high value
+			std::vector<int>::iterator highValueIt = std::upper_bound(seqVector.begin(), seqVector.end(), sortedPairs[currentPendIndex].first);
+
+			std::vector<int>::iterator insertionPoint = std::upper_bound(seqVector.begin(), highValueIt, sortedPairs[currentPendIndex].second); // niet verder kijken dan positie waar gekoppelde hoge value staat
+			std::cout << "to inser21 531 t: " << sortedPairs[currentPendIndex].second << std::endl;
+			std::cout << "insert point: " << *insertionPoint << "\nin list: ";
+			printVector();
+
+			seqVector.insert(insertionPoint, sortedPairs[currentPendIndex].second);
+			
+			currentPendIndex--;
+		}
+		// prevPendIndex = jacobsthal[k] - 1;
+		prevPendIndex = jacobsthal(k) - 1;
+	}
+
+	std::cout << "prevPned: " << prevPendIndex << std::endl;
+	if (prevPendIndex + 1 < sortedPairs.size())
+	{
+		currentPendIndex = sortedPairs.size() - 1;
+		while (currentPendIndex != prevPendIndex)
+		{
+				//insert sortedPairs[currentPendIndex].second into seqVector
+
+				//find iterator of coupled high value
+				std::vector<int>::iterator highValueIt= std::upper_bound(seqVector.begin(), seqVector.end(), sortedPairs[currentPendIndex].first);
+
+				std::vector<int>::iterator insertionPoint = std::upper_bound(seqVector.begin(), highValueIt, sortedPairs[currentPendIndex].second);
+				std::cout << "to insert: " << sortedPairs[currentPendIndex].second << std::endl;
+				std::cout << "insert point: " << *insertionPoint << "\nin list: ";
+				printVector();
+
+				seqVector.insert(insertionPoint, sortedPairs[currentPendIndex].second);
+				
+				currentPendIndex--;
+		}
+	}
+
+		/**
+	 * 1. Loop over jacobsthal sequence
+	 * 2. get the next distance and check if it is not bigger than the distance
+	 * 		between the current pending iterator and the last one
+	 * 3. advance current large value and low value in pair
+	 * 4. loop over pending values decreasing from the jacobsthal k it's at till the
+	 * 		lowest not yet inserted pending
+	 * 5. find the place for pending to insert using std::upper_bound(begin till current 
+	 * 		jacobsthal high value) also using compare somehow
+	 * 6. insert at found position
+	 * 7. advance iterators and continue loop (back to 2.)
+	 */`
+
 }
 
 void PmergeMe::sortVector()
@@ -144,56 +229,21 @@ void PmergeMe::sortVector()
 	seqVector.insert(seqVector.begin(), sortedPairs[0].second);
 
 	// 4. insert rest of second elements in sortedPairs, always making at most 3 comparisons
-
-	//jacobsthal seq starting at second 1 (because lowest is already inserted)
-	static uint32_t jacobsthal[] = {
-	   1u, 3u, 5u, 11u, 21u, 43u, 85u, 171u, 341u, 683u, 1365u
-	};
-
-	auto current_pending = jacobsthal[0];
-
-	// step 1
-	for (int k = 1; ; k++)
-	{
-		// step 2
-		// auto dist = jacobsthal[k] - jacobsthal[k - 1];
-		// if (dist > (sortedPairs.size() - current_pending)) break; // need to check
-		if (jacobsthal[k] > sortedPairs.size()) break;
-
-
-		// step 3
-		auto temp_pending = jacobsthal[k];
-
-		// step 4
-		while (temp_pending != current_pending)
-		{
-			// step 5
-			auto insertion_point = std::upper_bound(seqVector.begin(), seqVector.begin() + temp_pending, sortedPairs[temp_pending].second);
-
-			//step 6
-			seqVector.insert(insertion_point, sortedPairs[temp_pending].second);
-			temp_pending--;
-		}
-
-		//step 7
-		current_pending = jacobsthal[k + 1];
-	}
-
+	std::cout << "vector: ";
 	printVector();
+	jacobMerge(sortedPairs);
 
-	/**
-	 * 1. Loop over jacobsthal sequence
-	 * 2. get the next distance and check if it is not bigger than the distance
-	 * 		between the current pending iterator and the last one
-	 * 3. advance current large value and low value in pair
-	 * 4. loop over pending values decreasing from the jacobsthal k it's at till the
-	 * 		lowest not yet inserted pending
-	 * 5. find the place for pending to insert using std::upper_bound(begin till current 
-	 * 		jacobsthal high value) also using compare somehow
-	 * 6. insert at found position
-	 * 7. advance iterators and continue loop (back to 2.)
-	 */
+	// for uneven amount of input, last item is added last to full sorted vector
+	if (seqOriginal.size() % 2 == 1)
+	{
+		std::vector<int>::iterator insertionPoint = std::upper_bound(seqVector.begin(), seqVector.end(), seqOriginal[seqOriginal.size() - 1]);
+		
+		std::cout << "to insert: " << seqOriginal[seqOriginal.size() - 1] << std::endl;
+		std::cout << "insert point: " << *insertionPoint << "\nin list: ";
+		printVector();
 
+		seqVector.insert(insertionPoint, seqOriginal[seqOriginal.size() - 1]);
+	}
 }
 
 template <typename Container>
