@@ -1,24 +1,18 @@
 #pragma once
 
 template <typename T>
-void easyfind(const T &container, const int toFind)
+auto easyfind(const T &container, const int toFind) -> decltype(container.begin())
 {
-	int index = 0;
-	for (auto n : container)
-	{
-		if (n == toFind)
-		{
-			std::cout << "Value FOUND in container at index " << index << std::endl;
-			return;
-		}
-		index++;
-	}
-	throw NotInContainerException();
+	auto it = std::find(container.begin(), container.end(), toFind);
 
-	// if (std::find(container.begin(), container.end(), toFind) != container.end())
-	// 	std::cout	<< "Value FOUND in container" << std::endl;
-	// else
-	// 	throw NotInContainerException();
+	if (it != container.end())
+		std::cout	<< "Value '" << toFind 
+					<< "' FOUND in container at: " << std::distance(container.begin(), it) 
+					<< std::endl;
+	else
+		throw NotInContainerException();
+
+	return (it);
 }
 
 const char *NotInContainerException::what() const noexcept
