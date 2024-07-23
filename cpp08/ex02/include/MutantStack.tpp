@@ -49,4 +49,3 @@ typename MutantStack<T>::const_iterator MutantStack<T>::end() const
 {
 	return (std::stack<T>::c.end());
 }
-
