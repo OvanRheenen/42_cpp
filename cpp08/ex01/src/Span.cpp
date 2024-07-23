@@ -69,11 +69,11 @@ unsigned int Span::longestSpan() const
 			throw SpanEmptyException();
 		case 1:
 			throw SpanSingleNumberException();
+		default:
+			std::vector<int> tmp(_data);
+			std::sort(tmp.begin(), tmp.end());
+			return (static_cast<long>(tmp.back()) - static_cast<long>(tmp.front()));
 	}
-	
-	std::vector<int> tmp(_data);
-	std::sort(tmp.begin(), tmp.end());
-	return (static_cast<long>(tmp.back()) - static_cast<long>(tmp.front()));
 }
 
 void Span::addManyNumbers(const int N)
