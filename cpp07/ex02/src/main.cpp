@@ -13,7 +13,7 @@ int main(void)
 		try {
 			std::cout << a1[5] << std::endl;
 		}
-		catch (Array<int>::OutOfBoundsException &e) {
+		catch (std::exception &e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
