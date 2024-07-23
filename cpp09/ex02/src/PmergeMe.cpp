@@ -205,7 +205,7 @@ void PmergeMe::jacobMerge(std::vector< std::pair< int, int > > sortedPairs)
 	 * 		jacobsthal high value) also using compare somehow
 	 * 6. insert at found position
 	 * 7. advance iterators and continue loop (back to 2.)
-	 */`
+	 */
 
 }
 
@@ -260,4 +260,3 @@ void PmergeMe::printVector() const { printContainer(seqVector); }
 
 void PmergeMe::printList() const { printContainer(seqList); }
 
-//--Other functions-----------------------------------------------------------//
