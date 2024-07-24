@@ -127,7 +127,11 @@ std::vector< std::pair< int, int > > PmergeMe::mergePairs(const std::vector< std
 	return (merged);
 }
 
-unsigned long long jacobsthal(int n)
+// static uint32_t jacobsthal[] = {
+//    0u, 1u, 1u, 3u, 5u, 11u, 21u, 43u, 85u, 171u, 341u, 683u, 1365u, ...
+// };
+
+static unsigned long long jacobsthal(int n)
 {
 	if (n == 0) return (0);
 	if (n == 1) return (1);
@@ -136,61 +140,59 @@ unsigned long long jacobsthal(int n)
 
 void PmergeMe::jacobMerge(std::vector< std::pair< int, int > > sortedPairs)
 {
-	// jacobsthal sequence starting at 3 because we already inserted first element
-	// static uint32_t jacobsthal[] = {
-	//    0u, 1u, 1u, 3u, 5u, 11u, 21u, 43u, 85u, 171u, 341u, 683u, 1365u
-	// };
-
-	uint32_t currentPendIndex;
-	// uint32_t prevPendIndex = jacobsthal[2] - 1;
-	uint32_t prevPendIndex = jacobsthal(2) - 1;
+	auto prevPendElem = std::next(sortedPairs.begin(), jacobsthal(2) - 1);
 	for (int k = 3; ; k++)
 	{
 		// current is - 1 because we use the indexes (starting at 0 instead of 1)
-		// currentPendIndex = jacobsthal[k] - 1;
-		currentPendIndex = jacobsthal(k) - 1;
-		// check if currentPendIndex is not out of range
-		if (currentPendIndex + 1 > sortedPairs.size()) break;
 
-		while (currentPendIndex != prevPendIndex)
+		auto currentPendElem = std::next(sortedPairs.begin(), jacobsthal(k) - 1);
+		if (currentPendElem == sortedPairs.end()) break;
+
+		while (currentPendElem != prevPendElem)
 		{
-			//insert sortedPairs[currentPendIndex].second into seqVector
-
 			//find iterator of coupled high value
-			auto highValueIt = std::upper_bound(seqVector.begin(), seqVector.end(), sortedPairs[currentPendIndex].first);
-
-			auto insertionPoint = std::upper_bound(seqVector.begin(), highValueIt, sortedPairs[currentPendIndex].second);
-			std::cout << "to insert: " << sortedPairs[currentPendIndex].second << std::endl;
+			auto highValueIt = std::upper_bound(seqVector.begin(), seqVector.end(), currentPendElem->first);
+			auto insertionPoint = std::upper_bound(seqVector.begin(), highValueIt, currentPendElem->second);
+			std::cout << "to insert: " << currentPendElem->second << std::endl;
 			std::cout << "insert point: " << *insertionPoint << "\nin list: ";
 			printVector();
 
-			seqVector.insert(insertionPoint, sortedPairs[currentPendIndex].second);
+			seqVector.insert(insertionPoint, currentPendElem->second);
 			
-			currentPendIndex--;
+			currentPendElem--;
 		}
-		// prevPendIndex = jacobsthal[k] - 1;
-		prevPendIndex = jacobsthal(k) - 1;
+		prevPendElem = std::next(sortedPairs.begin(), jacobsthal(k) - 1);
 	}
 
-	std::cout << "prevPned: " << prevPendIndex << std::endl;
-	if (prevPendIndex + 1 < sortedPairs.size())
+	if (prevPendElem != sortedPairs.end())
 	{
-		currentPendIndex = sortedPairs.size() - 1;
-		while (currentPendIndex != prevPendIndex)
+		auto currentPendElem = sortedPairs.end() - 1;
 		{
+			while (currentPendElem != prevPendElem)
+			{
 				//insert sortedPairs[currentPendIndex].second into seqVector
 
 				//find iterator of coupled high value
-				auto highValueIt = std::upper_bound(seqVector.begin(), seqVector.end(), sortedPairs[currentPendIndex].first);
+				// 1st option, upper bound to find
+				auto highValueIt = std::upper_bound(seqVector.begin(), seqVector.end(), currentPendElem->first);
 
-				auto insertionPoint = std::upper_bound(seqVector.begin(), highValueIt, sortedPairs[currentPendIndex].second);
-				std::cout << "to insert: " << sortedPairs[currentPendIndex].second << std::endl;
+				// 2nd option, keep track of how many elements are inserted
+
+
+				// optie 1 upper_bound
+				auto insertionPoint = std::upper_bound(seqVector.begin(), highValueIt, currentPendElem->second);
+
+				//optie 2 binary_search
+
+				std::cout << "to insert: " << currentPendElem->second << std::endl;
 				std::cout << "insert point: " << *insertionPoint << "\nin list: ";
 				printVector();
 
-				seqVector.insert(insertionPoint, sortedPairs[currentPendIndex].second);
+				seqVector.insert(insertionPoint, currentPendElem->second);
 				
-				currentPendIndex--;
+				// currentPendIndex--;
+				currentPendElem--;
+			}
 		}
 	}
 
