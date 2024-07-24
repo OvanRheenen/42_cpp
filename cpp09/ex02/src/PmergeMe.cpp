@@ -65,18 +65,18 @@ void PmergeMe::readInput(const int argc, char **input)
 std::vector< std::pair< int, int > > PmergeMe::mergeSortPairs(const std::vector< std::pair< int, int > > &pairs)
 {
 	if (pairs.size() <= 1)
-		return pairs;
+		return (pairs);
 
 	std::vector< std::pair< int, int > > left;
 	std::vector< std::pair< int, int > > right;
 
-	size_t middle = pairs.size() / 2;
+	auto middle = pairs.begin() + pairs.size() / 2;
 	
-	for (size_t i = 0; i < middle; i++)
-		left.push_back(pairs[i]);
-	
-	for (size_t i = middle; i < pairs.size(); i++)
-		right.push_back(pairs[i]);
+	for (auto it = pairs.begin(); it != middle; it++)
+		left.push_back(*it);
+
+	for (auto it = middle; it != pairs.end(); it++)
+		right.push_back(*it);
 
 	left = mergeSortPairs(left);
 	right = mergeSortPairs(right);
@@ -89,37 +89,37 @@ std::vector< std::pair< int, int > > PmergeMe::mergePairs(const std::vector< std
 	std::vector< std::pair< int, int > > merged;
 	seqVector.clear();
 
-	size_t leftIndex = 0;
-	size_t rightIndex = 0;
+	auto leftIt = left.begin();
+	auto rightIt = right.begin();
 
-	while (leftIndex < left.size() && rightIndex < right.size())
+	while (leftIt != left.end() && rightIt != right.end())
 	{
-		if (left[leftIndex].first < right[rightIndex].first)
+		if (leftIt->first < rightIt->first)
 		{
-			merged.push_back(left[leftIndex]);
-			seqVector.push_back(left[leftIndex].first);
-			leftIndex++;
+			merged.push_back(*leftIt);
+			seqVector.push_back(leftIt->first);
+			leftIt++;
 		}
 		else
 		{
-			merged.push_back(right[rightIndex]);
-			seqVector.push_back(right[rightIndex].first);
-			rightIndex++;
+			merged.push_back(*rightIt);
+			seqVector.push_back(rightIt->first);
+			rightIt++;
 		}
 	}
 
-	while (leftIndex < left.size())
+	while (leftIt != left.end())
 	{
-		merged.push_back(left[leftIndex]);
-		seqVector.push_back(left[leftIndex].first);
-		leftIndex++;
+		merged.push_back(*leftIt);
+		seqVector.push_back(leftIt->first);
+		leftIt++;
 	}
 
-	while (rightIndex < right.size())
+	while (rightIt != right.end())
 	{
-		merged.push_back(right[rightIndex]);
-		seqVector.push_back(right[rightIndex].first);
-		rightIndex++;
+		merged.push_back(*rightIt);
+		seqVector.push_back(rightIt->first);
+		rightIt++;
 	}
 
 	std::cout << "merged: ";
@@ -157,10 +157,10 @@ void PmergeMe::jacobMerge(std::vector< std::pair< int, int > > sortedPairs)
 			//insert sortedPairs[currentPendIndex].second into seqVector
 
 			//find iterator of coupled high value
-			std::vector<int>::iterator highValueIt = std::upper_bound(seqVector.begin(), seqVector.end(), sortedPairs[currentPendIndex].first);
+			auto highValueIt = std::upper_bound(seqVector.begin(), seqVector.end(), sortedPairs[currentPendIndex].first);
 
-			std::vector<int>::iterator insertionPoint = std::upper_bound(seqVector.begin(), highValueIt, sortedPairs[currentPendIndex].second); // niet verder kijken dan positie waar gekoppelde hoge value staat
-			std::cout << "to inser21 531 t: " << sortedPairs[currentPendIndex].second << std::endl;
+			auto insertionPoint = std::upper_bound(seqVector.begin(), highValueIt, sortedPairs[currentPendIndex].second);
+			std::cout << "to insert: " << sortedPairs[currentPendIndex].second << std::endl;
 			std::cout << "insert point: " << *insertionPoint << "\nin list: ";
 			printVector();
 
@@ -181,9 +181,9 @@ void PmergeMe::jacobMerge(std::vector< std::pair< int, int > > sortedPairs)
 				//insert sortedPairs[currentPendIndex].second into seqVector
 
 				//find iterator of coupled high value
-				std::vector<int>::iterator highValueIt= std::upper_bound(seqVector.begin(), seqVector.end(), sortedPairs[currentPendIndex].first);
+				auto highValueIt = std::upper_bound(seqVector.begin(), seqVector.end(), sortedPairs[currentPendIndex].first);
 
-				std::vector<int>::iterator insertionPoint = std::upper_bound(seqVector.begin(), highValueIt, sortedPairs[currentPendIndex].second);
+				auto insertionPoint = std::upper_bound(seqVector.begin(), highValueIt, sortedPairs[currentPendIndex].second);
 				std::cout << "to insert: " << sortedPairs[currentPendIndex].second << std::endl;
 				std::cout << "insert point: " << *insertionPoint << "\nin list: ";
 				printVector();
@@ -236,7 +236,7 @@ void PmergeMe::sortVector()
 	// for uneven amount of input, last item is added last to full sorted vector
 	if (seqOriginal.size() % 2 == 1)
 	{
-		std::vector<int>::iterator insertionPoint = std::upper_bound(seqVector.begin(), seqVector.end(), seqOriginal[seqOriginal.size() - 1]);
+		auto insertionPoint = std::upper_bound(seqVector.begin(), seqVector.end(), seqOriginal[seqOriginal.size() - 1]);
 		
 		std::cout << "to insert: " << seqOriginal[seqOriginal.size() - 1] << std::endl;
 		std::cout << "insert point: " << *insertionPoint << "\nin list: ";
@@ -259,4 +259,3 @@ void PmergeMe::printOriginal() const { printContainer(seqOriginal); }
 void PmergeMe::printVector() const { printContainer(seqVector); }
 
 void PmergeMe::printList() const { printContainer(seqList); }
-
