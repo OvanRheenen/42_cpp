@@ -151,8 +151,18 @@ void PmergeMe::jacobMerge(std::vector< std::pair< int, int > > sortedPairs)
 		while (currentPendElem != prevPendElem)
 		{
 			//find iterator of coupled high value
+			// 1st option, upper bound to find
 			auto highValueIt = std::upper_bound(seqVector.begin(), seqVector.end(), currentPendElem->first);
+
+			// 2nd option, keep track of how many elements are inserted
+
+
+			// optie 1 upper_bound
 			auto insertionPoint = std::upper_bound(seqVector.begin(), highValueIt, currentPendElem->second);
+
+			//optie 2 binary_search
+
+
 			std::cout << "to insert: " << currentPendElem->second << std::endl;
 			std::cout << "insert point: " << *insertionPoint << "\nin list: ";
 			printVector();
@@ -190,7 +200,6 @@ void PmergeMe::jacobMerge(std::vector< std::pair< int, int > > sortedPairs)
 
 				seqVector.insert(insertionPoint, currentPendElem->second);
 				
-				// currentPendIndex--;
 				currentPendElem--;
 			}
 		}
