@@ -140,37 +140,46 @@ static unsigned long long jacobsthal(int n)
 
 void PmergeMe::jacobMerge(std::vector< std::pair< int, int > > sortedPairs)
 {
+	// the first element is already inserted, so previous index is 1
 	auto prevPendElem = std::next(sortedPairs.begin(), jacobsthal(2) - 1);
+	// keep track of how many are inserted so it's easier to find the insertion point
+	int insertedCount = 0;
 	for (int k = 3; ; k++)
 	{
-		// current is - 1 because we use the indexes (starting at 0 instead of 1)
-
+		// current - 1 because we use the indexes (starting at 0 instead of 1)
 		auto currentPendElem = std::next(sortedPairs.begin(), jacobsthal(k) - 1);
-		if (currentPendElem == sortedPairs.end()) break;
+		std::cout << std::distance(sortedPairs.begin(), sortedPairs.end()) << std::endl;
+		std::cout << std::distance(sortedPairs.begin(), currentPendElem) << std::endl;
+		// exit(0);
 
+		// break when current is out of bounds
+		// if (currentPendElem == sortedPairs.end()) break;
+		if (std::distance(sortedPairs.begin(), currentPendElem) > std::distance(sortedPairs.begin(), sortedPairs.end()) - 1) break;
+
+		// find the it of the high value of the sorted pairs, so we know how far to look (can be optimized)
+		// auto highValueIt = std::upper_bound(seqVector.begin(), seqVector.end(), currentPendElem->first);
+
+		// loop till at previous to start new loop and stay as efficient as possible following jacobsthal
 		while (currentPendElem != prevPendElem)
 		{
-			//find iterator of coupled high value
-			// 1st option, upper bound to find
+			// advance high value it to the amount of inserted values so we don't have to search the whole list
+			// std::advance(highValueIt, insertedCount);
+
 			auto highValueIt = std::upper_bound(seqVector.begin(), seqVector.end(), currentPendElem->first);
-
-			// 2nd option, keep track of how many elements are inserted
-
-
-			// optie 1 upper_bound
+			// find the insertion point using upper bound
 			auto insertionPoint = std::upper_bound(seqVector.begin(), highValueIt, currentPendElem->second);
 
-			//optie 2 binary_search
+			// std::cout << k << "1to insert: " << currentPendElem->second << std::endl;
+			// std::cout << "1insert point: " << *insertionPoint << "\nin list: ";
+			// printVector();
 
-
-			std::cout << "to insert: " << currentPendElem->second << std::endl;
-			std::cout << "insert point: " << *insertionPoint << "\nin list: ";
-			printVector();
-
+			// insert the value at the found position
 			seqVector.insert(insertionPoint, currentPendElem->second);
-			
-			currentPendElem--;
+			insertedCount++;
+			// move to the next pending element (so down)
+			std::advance(currentPendElem, -1);
 		}
+		// set the previous pending element to the current one
 		prevPendElem = std::next(sortedPairs.begin(), jacobsthal(k) - 1);
 	}
 
@@ -180,27 +189,20 @@ void PmergeMe::jacobMerge(std::vector< std::pair< int, int > > sortedPairs)
 		{
 			while (currentPendElem != prevPendElem)
 			{
-				//insert sortedPairs[currentPendIndex].second into seqVector
+				std::cout << "YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" << std::endl;
+				// std::advance(highValueIt, insertedCount);
 
-				//find iterator of coupled high value
-				// 1st option, upper bound to find
 				auto highValueIt = std::upper_bound(seqVector.begin(), seqVector.end(), currentPendElem->first);
 
-				// 2nd option, keep track of how many elements are inserted
-
-
-				// optie 1 upper_bound
 				auto insertionPoint = std::upper_bound(seqVector.begin(), highValueIt, currentPendElem->second);
 
-				//optie 2 binary_search
-
-				std::cout << "to insert: " << currentPendElem->second << std::endl;
-				std::cout << "insert point: " << *insertionPoint << "\nin list: ";
+				std::cout << "2to insert: " << currentPendElem->second << std::endl;
+				std::cout << "2insert point: " << *insertionPoint << "\nin list: ";
 				printVector();
 
 				seqVector.insert(insertionPoint, currentPendElem->second);
-				
-				currentPendElem--;
+				insertedCount++;
+				std::advance(currentPendElem, -1);
 			}
 		}
 	}
@@ -219,6 +221,8 @@ void PmergeMe::jacobMerge(std::vector< std::pair< int, int > > sortedPairs)
 	 */
 
 }
+
+void printPairs(const std::vector< std::pair< int, int > > &pairs);
 
 void PmergeMe::sortVector()
 {
@@ -242,6 +246,8 @@ void PmergeMe::sortVector()
 	// 4. insert rest of second elements in sortedPairs, always making at most 3 comparisons
 	std::cout << "vector: ";
 	printVector();
+	std::cout << "sorted pairs: ";
+	printPairs(sortedPairs);
 	jacobMerge(sortedPairs);
 
 	// for uneven amount of input, last item is added last to full sorted vector
@@ -257,6 +263,15 @@ void PmergeMe::sortVector()
 	}
 }
 
+void printPairs(const std::vector< std::pair< int, int > > &pairs)
+{
+	for (const auto& pair : pairs)
+	{
+		std::cout << "(" << pair.first << ", " << pair.second << ") ";
+	}
+	std::cout << std::endl;
+}
+
 template <typename Container>
 void printContainer(const Container &sequence)
 {
@@ -270,3 +285,18 @@ void PmergeMe::printOriginal() const { printContainer(seqOriginal); }
 void PmergeMe::printVector() const { printContainer(seqVector); }
 
 void PmergeMe::printList() const { printContainer(seqList); }
+
+const std::vector< int > &PmergeMe::getVector() const
+{
+	return (seqVector);
+}
+
+const std::list< int > &PmergeMe::getList() const
+{
+	return (seqList);
+}
+
+const std::vector< int > &PmergeMe::getOriginal() const
+{
+	return (seqOriginal);
+}
