@@ -28,4 +28,8 @@ public:
 	void printOriginal() const;
 	void printVector() const;
 	void printList() const;
+
+	const std::vector< int > &getVector() const;
+	const std::list< int > &getList() const;
+	const std::vector< int > &getOriginal() const;
 };
