@@ -1,4 +1,6 @@
-static bool isPositiveInteger(std::string &str)
+#include <string>
+
+bool isPositiveInteger(std::string &str)
 {
 	if (str.empty())
 		return (false);
@@ -16,7 +18,7 @@ static bool isPositiveInteger(std::string &str)
 	return (true);
 }
 
-static unsigned long long jacobsthal(int n)
+unsigned long long jacobsthal(int n)
 {
 	if (n == 0) return (0);
 	if (n == 1) return (1);
