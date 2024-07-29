@@ -3,7 +3,9 @@
 
 #include <stdexcept>
 #include <iostream>
+#include <iomanip>
 #include <algorithm>
+#include <chrono>
 
 //--Con/destructors-----------------------------------------------------------//
 
@@ -57,8 +59,19 @@ template< class T, class U >
 void FordJohnson< T, U >::MergeInsertionSort()
 {
 	// start clock
+	auto start = std::chrono::high_resolution_clock::now();
+
 	this->sortSequence();
+
+	// stop clock and calculate duration
+	auto end = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+
+	// store duration in _time with 6 decimal precision
+	_time = static_cast<double>(duration.count()) / 1000000;
+
 	// print
+	printTime();
 }
 
 template< class T, class U >
@@ -236,9 +249,9 @@ void FordJohnson< T, U >::printAfter() const
 template < class T, class U>
 void FordJohnson< T, U >::printTime() const
 {
-	std::cout	<< "Time to process a range of " << _originalSequence.size()
-				<< " elements with std::[...] : " << _time
-				<< std::endl;
+	std::cout << "Time to process a range of " << _originalSequence.size()
+			  << " elements with std::[...] : " << std::fixed << std::setprecision(5) << _time << "us"
+			  << std::endl;
 }
 
 template< class T, class U >
