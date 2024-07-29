@@ -25,14 +25,14 @@ int main(int argc, char **argv)
 		// list.readInput(argc, argv);
 		list.printBefore();
 		list.MergeInsertionSort();
-		vector.MergeInsertionSort();
-		deque.MergeInsertionSort();
+		// vector.MergeInsertionSort();
+		// deque.MergeInsertionSort();
 		list.printAfter();
 
-		// if (std::is_sorted(list.getSequence().begin(), list.getSequence().end()))
-		// 	std::cout << "The sequence is sorted." << std::endl;
-		// else
-		// 	std::cout << "The sequence is not sorted." << std::endl;
+		if (std::is_sorted(list.getSequence().begin(), list.getSequence().end()))
+			std::cout << "The sequence is sorted." << std::endl;
+		else
+			std::cout << "The sequence is not sorted." << std::endl;
 	}
 	catch(const std::exception& e)
 	{
