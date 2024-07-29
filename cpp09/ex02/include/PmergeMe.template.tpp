@@ -77,25 +77,26 @@ void FordJohnson< T, U >::sortSequence()
 		std::advance(it, 2);
 	}
 
-	// printPairs(_pairs);
+	// std::cout << "Pairs: "; printPairs(_pairs);
+
 	// 2. recursively merge sort pairs in ascending order (comparing pair.first)
-	// mergeSortPairs2(_pairs.begin(), _pairs.end());
-	U sortedPairs = mergeSortPairs(_pairs);
-	
+	_sortedPairs = mergeSortPairs(_pairs);
+
+	// std::cout << "Sequence: "; printSequence();
+	// std::cout << "Sorted pairs: "; printPairs(_sortedPairs);
+
 	// 3. insert element that was paired to smallest element of sorted pairs
-	_sequence.insert(_sequence.begin(), sortedPairs.begin()->second);
-	// printSequence();
-	// 4. insert rest of second elements in sortedPairs, always making at most 3 comparisons
-	jacobMerge(sortedPairs);
+	_sequence.insert(_sequence.begin(), _sortedPairs.begin()->second);
+
+	// std::cout << "Sequence: "; printSequence();
+	
+	// 4. insert rest of second elements in _sortedPairs, always making at most 3 comparisons
+	jacobMerge();
+
 	// for uneven amount of input, last item is added last to full sorted vector
 	if (_originalSequence.size() % 2 == 1)
 	{
-		auto insertionPoint = std::upper_bound(_sequence.begin(), _sequence.end(), _originalSequence.back());
-		
-		// std::cout << "to insert: " << _originalSequence.back() << std::endl;
-		// std::cout << "insert point: " << *insertionPoint << "\nin list: ";
-		// printSequence();
-
+		auto insertionPoint = std::upper_bound(_sequence.begin(), _sequence.end(), _originalSequence.back());		
 		_sequence.insert(insertionPoint, _originalSequence.back());
 	}
 }
@@ -104,88 +105,20 @@ template< class T, class U >
 U FordJohnson< T, U >::mergeSortPairs(const U &pairs)
 {
 	if (pairs.size() <= 1)
-		return (pairs);
+	{
+		_sequence.push_back(pairs.begin()->first);
+		return (pairs);	
+	}
 
-	// auto middle = pairs.begin() + pairs.size() / 2;
 	auto middle = std::next(pairs.begin(), pairs.size() / 2);
 	
 	U left(pairs.begin(), middle);
 	U right(middle, pairs.end());
 
-	// std::cout << "left: " << left.begin()->first << std::endl;
-	// std::cout << "right: " << right.begin()->first << std::endl;
-
 	left = mergeSortPairs(left);
 	right = mergeSortPairs(right);
 
 	return (mergePairs(left, right));
-}
-
-template< class T, class U >
-void FordJohnson< T, U >::mergeSortPairs2(typename U::iterator begin, typename U::iterator end)
-{
-	if (std::distance(begin, end) > 1)
-	{
-		auto middle = begin + (std::distance(begin, end) / 2);
-		mergeSortPairs2(begin, middle);
-		mergeSortPairs2(middle, end);
-		mergePairs2(begin, middle, end);
-	}
-}
-
-template< class T, class U >
-void FordJohnson< T, U >::mergePairs2(typename U::iterator begin, typename U::iterator middle, typename U::iterator end)
-{
-	U left(begin, middle);
-	U right(middle, end);
-
-	_sequence.clear();
-
-	auto leftIt = left.begin();
-	auto rightIt = right.begin();
-	// auto sortedPairsIt = _pairs.begin();
-	// auto sortedSeqIt = _sequence.begin();
-
-	while (leftIt != left.end() && rightIt != right.end())
-	{
-		if (leftIt->first < rightIt->first)
-		{
-			// *sortedPairsIt++ = *leftIt;
-			_pairs.push_back(*leftIt);
-			// *sortedSeqIt++ = (*leftIt).first;
-			_sequence.push_back(leftIt->first);
-			leftIt++;
-		}
-		else
-		{
-			// *sortedPairsIt++ = *rightIt;
-			_pairs.push_back(*leftIt);
-			// *sortedSeqIt++ = (*rightIt).first;
-			_sequence.push_back(leftIt->first);
-			rightIt++;
-		}
-	}
-
-	while (leftIt != left.end())
-	{
-		// *sortedPairsIt++ = *leftIt;
-		_pairs.push_back(*leftIt);
-		// *sortedSeqIt++ = (*leftIt).first;
-		_sequence.push_back(leftIt->first);
-		leftIt++;	
-	}
-
-	while (rightIt != right.end())
-	{
-		// *sortedPairsIt++ = *rightIt;
-		_pairs.push_back(*leftIt);
-		// *sortedSeqIt++ = (*rightIt).first;
-		_sequence.push_back(leftIt->first);
-		rightIt++;
-	}
-
-	// std::cout << "merged: ";
-	// printSequence();
 }
 
 template< class T, class U >
@@ -227,46 +160,38 @@ U FordJohnson< T, U >::mergePairs(const U &left, const U &right)
 		rightIt++;
 	}
 
-	// std::cout << "merged: ";
-	// printSequence();
 	return (merged);
 }
 
 template< class T, class U >
-void FordJohnson< T, U >::jacobMerge(U sortedPairs)
+void FordJohnson< T, U >::insertLoop(typename U::iterator currentPendElem, typename U::iterator prevPendElem)
 {
-	auto prevPendElem = std::next(sortedPairs.begin(), jacobsthal(2) - 1);
-	for (int k = 3; jacobsthal(k) > sortedPairs.size(); k++)
+	while (currentPendElem != prevPendElem)
 	{
-		auto currentPendElem = std::next(sortedPairs.begin(), jacobsthal(k) - 1);
+		auto highValueIt = std::upper_bound(_sequence.begin(), _sequence.end(), currentPendElem->first);
+		auto insertionPoint = std::upper_bound(_sequence.begin(), highValueIt, currentPendElem->second);
+		
+		_sequence.insert(insertionPoint, currentPendElem->second);
+		
+		std::advance(currentPendElem, -1);
+	}
+}
 
-		while (currentPendElem != prevPendElem)
-		{
-			auto highValueIt = std::upper_bound(_sequence.begin(), _sequence.end(), currentPendElem->first);
-			auto insertionPoint = std::upper_bound(_sequence.begin(), highValueIt, currentPendElem->second);
-
-			_sequence.insert(insertionPoint, currentPendElem->second);
-
-			std::advance(currentPendElem, -1);
-		}
-		prevPendElem = std::next(sortedPairs.begin(), jacobsthal(k) - 1);
-		std::cout << "I'm stuck, aren't I?" << std::endl;
+template< class T, class U >
+void FordJohnson< T, U >::jacobMerge()
+{
+	auto prevPendElem = std::next(_sortedPairs.begin(), jacobsthal(2) - 1);
+	
+	// loop over every jacobsthal number lower than the amount of pairs
+	for (int k = 3; jacobsthal(k) < _sortedPairs.size(); k++)
+	{
+		insertLoop(std::next(_sortedPairs.begin(), jacobsthal(k) - 1), prevPendElem);
+		prevPendElem = std::next(_sortedPairs.begin(), jacobsthal(k) - 1);
 	}
 
-	if (prevPendElem != sortedPairs.end())
-	{
-		// auto currentPendElem = sortedPairs.end() - 1;
-		auto currentPendElem = std::next(sortedPairs.end(), -1);
-		while (currentPendElem != prevPendElem)
-		{
-			auto highValueIt = std::upper_bound(_sequence.begin(), _sequence.end(), currentPendElem->first);
-			auto insertionPoint = std::upper_bound(_sequence.begin(), highValueIt, currentPendElem->second);
-			
-			_sequence.insert(insertionPoint, currentPendElem->second);
-			
-			std::advance(currentPendElem, -1);
-		}
-	}
+	// insert the rest of the pairs with indexes higher than the last jacobsthal number
+	if (prevPendElem != _sortedPairs.end())
+		insertLoop(std::next(_sortedPairs.end(), -1), prevPendElem);
 }
 
 //--Prints--------------------------------------------------------------------//
