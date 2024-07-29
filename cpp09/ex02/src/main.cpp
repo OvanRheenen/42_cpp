@@ -25,8 +25,8 @@ int main(int argc, char **argv)
 		// list.readInput(argc, argv);
 		list.printBefore();
 		list.MergeInsertionSort();
-		// vector.MergeInsertionSort();
-		// deque.MergeInsertionSort();
+		vector.MergeInsertionSort();
+		deque.MergeInsertionSort();
 		list.printAfter();
 
 		if (std::is_sorted(list.getSequence().begin(), list.getSequence().end()))
