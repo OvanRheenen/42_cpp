@@ -4,9 +4,10 @@ template< class T, class U >
 class FordJohnson
 {
 private:
+	T _originalSequence;
 	T _sequence;
 	U _pairs;
-	T _originalSequence;
+	U _sortedPairs;
 	double _time;
 
 public:
@@ -23,10 +24,8 @@ public:
 
 	U mergeSortPairs(const U &pairs);
 	U mergePairs(const U &left, const U &right);
-	void jacobMerge(U sortedPairs);
-
-	void mergePairs2(typename U::iterator begin, typename U::iterator middle, typename U::iterator end);
-	void mergeSortPairs2(typename U::iterator begin, typename U::iterator end);
+	void jacobMerge();
+	void insertLoop(typename U::iterator currentPendElem, typename U::iterator prevPendElem);
 
 	//--Prints
 	void printContainer(const T &sequence) const;
