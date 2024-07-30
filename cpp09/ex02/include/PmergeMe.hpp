@@ -5,42 +5,44 @@
 #include <list>
 #include "PmergeMe.template.hpp"
 
-// class PmergeMe
-// {
-// private:
-// 	std::vector< int > seqOriginal;
-
-// 	std::vector< int > seqVector;
-// 	std::list< int > seqList;
-
-// public:
-// 	PmergeMe();
-// 	PmergeMe(const std::vector< int > &vector, const std::list< int > &list);
-// 	PmergeMe(const PmergeMe &other);
-// 	PmergeMe &operator=(const PmergeMe &other);
-// 	~PmergeMe();
-
-// 	void readInput(const int argc, char **input);
-// 	void sortVector();
-
-// 	std::vector< std::pair< int, int > > mergeSortPairs(const std::vector< std::pair< int, int > > &pairs);
-// 	std::vector< std::pair< int, int > > mergePairs(const std::vector< std::pair< int, int > > &left, const std::vector< std::pair< int, int > > &right);
-// 	void jacobMerge(std::vector< std::pair< int, int > > sortedPairs);
-
-// 	void printOriginal() const;
-// 	void printVector() const;
-// 	void printList() const;
-
-// 	const std::vector< int > &getVector() const;
-// 	const std::list< int > &getList() const;
-// 	const std::vector< int > &getOriginal() const;
-// };
-
 class PmergeMeVector : public FordJohnson< std::vector< int >, std::vector< std::pair< int, int > > >
-{};
+{
+private:
+	PmergeMeVector(PmergeMeVector &other);
+	PmergeMeVector &operator=(PmergeMeVector &other);
 
-class PmergeMeList  : public FordJohnson< std::vector< int >, std::list< std::pair< int, int > > >
-{};
+public:
+	PmergeMeVector();
+	PmergeMeVector(const int argc, char **argv);
+	~PmergeMeVector();
+
+	void printTime() const;
+};
+
+class PmergeMeList  : public FordJohnson< std::list< int >, std::list< std::pair< int, int > > >
+{
+private:
+	PmergeMeList(PmergeMeList &other);
+	PmergeMeList &operator=(PmergeMeList &other);
+
+public:
+	PmergeMeList();
+	PmergeMeList(const int argc, char **argv);
+	~PmergeMeList();
+
+	void printTime() const;
+};
 
 class PmergeMeDeque  : public FordJohnson< std::deque< int >, std::deque< std::pair< int, int > > >
-{};
+{
+private:
+	PmergeMeDeque(PmergeMeDeque &other);
+	PmergeMeDeque &operator=(PmergeMeDeque &other);
+
+public:
+	PmergeMeDeque();
+	PmergeMeDeque(const int argc, char **argv);
+	~PmergeMeDeque();
+
+	void printTime() const;
+};

@@ -1,6 +1,7 @@
 NAME	:= PmergeMe
 
 SRC_FILES	:=	main.cpp \
+				PmergeMe.cpp \
 				PmergeMe.utils.cpp
 
 SRC_DIR	:= src
