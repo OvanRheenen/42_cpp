@@ -1,10 +1,10 @@
 #include "PmergeMe.hpp"
 #include "PmergeMe.template.hpp"
+
 #include <iostream>
 #include <list>
 #include <deque>
 #include <vector>
-#include <algorithm>
 
 int main(int argc, char **argv)
 {
@@ -16,23 +16,28 @@ int main(int argc, char **argv)
 		return (1);
 	}
 
-	FordJohnson< std::list< int >, std::list< std::pair< int, int > > > list(argc, argv);
-	FordJohnson< std::vector< int >, std::vector < std::pair < int, int > > > vector(argc, argv);
-	FordJohnson< std::deque< int >, std::deque < std::pair < int, int > > > deque(argc, argv);
+	FordJohnson< std::vector< int >, std::vector< std::pair< int, int > > >	*vector	= new PmergeMeVector(argc, argv);
+	FordJohnson< std::list	< int >, std::list	< std::pair< int, int > > >	*list 	= new PmergeMeList(argc, argv);
+	FordJohnson< std::deque	< int >, std::deque	< std::pair< int, int > > >	*deque 	= new PmergeMeDeque(argc, argv);
 	
 	try
 	{
-		// list.readInput(argc, argv);
-		list.printBefore();
-		list.MergeInsertionSort();
-		vector.MergeInsertionSort();
-		deque.MergeInsertionSort();
-		list.printAfter();
+		vector->printBefore();
 
-		if (std::is_sorted(list.getSequence().begin(), list.getSequence().end()))
-			std::cout << "The sequence is sorted." << std::endl;
-		else
-			std::cout << "The sequence is not sorted." << std::endl;
+		vector->MergeInsertionSort();
+		list->MergeInsertionSort();
+		deque->MergeInsertionSort();
+		
+		vector->printAfter();
+
+		vector->printTime();
+		list->printTime();
+		deque->printTime();
+
+		vector->checkSorted();
+		list->checkSorted();
+		deque->checkSorted();
+		
 	}
 	catch(const std::exception& e)
 	{
@@ -40,5 +45,9 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	
+	delete vector;
+	delete list;
+	delete deque;
+
 	return (0);
 }
