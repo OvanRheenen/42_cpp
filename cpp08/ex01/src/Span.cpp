@@ -49,11 +49,15 @@ unsigned int Span::shortestSpan() const
 
 	std::vector<int> tmp(_data);
 	std::sort(tmp.begin(), tmp.end());
-	unsigned int shortestSpan = tmp[1] - tmp[0];
+
+	auto it1 = tmp.begin();
+	auto it2 = std::next(tmp.begin());
+	unsigned int shortestSpan = *it2++ - *it1++;
 	unsigned int currentSpan;
-	for (size_t i = 2; i < tmp.size(); i++)
+	
+	while (it2 != tmp.end())
 	{
-		currentSpan = tmp[i] - tmp[i - 1];
+		currentSpan = *it2++ - *it1++;
 		if (currentSpan < shortestSpan)
 			shortestSpan = currentSpan;
 	}
