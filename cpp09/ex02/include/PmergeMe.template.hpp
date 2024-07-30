@@ -10,12 +10,13 @@ private:
 	U _sortedPairs;
 	double _time;
 
+	FordJohnson(const FordJohnson &other);
+	FordJohnson &operator=(const FordJohnson &other);
+
 public:
 	FordJohnson();
 	FordJohnson(const int argc, char **argv);
-	FordJohnson(const FordJohnson &other);
-	FordJohnson &operator=(const FordJohnson &other);
-	~FordJohnson();
+	virtual ~FordJohnson();
 
 	void MergeInsertionSort();
 
@@ -27,6 +28,8 @@ public:
 	void jacobMerge();
 	void insertLoop(typename U::iterator currentPendElem, typename U::iterator prevPendElem);
 
+	void checkSorted() const;
+	
 	//--Prints
 	void printContainer(const T &sequence) const;
 	void printPairs(const U &pairs) const;
@@ -36,12 +39,13 @@ public:
 
 	void printBefore() const;
 	void printAfter() const;
-	void printTime() const;
 
-
+	virtual void printTime() const = 0;
+	
 	//--Getters
 	const T &getSequence() const;
 	const U &getPairs() const;
+	double getTime() const;
 };
 
 #include "PmergeMe.template.tpp"

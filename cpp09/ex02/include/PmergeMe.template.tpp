@@ -1,11 +1,9 @@
 #include "PmergeMe.template.hpp"
 #include "PmergeMe.utils.hpp"
 
-#include <stdexcept>
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
-#include <chrono>
 
 //--Con/destructors-----------------------------------------------------------//
 
@@ -58,20 +56,12 @@ void FordJohnson< T, U >::readInput(const int argc, char **input)
 template< class T, class U >
 void FordJohnson< T, U >::MergeInsertionSort()
 {
-	// start clock
-	auto start = std::chrono::high_resolution_clock::now();
+	clock_t start = clock();
 
-	this->sortSequence();
+    sortSequence();
 
-	// stop clock and calculate duration
-	auto end = std::chrono::high_resolution_clock::now();
-	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-
-	// store duration in _time with 6 decimal precision
-	_time = static_cast<double>(duration.count()) / 1000000;
-
-	// print
-	printTime();
+    clock_t end = clock();
+    _time = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000;
 }
 
 template< class T, class U >
@@ -90,23 +80,16 @@ void FordJohnson< T, U >::sortSequence()
 		std::advance(it, 2);
 	}
 
-	// std::cout << "Pairs: "; printPairs(_pairs);
-
 	// 2. recursively merge sort pairs in ascending order (comparing pair.first)
 	_sortedPairs = mergeSortPairs(_pairs);
 
-	// std::cout << "Sequence: "; printSequence();
-	// std::cout << "Sorted pairs: "; printPairs(_sortedPairs);
-
 	// 3. insert element that was paired to smallest element of sorted pairs
 	_sequence.insert(_sequence.begin(), _sortedPairs.begin()->second);
-
-	// std::cout << "Sequence: "; printSequence();
 	
 	// 4. insert rest of second elements in _sortedPairs, always making at most 3 comparisons
 	jacobMerge();
 
-	// for uneven amount of input, last item is added last to full sorted vector
+	// 5. for uneven amount of input, last item is added last to full sorted vector
 	if (_originalSequence.size() % 2 == 1)
 	{
 		auto insertionPoint = std::upper_bound(_sequence.begin(), _sequence.end(), _originalSequence.back());		
@@ -207,6 +190,13 @@ void FordJohnson< T, U >::jacobMerge()
 		insertLoop(std::next(_sortedPairs.end(), -1), prevPendElem);
 }
 
+template< class T, class U >
+void FordJohnson< T, U >::checkSorted() const
+{
+	if (!std::is_sorted(_sequence.begin(), _sequence.end()))
+		throw std::runtime_error("The sequence is not sorted");
+}
+
 //--Prints--------------------------------------------------------------------//
 
 template< class T, class U >
@@ -217,7 +207,7 @@ void FordJohnson< T, U >::printContainer(const T &sequence) const
 	{
 		if (counter++ == 10)
 		{
-			std::cout << "...";
+			std::cout << "[...]";
 			break;
 		}
 
@@ -225,6 +215,12 @@ void FordJohnson< T, U >::printContainer(const T &sequence) const
 	}
 	std::cout << std::endl;
 }
+
+template< class T, class U >
+void FordJohnson< T, U >::printOriginal() const { printContainer(_originalSequence); }
+
+template< class T, class U >
+void FordJohnson< T, U >::printSequence() const { printContainer(_sequence); }
 
 template< class T, class U >
 void FordJohnson< T, U >::printPairs(const U &pairs) const
@@ -246,20 +242,6 @@ void FordJohnson< T, U >::printAfter() const
 	std::cout << "After:  "; printSequence();
 }
 
-template < class T, class U>
-void FordJohnson< T, U >::printTime() const
-{
-	std::cout << "Time to process a range of " << _originalSequence.size()
-			  << " elements with std::[...] : " << std::fixed << std::setprecision(5) << _time << "us"
-			  << std::endl;
-}
-
-template< class T, class U >
-void FordJohnson< T, U >::printOriginal() const { printContainer(_originalSequence); }
-
-template< class T, class U >
-void FordJohnson< T, U >::printSequence() const { printContainer(_sequence); }
-
 //--Getters-------------------------------------------------------------------//
 
 template< class T, class U >
@@ -274,3 +256,8 @@ const U &FordJohnson< T, U >::getPairs() const
 	return (_pairs);
 }
 
+template< class T, class U >
+double FordJohnson< T, U >::getTime() const
+{
+	return (_time);
+}
