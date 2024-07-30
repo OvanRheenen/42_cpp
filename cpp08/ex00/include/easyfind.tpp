@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream>
+#include <algorithm>
+
 template <typename T>
 auto easyfind(const T &container, const int toFind) -> decltype(container.begin())
 {
