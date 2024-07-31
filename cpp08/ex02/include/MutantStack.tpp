@@ -20,6 +20,6 @@ template < typename T, class Container >
 MutantStack<T, Container> &MutantStack<T, Container>::operator=(const MutantStack& other)
 {
 	if (this != &other)
-		std::stack<T>::operator=(other);
+		this->c = other.c;
 	return (*this);
 }
