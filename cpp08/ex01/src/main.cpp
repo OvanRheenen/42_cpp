@@ -38,9 +38,10 @@ int main(void)
 		Span sp = Span(10000);
 
 		sp.addManyNumbers(sp.getMaxSize());
-		// std::vector<int> test(sp.getData());
-		// std::cout << "Max: " << *std::max_element(test.begin(), test.end()) << std::endl;
-		// std::cout << "Min: " << *std::min_element(test.begin(), test.end()) << std::endl;
+		std::vector<int> test(sp.getData());
+		std::cout << "Max: " << *std::max_element(test.begin(), test.end()) << std::endl;
+		std::cout << "Min: " << *std::min_element(test.begin(), test.end()) << std::endl;
+		std::cout << "Max - Min = " << (*std::max_element(test.begin(), test.end())) - (*std::min_element(test.begin(), test.end())) << std::endl;
 		printSpans(sp);
 	}
 	{
@@ -52,4 +53,14 @@ int main(void)
 		sp.addNumber(INT32_MIN);
 		printSpans(sp);
 	}
+	{
+		std::cout 	<< "----------------------------\n"
+					<< "identical nums test:\n" << std::endl;
+		Span sp = Span(2);
+
+		sp.addNumber(0);
+		sp.addNumber(0);
+		printSpans(sp);
+	}
+
 }
