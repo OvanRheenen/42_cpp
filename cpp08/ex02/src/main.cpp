@@ -1,6 +1,18 @@
 #include "MutantStack.hpp"
 #include <iostream>
 #include <list>
+#include <algorithm>
+#include <vector>
+
+template <typename iterator>
+void printStack(iterator begin, iterator end)
+{
+	for (; begin != end; begin++)
+	{
+		std::cout << *begin << " ";
+	}
+	std::cout << std::endl;
+}
 
 int main()
 {
@@ -67,7 +79,43 @@ int main()
 			++it;
 		}
 	}
-	{//more tests?
+	{//my tests
+		std::cout << "\nMy tests:\n" << std::endl;
 
+		MutantStack< int > mstack;
+		mstack.push(8);
+		mstack.push(30);
+		mstack.push(16);
+		mstack.push(2);
+		mstack.push(21);
+
+		MutantStack< int >::iterator it = mstack.begin();
+		MutantStack< int >::iterator ite = mstack.end();
+
+		std::cout << "Current stack: "; printStack(it, ite);
+		std::sort(it, ite);
+		std::cout << "Sorted stack: "; printStack(it, ite); std::cout << std::endl;
+		
+		MutantStack< int >::const_iterator cit = mstack.cbegin();
+		MutantStack< int >::const_iterator cite = mstack.cend();
+		std::cout << "Print using const its: "; printStack(cit, cite); std::cout << std::endl;
+		// *cit = 25;
+	}
+	{
+		std::cout << "Mutant stack with different underlying container:" << std::endl;
+
+		MutantStack< int, std::vector< int > > mstack;
+		mstack.push(8);
+		mstack.push(30);
+		mstack.push(16);
+		mstack.push(2);
+		mstack.push(21);
+
+		MutantStack< int, std::vector< int > >::iterator it = mstack.begin();
+		MutantStack< int, std::vector< int > >::iterator ite = mstack.end();
+
+		std::cout << "Current stack: "; printStack(it, ite);
+		std::sort(it, ite);
+		std::cout << "Sorted stack: "; printStack(it, ite);
 	}
 }
