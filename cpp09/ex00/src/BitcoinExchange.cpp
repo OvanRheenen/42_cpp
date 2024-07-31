@@ -129,11 +129,11 @@ static const std::pair< std::string, float > parseLine(const std::string &line)
 	if (iss >> date >> seperator && seperator == '|' && iss >> value && (iss.eof() || iss.peek() == '\n'))
 	{
 		if (!validDate(date))
-			std::cerr << "Error: invalid date => " << date << std::endl;
+			throw std::invalid_argument("Error: invalid date => " + date);
 		else if (value < 0)
-			std::cerr << "Error: not a positive number => " << value << std::endl;
+			throw std::invalid_argument("Error: not a positive number => " + std::to_string(value));
 		else if (value > 1000)
-			std::cerr << "Error: too large a number => " << value << std::endl;
+			throw std::invalid_argument("Error: too large a number => " + std::to_string(value));
 		else
 		{
 			std::pair< std::string, float > dateValuePair(date, value);
@@ -141,7 +141,7 @@ static const std::pair< std::string, float > parseLine(const std::string &line)
 		}
 	}
 	else
-		std::cerr << "Error: bad input => " << line << std::endl;
+		throw std::invalid_argument("Error: bad input => " + line);
 	return (std::make_pair("", 0.0f));
 }
 
@@ -154,12 +154,8 @@ void parseAndCalculateInput(const BitcoinExchange &btcEx, const char *exRateFile
 	std::string line;
 	std::getline(file, line);
 	if (line != "date | value")
-		throw std::runtime_error("Error: incorrect file format");
+		throw std::invalid_argument("Error: incorrect file format");
 	
 	while (std::getline(file, line))
-	{
-		std::pair< std::string, float > dateValuePair = parseLine(line);
-		if (!dateValuePair.first.empty())
-			btcEx.calculate(parseLine(line));
-	}
+		btcEx.calculate(parseLine(line));
 }
