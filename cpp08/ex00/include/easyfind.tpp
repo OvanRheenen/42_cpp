@@ -4,7 +4,7 @@
 #include <algorithm>
 
 template <typename T>
-auto easyfind(const T &container, const int toFind) -> decltype(container.begin())
+auto easyfind(T &container, int toFind) -> decltype(container.begin())
 {
 	auto it = std::find(container.begin(), container.end(), toFind);
 
