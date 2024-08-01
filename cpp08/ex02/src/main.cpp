@@ -100,6 +100,15 @@ int main()
 		MutantStack< int >::const_iterator cite = mstack.cend();
 		std::cout << "Print using const its: "; printStack(cit, cite); std::cout << std::endl;
 		// *cit = 25;
+
+		MutantStack< int >::reverse_iterator rit = mstack.rbegin();
+		MutantStack< int >::reverse_iterator rite = mstack.rend();
+		std::cout << "Print using reverse its: "; printStack(rit, rite); std::cout << std::endl;
+
+		MutantStack< int >::const_reverse_iterator crit = mstack.crbegin();
+		MutantStack< int >::const_reverse_iterator crite = mstack.crend();
+		std::cout << "Print using reverse its: "; printStack(crit, crite); std::cout << std::endl;
+		// *crit = 10;
 	}
 	{
 		std::cout << "Mutant stack with different underlying container:" << std::endl;
