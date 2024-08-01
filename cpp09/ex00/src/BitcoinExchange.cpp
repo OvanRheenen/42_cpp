@@ -28,11 +28,6 @@ BitcoinExchange::~BitcoinExchange() {}
 
 //--Member functions----------------------------------------------------------//
 
-void BitcoinExchange::setMap(const std::map< std::string, float > &map)
-{
-	_btcExMap = map;
-}
-
 void BitcoinExchange::calculate(const std::pair< std::string, float > &dateValue) const
 {
 	float result;
@@ -46,7 +41,6 @@ void BitcoinExchange::calculate(const std::pair< std::string, float > &dateValue
 
 	std::cout << dateValue.first << " => " << dateValue.second << " = " << result << std::endl;
 }
-
 
 // for testing
 void BitcoinExchange::printBtcExMap() const
