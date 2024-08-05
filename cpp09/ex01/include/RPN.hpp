@@ -5,7 +5,7 @@
 class RPN
 {
 private:
-	std::stack< int > _stack;
+	std::stack< float > _stack;
 
 public:
 	RPN();

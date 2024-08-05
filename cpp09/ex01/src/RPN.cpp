@@ -1,6 +1,7 @@
 #include "RPN.hpp"
 #include <sstream>	//for std::istringstream
 #include <iostream>	//for std::cout
+#include <cmath> 	//for std::pow
 
 //--Con/destructors-----------------------------------------------------------//
 
@@ -23,7 +24,7 @@ RPN::~RPN() {}
 
 static bool isOperator(char c)
 {
-	if (c == '+' || c == '-' || c == '*' || c == '/')
+	if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^')
 		return (true);
 	return (false);
 }
@@ -36,7 +37,7 @@ static bool isValidToken(const std::string &token)
 	char c = token[0];
 	if (
 		(c >= '0' && c <= '9') ||
-		(c == '+' || c == '-' || c == '*' || c == '/')
+		(c == '+' || c == '-' || c == '*' || c == '/' || c == '^')
 	)
 		return true;
 	
@@ -71,9 +72,9 @@ void RPN::calculate(const char op)
 	if (_stack.size() < 2)
 		throw std::invalid_argument("Error: not enough operands");
 
-	int a = _stack.top();
+	float a = _stack.top();
 	_stack.pop();
-	int b = _stack.top();
+	float b = _stack.top();
 	_stack.pop();
 
 	switch(op)
@@ -91,6 +92,9 @@ void RPN::calculate(const char op)
 			break;
 		case '*':
 			_stack.push(b * a);
+			break;
+		case '^':
+			_stack.push(std::pow(b, a));
 			break;
 	}
 }
