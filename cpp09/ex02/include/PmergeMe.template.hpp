@@ -18,19 +18,20 @@ public:
 	FordJohnson(const int argc, char **argv);
 	virtual ~FordJohnson();
 
-	void MergeInsertionSort();
-
 	void readInput(const int argc, char **input);
+
+	void MergeInsertionSort();
 	void sortSequence();
 
 	U mergeSortPairs(const U &pairs);
 	U mergePairs(const U &left, const U &right);
+	
 	void jacobMerge();
 	void insertLoop(typename U::iterator currentPendElem, typename U::iterator prevPendElem);
 
 	void checkSorted() const;
 	
-	//--Prints
+	//--Prints-----------------------------------
 	void printContainer(const T &sequence) const;
 	void printPairs(const U &pairs) const;
 
@@ -42,7 +43,7 @@ public:
 
 	virtual void printTime() const = 0;
 	
-	//--Getters
+	//--Getters----------------------------------
 	const T &getSequence() const;
 	const U &getPairs() const;
 	double getTime() const;
