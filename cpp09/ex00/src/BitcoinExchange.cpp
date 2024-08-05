@@ -139,9 +139,9 @@ static const std::pair< std::string, float > parseLine(const std::string &line)
 	return (std::make_pair("", 0.0f));
 }
 
-void parseAndCalculateInput(const BitcoinExchange &btcEx, const char *exRateFile)
+void BitcoinExchange::parseAndCalculate(const char *exchangeRateFile) const
 {
-	std::ifstream file(exRateFile);
+	std::ifstream file(exchangeRateFile);
 	if (!file.is_open())
 		throw std::runtime_error("Error: unable to open file");
 
@@ -149,7 +149,13 @@ void parseAndCalculateInput(const BitcoinExchange &btcEx, const char *exRateFile
 	std::getline(file, line);
 	if (line != "date | value")
 		throw std::invalid_argument("Error: incorrect file format");
-	
+
 	while (std::getline(file, line))
-		btcEx.calculate(parseLine(line));
+	{
+		try {
+			this->calculate(parseLine(line));
+		} catch(const std::invalid_argument& e) {
+			std::cerr << e.what() << std::endl;
+		}
+	}
 }

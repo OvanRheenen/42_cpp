@@ -11,13 +11,13 @@ private:
 	BitcoinExchange();
 
 public:
+
 	BitcoinExchange(const std::map< std::string, float > &btcExMap);
 	BitcoinExchange(const BitcoinExchange &other);
 	BitcoinExchange &operator=(const BitcoinExchange &other);
 	~BitcoinExchange();
 
-	void setMap(const std::map< std::string, float > &map);
-
+	void parseAndCalculate(const char *exchangeRateFile) const;
 	void calculate(const std::pair< std::string, float > &dateValue) const;
 
 	// for testing
@@ -25,4 +25,3 @@ public:
 };
 
 const std::map< std::string, float > parseData(const char *dataFile);
-void parseAndCalculateInput(const BitcoinExchange &btcEx, const char *exRateFile);
