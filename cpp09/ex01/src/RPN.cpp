@@ -7,16 +7,9 @@
 
 RPN::RPN() {}
 
-RPN::RPN(const RPN &other)
-{
-	*this = other;
-}
+RPN::RPN(const RPN &other) { (void)other; }
 
-RPN &RPN::operator=(const RPN &other)
-{
-	(void)other;
-	return (*this);
-}
+RPN &RPN::operator=(const RPN &other) { (void)other; return (*this); }
 
 RPN::~RPN() {}
 
@@ -58,7 +51,7 @@ void RPN::readInput(const char *input)
 		if(isOperator(token[0]))
 			calculate(token[0]);
 		else
-			_stack.push(std::stoi(token));
+			_stack.push(std::stof(token));
 	}
 
 	if (_stack.size() != 1)
