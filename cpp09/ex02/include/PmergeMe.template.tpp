@@ -217,18 +217,18 @@ void FordJohnson< T, U >::printContainer(const T &sequence) const
 }
 
 template< class T, class U >
-void FordJohnson< T, U >::printOriginal() const { printContainer(_originalSequence); }
-
-template< class T, class U >
-void FordJohnson< T, U >::printSequence() const { printContainer(_sequence); }
-
-template< class T, class U >
 void FordJohnson< T, U >::printPairs(const U &pairs) const
 {
 	for (const auto &pair : pairs)
 		std::cout << "(" << pair.first << ", " << pair.second << ") ";
 	std::cout << std::endl;
 }
+
+template< class T, class U >
+void FordJohnson< T, U >::printOriginal() const { printContainer(_originalSequence); }
+
+template< class T, class U >
+void FordJohnson< T, U >::printSequence() const { printContainer(_sequence); }
 
 template< class T, class U >
 void FordJohnson< T, U >::printBefore() const
