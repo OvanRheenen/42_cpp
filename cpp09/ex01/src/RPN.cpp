@@ -25,16 +25,16 @@ static bool isOperator(char c)
 static bool isValidToken(const std::string &token)
 {
 	if (token.size() != 1)
-		return false;
+		return (false);
 	
 	char c = token[0];
 	if (
 		(c >= '0' && c <= '9') ||
 		(c == '+' || c == '-' || c == '*' || c == '/' || c == '^')
 	)
-		return true;
+		return (true);
 	
-	return false;
+	return (false);
 }
 
 void RPN::readInput(const char *input)
