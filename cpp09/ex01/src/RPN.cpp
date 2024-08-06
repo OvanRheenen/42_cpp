@@ -80,7 +80,7 @@ void RPN::calculate(const char op)
 			break;
 		case '/':
 			if (a == 0)
-				throw std::invalid_argument("Error: divide by zero");
+				throw std::runtime_error("Error: divide by zero");
 			_stack.push(b / a);
 			break;
 		case '*':
