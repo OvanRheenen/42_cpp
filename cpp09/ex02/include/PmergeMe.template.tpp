@@ -46,11 +46,14 @@ void FordJohnson< T, U >::readInput(const int argc, char **input)
 	{
 		std::string str(input[i]);
 		if (!isPositiveInteger(str))
-			throw std::invalid_argument("Invalid input: " + str);
+			throw std::invalid_argument("Error: invalid input => " + str);
 		
 		int num = std::stoi(str); 
 		_originalSequence.push_back(num);
 	}
+
+	if (std::is_sorted(_originalSequence.begin(), _originalSequence.end()))
+		throw std::invalid_argument("Error: sequence is already sorted");
 }
 
 template< class T, class U >

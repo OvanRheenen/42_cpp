@@ -16,12 +16,12 @@ int main(int argc, char **argv)
 		return (1);
 	}
 
-	FordJohnson< std::vector< int >, std::vector< std::pair< int, int > > >	*vector	= new PmergeMeVector(argc, argv);
-	FordJohnson< std::list	< int >, std::list	< std::pair< int, int > > >	*list 	= new PmergeMeList(argc, argv);
-	FordJohnson< std::deque	< int >, std::deque	< std::pair< int, int > > >	*deque 	= new PmergeMeDeque(argc, argv);
-	
 	try
 	{
+		FordJohnson< std::vector< int >, std::vector< std::pair< int, int > > >	*vector	= new PmergeMeVector(argc, argv);
+		FordJohnson< std::list	< int >, std::list	< std::pair< int, int > > >	*list 	= new PmergeMeList(argc, argv);
+		FordJohnson< std::deque	< int >, std::deque	< std::pair< int, int > > >	*deque 	= new PmergeMeDeque(argc, argv);
+		
 		vector->printBefore();
 
 		vector->MergeInsertionSort();
@@ -38,16 +38,15 @@ int main(int argc, char **argv)
 		list->checkSorted();
 		deque->checkSorted();
 		
+		delete vector;
+		delete list;
+		delete deque;
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << std::endl;
 		return (1);
 	}
-	
-	delete vector;
-	delete list;
-	delete deque;
 
 	return (0);
 }
