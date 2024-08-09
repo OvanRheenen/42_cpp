@@ -30,14 +30,10 @@ BitcoinExchange::~BitcoinExchange() {}
 
 void BitcoinExchange::calculate(const std::pair< std::string, float > &dateValue) const
 {
-	float result;
-	std::map< std::string, float >::const_iterator it;
-	for (it = _btcExMap.begin(); it != _btcExMap.end(); it++)
-	{
-		if (dateValue.first < it->first)
-			break;
-		result = dateValue.second * it->second;
-	}
+	auto date = _btcExMap.upper_bound(dateValue.first);
+	if (date != _btcExMap.begin() || date == _btcExMap.end())
+		date--;
+	float result = dateValue.second * (*date).second;
 
 	std::cout << dateValue.first << " => " << dateValue.second << " = " << result << std::endl;
 }
@@ -64,7 +60,7 @@ static void parseDataLine(const std::string &line, std::map< std::string, float 
 	}
 }
 
-const std::map< std::string, float > parseData(const char *dataFile)
+const std::map< std::string, float > parseData(const std::string &dataFile)
 {
 	std::ifstream file(dataFile);
 	if (!file.is_open())

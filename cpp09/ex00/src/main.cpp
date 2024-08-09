@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 
 	try
 	{
-		const char *btcExFile = "./data.csv";
+		const std::string btcExFile("./data.csv");
 		BitcoinExchange exchange(parseData(btcExFile));
 
 		exchange.parseAndCalculate(argv[1]);

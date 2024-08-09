@@ -24,4 +24,4 @@ public:
 	void printBtcExMap() const;
 };
 
-const std::map< std::string, float > parseData(const char *dataFile);
+const std::map< std::string, float > parseData(const std::string &dataFile);
