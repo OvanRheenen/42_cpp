@@ -1,15 +1,13 @@
 #include <string>
+#include <algorithm>
 
 bool isPositiveInteger(std::string &str)
 {
 	if (str.empty())
 		return (false);
-
-	for (char c : str)
-	{
-		if (!isdigit(c))
-			return (false);
-	}
+	
+	if (!std::all_of(str.begin(), str.end(), [] (unsigned char c) { return (std::isdigit(c)); }))
+		return (false);
 
 	long num = std::stol(str);
 	if (num > INT32_MAX)
