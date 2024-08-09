@@ -8,10 +8,10 @@ private:
 	std::stack< float > _stack;
 
 public:
-	RPN();
-	RPN(const RPN &other);
-	RPN &operator=(const RPN &other);
-	~RPN();
+	RPN() = default;
+	RPN(const RPN &other) = default;
+	RPN &operator=(const RPN &other) = default;
+	~RPN() = default;
 
 	void readInput(const char *input);
 	void calculate(const char op);

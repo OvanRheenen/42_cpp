@@ -1,40 +1,16 @@
 #include "RPN.hpp"
-#include <sstream>	//for std::istringstream
-#include <iostream>	//for std::cout
-#include <cmath> 	//for std::pow
-
-//--Con/destructors-----------------------------------------------------------//
-
-RPN::RPN() {}
-
-RPN::RPN(const RPN &other) { (void)other; }
-
-RPN &RPN::operator=(const RPN &other) { (void)other; return (*this); }
-
-RPN::~RPN() {}
+#include <sstream>		//for std::istringstream
+#include <iostream>		//for std::cout
+#include <cmath> 		//for std::pow
+#include <set>			//for std::set
+#include <algorithm>	//for std::find
 
 //--Member functions----------------------------------------------------------//
 
 static bool isOperator(char c)
 {
-	if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^')
-		return (true);
-	return (false);
-}
-
-static bool isValidToken(const std::string &token)
-{
-	if (token.size() != 1)
-		return (false);
-	
-	char c = token[0];
-	if (
-		(c >= '0' && c <= '9') ||
-		(c == '+' || c == '-' || c == '*' || c == '/' || c == '^')
-	)
-		return (true);
-	
-	return (false);
+	const std::set< char > operators = {'+', '-', '*', '/', '^'};
+	return (operators.find(c) != operators.end());
 }
 
 void RPN::readInput(const char *input)
@@ -45,7 +21,7 @@ void RPN::readInput(const char *input)
 
 	while (std::getline(iss, token, ' '))
 	{
-		if (!isValidToken(token))
+		if (!(token.size() == 1 && (std::isdigit(token[0]) || isOperator(token[0]))))
 			throw std::invalid_argument("Error: invalid input => " + token);
 
 		if(isOperator(token[0]))
